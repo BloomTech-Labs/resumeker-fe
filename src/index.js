@@ -9,10 +9,13 @@ import './index.css';
 // components
 import App from './components/App';
 
-ReactDOM.render(
+const AppWithRouter = (
     <BrowserRouter>
         <App />
-    </BrowserRouter>, document.getElementById('root'));
+    </BrowserRouter>
+)
+
+ReactDOM.render(AppWithRouter, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
