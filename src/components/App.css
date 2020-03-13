@@ -1,0 +1,79 @@
+:root {
+  --blue-one: #003A8C;
+  --blue-two: #0050B3;
+  --blue-three: #096DD9;
+  --blue-four: #1890FF;
+  --blue-five: #69C0FF;
+
+  --black-one: #202124;
+  --black-two: #191919;
+  --black-three: #3C4043;
+  --black-four: #4C4C4C;
+  --black-five: #666666;
+
+  --white-one: #FAFAFA;
+  --white-two: #F6F6F6;
+  --white-three: #F1F1F1;
+  --white-four: #EDEDED;
+  --white-five: #F9F9F9;
+
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+}
+
+.App {
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+p, li {
+  font-size: 2rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+select,
+textarea {
+  padding: 0.6em 0.4em;
+  margin: 2px;
+  font-size: 1.2rem;
+}
+
+.button-primary {
+  padding: 0.6em 0.4em;
+  font-size: 1.2rem;
+  width: 20%;
+  margin-top: 2px;
+  border-color: 1px solid var(--black-two);
+  border-radius: 0.8rem;
+  background: var(--blue-three);
+}
+
+.active {
+  font-weight: bold;
+}
+
+.logo {
+  height: 12rem;
+  width: 12rem;
+  border-radius: 6rem;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
