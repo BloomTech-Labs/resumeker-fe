@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 
+// RC1
 function Register(props) {
 
     const handleSubmit = (e) => {
