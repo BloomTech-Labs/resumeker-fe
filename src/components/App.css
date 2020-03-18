@@ -28,7 +28,30 @@
 nav {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  margin: 0.5rem;
+}
+
+.nav-a {
+  margin-left: 2rem;
+}
+
+.login {
+  border: 1px solid black;
+  border-radius: 4px; 
+  padding: 2px;
+  width: 4rem;
+  height: 1.6rem;
+}
+
+.reg {
+  color: var(--white-one);
+  border: 1px solid var(--blue-three);
+  background: var(--blue-three);
+  border-radius: 4px; 
+  padding: 2px;
+  width: 4rem;
+  height: 1.6rem;
 }
 
 p, li {
@@ -78,14 +101,41 @@ textarea {
   flex-direction: column;
 }
 
+/* Navbar */
+
+.userprof-ellipse {
+  height: 3rem;
+  margin-top: 0.3rem;
+  width: 3.0rem;
+}
+
+/* Profile */
+
+.profile {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-container {
+  background: var(--blue-three);
+  width: 20%;
+  align-self: flex-start;
+  margin-right: 2.8rem;
+}
+
 .resume-container {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 75%;
 }
 
 .resume-card {
   background: #C4C4C4C4;
   width: 14rem;
   height: 16rem;
+  padding: 1rem 1rem;
+  margin: 0.5rem;
+  margin-top: 2.5rem;
 }
