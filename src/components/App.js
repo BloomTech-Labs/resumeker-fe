@@ -7,7 +7,7 @@ import './App.css';
 // components
 import Navbar from './Navbar';
 import Home from './Home';
-import Profile from './Profile';
+import Profile from './user/Profile';
 import Login from './auth/Login';
 import Register from './auth/Register';
 

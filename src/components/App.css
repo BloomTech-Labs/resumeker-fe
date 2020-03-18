@@ -77,3 +77,15 @@ textarea {
   justify-content: center;
   flex-direction: column;
 }
+
+.resume-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.resume-card {
+  background: #C4C4C4C4;
+  width: 14rem;
+  height: 16rem;
+}
