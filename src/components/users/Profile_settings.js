@@ -14,6 +14,7 @@ function Profile_Settings() {
             {/* 
             user can view his info he entered during registration, add/delete/update it 
             Info:
+            - photo
             - name
             - last name
             - email
