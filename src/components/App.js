@@ -7,10 +7,10 @@ import './App.css';
 // components
 import Navbar from './Navbar';
 import Home from './Home';
-import Profile from './users/Profile';
+import Profile from './user/Profile';
 import Login from './auth/Login';
 import Register from './auth/Register';
-import Profile_Settings from './users/Profile_settings';
+import Profile_Settings from './user/Profile_settings';
 
 function App() {
   return (

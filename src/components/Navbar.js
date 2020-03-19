@@ -1,13 +1,16 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import Userprof from '../assets/userprof.png';
 
 const Navbar= (props) => {
     return (
         <nav>
-            <NavLink to='/'>Home</NavLink>
-            <NavLink to='/login'>Login</NavLink>
-            <NavLink to='/register'>Register</NavLink>
-            <NavLink to='/profile'>Profile</NavLink>
+            <NavLink className="nav-a" to='/'>Home</NavLink>
+            <NavLink className="nav-a login" to='/login'>Login</NavLink>
+            <NavLink className="nav-a reg" to='/register'>Register</NavLink>
+            <NavLink className="nav-a" to='/profile'>
+                <img className="userprof-ellipse" src={Userprof} alt="User profile" />
+            </NavLink>
             <NavLink to='/settings'>Profile Settings</NavLink>
             <button>Logout</button>
         </nav>
