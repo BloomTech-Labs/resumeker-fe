@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import * as compose from 'lodash.flowright';
+import { addUserMutation } from '../../queries/index';
+
 
 function Login(props) {
 
+    //To Hold Auth0 response data
+    const [userData, setUserData] = useState({
+
+    });
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.history.push('/')
+        
+        //Push should be moved to addUser Mutation resolver
+        // props.history.push('/')
+
+        props.addUserMutation({
+            variables:{
+                email:userData.email,
+                userId:userData.userId,
+                userImageURL:userData.userImageURL,
+                userName:userData.userName,
+                firstName:userData.firstName,
+                lastName:userData.lastName,
+
+            }
+        });
+        
     }
 
     return (
@@ -35,4 +60,8 @@ function Login(props) {
     )
 }
 
-export default withRouter(Login);
+// export default withRouter(Login);
+
+export default compose(
+    graphql(addUserMutation, {name:"addClassMutation"})
+)(withRouter(Login));
