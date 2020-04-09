@@ -1,8 +1,8 @@
 import React from 'react'
-import { NavLink, Redirect, Route } from 'react-router-dom';
-import { getToken } from '../utils/api.js'
-// import Userprof from '../assets/userprof.png';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components'
+
+import { useAuth0 } from "../react-auth0-spa";
 
 const NavbarStyled = styled.nav`
     font-size: 12px;
@@ -36,19 +36,11 @@ const ButtonStyled = styled.button`
     }
 `;
 
+
 const Navbar= (props) => {
 
-    const signedIn = getToken();
 
-    const Logout = () => {
-        localStorage.removeItem('token')
-        return <Redirect to='/login'/>
-    }
-
-    const TempToken = () => {
-        localStorage.setItem('token', "Hello Token :D")
-        return <Redirect to='/profile'/>
-    }
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     return (
         <NavbarStyled >
@@ -58,18 +50,23 @@ const Navbar= (props) => {
                 <NavLink to='/'><ButtonStyled>Plans</ButtonStyled></NavLink>
             </Section>
             <Section>
-                { !signedIn && <NavLink to='/login'><ButtonStyled>Login</ButtonStyled></NavLink> }
-                { !signedIn && <NavLink to='/register'><ButtonStyled>Register</ButtonStyled></NavLink> }
-                { signedIn && <NavLink to='/profile'>
-                    <ButtonStyled>Profile</ButtonStyled>
-                    {/* <img className="userprof-ellipse" src={Userprof} alt="User profile" /> */}
-                </NavLink> }
-                { signedIn && <NavLink to='/logout'><ButtonStyled>Logout</ButtonStyled></NavLink> }
-                { !signedIn && <NavLink to='/temploginmethod'><ButtonStyled>TEMP LOGIN METHOD</ButtonStyled></NavLink> }
-            </Section>
 
-            <Route exact path='/logout' component={Logout}/>
-            <Route exact path='/temploginmethod' component={TempToken}/>
+                { !isAuthenticated && 
+                <ButtonStyled onClick={() => loginWithRedirect({})}>Login</ButtonStyled>
+                }
+
+                { !isAuthenticated &&
+                <ButtonStyled onClick={() => loginWithRedirect({})}>Register</ButtonStyled>
+                }
+
+                { isAuthenticated &&
+                    <NavLink to='/profile'><ButtonStyled>Profile</ButtonStyled></NavLink>
+                }
+
+                { isAuthenticated && 
+                <ButtonStyled onClick={() => logout()}>Logout</ButtonStyled>
+                }
+            </Section>
 
         </NavbarStyled>
 
