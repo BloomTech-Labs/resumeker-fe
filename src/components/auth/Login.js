@@ -11,8 +11,22 @@ function Login(props) {
 
     //To Hold Auth0 response data
     const [userData, setUserData] = useState({
+        email:'charlie@SpeechGrammarList.com',
+        userId:'001',
+        userImageURL:'https://cdn.vox-cdn.com/thumbor/UjJJtbVjzjURf6oiXSa0SomaEfU=/0x0:3000x1779/1200x800/filters:focal(1204x216:1684x696)/cdn.vox-cdn.com/uploads/chorus_image/image/59606327/ktokatitmir0.0.jpg',
+        userName:'Antonio Starks',
+     
 
     });
+
+
+    const handleChange = e => {
+        setUserData({
+          ...userData,
+          [e.target.name]: e.target.value,
+        })
+        console.log(userData, 'onChange')
+    }
 
 
     const handleSubmit = (e) => {
@@ -21,6 +35,8 @@ function Login(props) {
         //Push should be moved to addUser Mutation resolver
         // props.history.push('/')
 
+        // console.log(userData, 'User Data')
+        
         props.addUserMutation({
             variables:{
                 email:userData.email,
@@ -42,18 +58,21 @@ function Login(props) {
             <form className="form" onSubmit={handleSubmit}>
                 <input 
                     type="text"
-                    name="username"
-                    placeholder="Username"
+                    name="firstName"
+                    placeholder="First Name"
+                    onChange={handleChange}
                     />
                 <input 
-                    type="password"
-                    name="password"
-                    placeholder="Password"
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    onChange={handleChange}
                     />
 
                 <button
                     type="submit"
                     className="button-primary"
+                    onClick={handleSubmit}
                     >
                     Log In
                 </button>
@@ -65,5 +84,5 @@ function Login(props) {
 // export default withRouter(Login);
 
 export default compose(
-    graphql(addUserMutation, {name:"addClassMutation"})
+    graphql(addUserMutation, {name:"addUserMutation"})
 )(withRouter(Login));

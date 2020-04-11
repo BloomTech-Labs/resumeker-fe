@@ -21,7 +21,7 @@ import * as serviceWorker from './serviceWorker';
 
 const client = new ApolloClient({
     link: new HttpLink({
-      uri: 'http://localhost:3000/graphql' //heroku
+      uri: 'https://resumeker.herokuapp.com/v1/graphql' //heroku
     }),
     connectToDevTools: true,
     cache,
