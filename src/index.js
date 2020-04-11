@@ -11,6 +11,10 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { cache }  from './utils/cache';
 
+import {Auth0Provider} from './react-auth0-spa.js'
+import history from "./utils/history.js"
+import config from "./auth_config.json"
+
 // styles
 import './index.css';
 
@@ -18,6 +22,23 @@ import './index.css';
 import App from './components/App';
 
 import * as serviceWorker from './serviceWorker';
+import { configure } from '@testing-library/react';
+
+// const client = new ApolloClient({
+//     link: new HttpLink({
+//       uri: 'http://localhost:3000/graphql' //heroku
+//     }),
+//     connectToDevTools: true,
+//     cache,
+// })
+
+const onRedirectCallback = appState => {
+    history.push(
+        appState && appState.targetUrl
+            ? appState.targetUrl
+            : window.location.pathname
+    )
+}
 
 const client = new ApolloClient({
     link: new HttpLink({
@@ -26,15 +47,29 @@ const client = new ApolloClient({
     connectToDevTools: true,
     cache,
 })
+// const AppWithProvider = (
+// <ApolloProvider client={client}>
+//     <Provider store={store}>
+//         <BrowserRouter>
+//             <App />
+//         </BrowserRouter>
+//     </Provider>
+// </ApolloProvider>
+// )
 
 const AppWithProvider = (
-<ApolloProvider client={client}>
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
-</ApolloProvider>
+    <Auth0Provider
+        domain= {config.domain}
+        client_id = {config.clientId}
+        redirect_uri={window.location.origin}
+        onRedirectCallback={onRedirectCallback}
+    >
+        <Provider store={store}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </Provider>
+    </Auth0Provider>
 )
 
 ReactDOM.render(AppWithProvider, document.getElementById('root'));

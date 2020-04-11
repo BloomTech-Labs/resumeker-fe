@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 // styles 
 import './App.css';
@@ -21,13 +21,11 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path="/profile" component={Profile} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
         <Route path="/settings" component={Profile_Settings} />
-        <Redirect to='/' />
+
       </Switch>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
