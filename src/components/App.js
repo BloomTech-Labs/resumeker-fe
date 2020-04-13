@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios'
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 // styles 
@@ -12,7 +13,17 @@ import Login from './auth/Login';
 import Register from './auth/Register';
 import Profile_Settings from './user/Profile_settings';
 
+//Used for Token Authentication
+import {useGetToken} from "./getToken.js"
+
 function App() {
+
+  const token = useGetToken();
+
+  localStorage.setItem('token', token)
+
+  console.log(localStorage.getItem('token'))
+
   return (
     <div className="App">
       <Navbar />
