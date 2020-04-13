@@ -56,6 +56,7 @@ const AppWithProvider = (
         client_id = {config.clientId}
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
+        audience= "https://graphql-api"
     >
         <Provider store={store}>
             <BrowserRouter>
