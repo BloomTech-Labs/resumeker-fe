@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useAuth0} from "../../react-auth0-spa.js";
+import {useAuth0} from "../react-auth0-spa.js";
 
 
 export const useGetToken = () => {
