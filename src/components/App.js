@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import axios from 'axios'
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 // styles 
 import './App.css';
@@ -12,7 +13,17 @@ import Login from './auth/Login';
 import Register from './auth/Register';
 import Profile_Settings from './user/Profile_settings';
 
+//Used for Token Authentication
+import {useGetToken} from "./getToken.js"
+
 function App() {
+
+  const token = useGetToken();
+
+  localStorage.setItem('token', token)
+
+  console.log(localStorage.getItem('token'))
+
   return (
     <div className="App">
       <Navbar />
@@ -21,13 +32,11 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path="/profile" component={Profile} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
         <Route path="/settings" component={Profile_Settings} />
-        <Redirect to='/' />
+
       </Switch>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
