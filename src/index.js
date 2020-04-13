@@ -33,6 +33,7 @@ import { configure } from '@testing-library/react';
 // })
 
 const onRedirectCallback = appState => {
+    
     history.push(
         appState && appState.targetUrl
             ? appState.targetUrl
