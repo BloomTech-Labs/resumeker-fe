@@ -12,7 +12,14 @@ import Login from './auth/Login';
 import Register from './auth/Register';
 import Profile_Settings from './user/Profile_settings';
 
+import {useGetToken} from "./auth/getToken.js"
+
 function App() {
+
+  const token = useGetToken();
+
+  console.log(token);
+
   return (
     <div className="App">
       <Navbar />
