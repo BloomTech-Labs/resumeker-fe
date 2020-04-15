@@ -2,8 +2,11 @@ import React from 'react';
 import UserInfo from './UserInfo';
 import ResumeCard from './ResumeCard';
 import api from '../auth/api.js'
+import axios from 'axios'
 
-function Profile() {
+function Profile(props) {
+
+    console.log(props)
 
     return (
         <div className="profile">
@@ -12,17 +15,9 @@ function Profile() {
                 <ResumeCard />
                 <ResumeCard />
                 <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
-                <ResumeCard />
             </div>
             <div className="info-container">
-                <UserInfo />
+                <UserInfo user={props.user}/>
             </div>
 
         </div>
