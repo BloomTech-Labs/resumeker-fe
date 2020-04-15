@@ -15,6 +15,7 @@ import Profile_Settings from './user/Profile_settings';
 
 //Used for Token Authentication
 import {useGetToken} from "./getToken.js"
+import PrivateRoute from "./auth/PrivateRoute"
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path="/profile" component={Profile} />
         <Route path="/settings" component={Profile_Settings} />
+        <PrivateRoute path="/register" component={Register}/>
 
       </Switch>
     </div>
