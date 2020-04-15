@@ -1,5 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components'
 
 // RC1
 function Register(props) {
@@ -9,39 +10,45 @@ function Register(props) {
         props.history.push('/')
     }
 
+    const Form = styled.form`
+    
+    `
+    const Input = styled.input`
+    
+    `
+
+    const Button = styled.button`
+    
+    `
+
     return (
         <div>
             <h2>Register</h2>
 
-            <form className="form" onSubmit={handleSubmit}>
-                <input 
+            <Form className="form" onSubmit={handleSubmit}>
+                <Input 
                     type="text"
                     name="first_name"
                     placeholder="First Name"
                     />
-                <input 
+                <Input 
                     type="text"
                     name="last_name"
                     placeholder="Last Name"
                     />
-                <input 
+                <Input
                     type="text"
-                    name="username"
-                    placeholder="Username"
+                    name="email"
+                    placeholder="Your Preferred Email"
+                    className=""
                     />
-                <input 
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    />
-
-                <button
+                <Button
                     type="submit"
                     className="button-primary"
                     >
                     Register
-                </button>
-            </form>
+                </Button>
+            </Form>
         </div>
     )
 }
