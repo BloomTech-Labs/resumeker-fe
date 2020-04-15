@@ -5,20 +5,8 @@ import api from '../auth/api.js'
 
 function Profile() {
 
-    const testAPI = () => {
-        api().get('/api/hello2')
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
     return (
         <div className="profile">
-
-            {/* <button onClick={testAPI}>Test API</button> */}
                         
             <div className="resume-container">
                 <ResumeCard />

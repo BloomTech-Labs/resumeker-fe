@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from 'axios'
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 
 // styles 
 import './App.css';
@@ -9,34 +8,46 @@ import './App.css';
 import Navbar from './Navbar';
 import Home from './Home';
 import Profile from './user/Profile';
-import Login from './auth/Login';
-import Register from './auth/Register';
-import Profile_Settings from './user/Profile_settings';
 
 //Used for Token Authentication
 import {useGetToken} from "./getToken.js"
+import { getUser, addUser } from '../actions/actions.js'
+import {connect} from 'react-redux'
+import { useAuth0 } from '../react-auth0-spa.js';
 
-function App() {
+function App(props) {
 
   const token = useGetToken();
-
   localStorage.setItem('token', token)
-
   console.log(localStorage.getItem('token'))
 
   return (
+
     <div className="App">
+
       <Navbar />
+
       <h1>Resumeker</h1>
 
       <Switch>
+        <Route path ="/register" render = {props => <Profile {...props}/> }/>
         <Route exact path='/' component={Home} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/settings" component={Profile_Settings} />
+        <Route path="/profile" render = {props => <Profile {...props}/> }/>
+        {/* <Route path="/settings" render = {props => <Profile_Settings {...props}/> }/> */}
 
       </Switch>
     </div>
   );
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    error: state.error
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { addUser, getUser }
+) (App);
