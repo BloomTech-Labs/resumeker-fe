@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import * as compose from 'lodash.flowright';
-import { addUserMutation } from '../../queries/index';
+import { createUserMutation } from '../../queries/queries';
 
 
 // RC1
@@ -37,7 +37,7 @@ function Login(props) {
 
         // console.log(userData, 'User Data')
         
-        props.addUserMutation({
+        props.createUserMutation({
             variables:{
                 email:userData.email,
                 userId:userData.userId,
@@ -84,5 +84,5 @@ function Login(props) {
 // export default withRouter(Login);
 
 export default compose(
-    graphql(addUserMutation, {name:"addUserMutation"})
+    graphql(createUserMutation, {name:"createUserMutation"})
 )(withRouter(Login));

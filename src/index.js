@@ -7,7 +7,12 @@ import { Provider } from 'react-redux';
 import store from './utils/store';
 
 import { ApolloProvider } from 'react-apollo';
-import { ApolloClient } from 'apollo-client';
+
+//NOT destructuring ApolloClient and importting from 
+//apollo-boost is a workaround for not declaring 'link'
+//and 'cache' in the apolloclient instantiation
+import ApolloClient from 'apollo-boost';
+
 import { HttpLink } from 'apollo-link-http';
 import { cache }  from './utils/cache';
 
@@ -23,6 +28,8 @@ import App from './components/App';
 
 import * as serviceWorker from './serviceWorker';
 import { configure } from '@testing-library/react';
+
+
 
 // const client = new ApolloClient({
 //     link: new HttpLink({
@@ -41,13 +48,33 @@ const onRedirectCallback = appState => {
     )
 }
 
+//create a the endpoint 
+
+// Generate new apollo client
 const client = new ApolloClient({
-    link: new HttpLink({
-      uri: 'https://resumeker.herokuapp.com/v1/graphql' //heroku
-    }),
-    connectToDevTools: true,
-    cache,
-})
+    uri: 'http://localhost:8000/graphql',
+    request: operation => {
+      const token = localStorage.getItem('token');;
+      // Attach token to header
+      operation.setContext(context => ({
+        headers: {
+          ...context.headers,
+          Authorization: token.__raw,
+        },
+      }));
+    },
+  });
+
+
+// const client = new ApolloClient({
+//     link: new HttpLink({
+//       uri: 'https://resumeker.herokuapp.com/v1/graphql' //heroku
+//     }),
+//     connectToDevTools: true,
+//     cache,
+// })
+
+
 // const AppWithProvider = (
 // <ApolloProvider client={client}>
 //     <Provider store={store}>
@@ -66,11 +93,13 @@ const AppWithProvider = (
         onRedirectCallback={onRedirectCallback}
         audience= "https://graphql-api"
     >
-        <Provider store={store}>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </Provider>
+        <ApolloProvider client={client}>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App/>
+                </BrowserRouter>
+            </Provider>
+        </ApolloProvider>
     </Auth0Provider>
 )
 
