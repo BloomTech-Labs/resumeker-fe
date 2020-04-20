@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {endpoint} from '../endpoint_config.js'
@@ -31,7 +31,7 @@ function App(props) {
 
   if(token) {
     getUser()
-    console.log(user)
+    console.log(props.user)
   } else {
     
   }
@@ -52,7 +52,7 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    user: state.getUserReducer.user,
     error: state.error,
     loading: state.loading
   }

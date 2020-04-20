@@ -12,10 +12,11 @@ export const getUserReducer = (state = initialState, action) => {
             return {...state, loading: true}
 
         case userConstants.GET_USER_SUCCESS:
-            return {...state, user: [...state.user, ...action.payload]}
+            return {...state, user: action.payload}
         
         case userConstants.GET_USER_FAILURE:
-            return {...state, error: [...state.error, ...action.payload]}
+
+            return {...state, error: action.payload}
 
         default:
             return state;
