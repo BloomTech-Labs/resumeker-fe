@@ -27,6 +27,7 @@ export const getUser = () => dispatch => {
     //Making a call to the backend for user information
     axios(options)  
         .then(res => {
+            console.log(JSON.parse(res.data.data.getUser.userInfo), "User Object from getUser()")
             dispatch({type: userConstants.GET_USER_SUCCESS, payload: JSON.parse(res.data.data.getUser.userInfo)})
             dispatch(push('/'))
         })

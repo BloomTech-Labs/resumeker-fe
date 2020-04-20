@@ -29,12 +29,12 @@ function App(props) {
   console.log(token)
   localStorage.setItem('token', token)
 
-  if(token) {
-    getUser()
-    console.log(props.user)
-  } else {
+  useEffect(() => {
+    if(token) {
+      getUser()
+    }
     
-  }
+  }, [token])
 
   return (
     <div className="App">
@@ -53,8 +53,8 @@ function App(props) {
 const mapStateToProps = state => {
   return {
     user: state.getUserReducer.user,
-    error: state.error,
-    loading: state.loading
+    error: state.getUserReducer.error,
+    loading: state.getUserReducer.loading
   }
 }
 
