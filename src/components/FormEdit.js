@@ -1,19 +1,52 @@
 import React, {userState, useState, useEffect} from 'react';
 import axios from 'axios'
 
+import { gql } from 'apollo-boost'
+import { useMutation } from '@apollo/react-hooks'
+
 import { connect } from 'react-redux';
 import { updateUser } from '../actions/actions.js';
 
+import { userConstants } from '../actions/types';
+
 import {endpoint} from '../endpoint_config.js'
+
+
+ //GraphQL Query String
+ const UPDATED_USER_QUERY  = gql`
+ mutation (
+    $firstName: String,
+    $lastName: String,
+    $email: String
+    ){    
+     getUpdatedUser (
+         firstName: $firstName,
+         lastName: $lastName,
+         email: $email
+        ){
+            userInfo
+        }   
+ }
+ ` 
+
 
 function FormEdit({user, updateUser}) {
 
+    console.log(user,'Form Edit');
+
+    //Holds Component State
     const [entry, setEntry] = useState({
         firstName: '',
         lastName: '',
         email: '',
     })
 
+
+    //Initializes useMutation graphQL query
+    const [gqlUpdateUser, {data: mutationData, loading: mutationLoading, error: mutationError}] = useMutation( UPDATED_USER_QUERY );
+
+    //Runs Check on whether returned userInfo from Auth0
+    //is a registered User or Not
     useEffect(() => {
         if(Object.keys(user).includes('user_metadata')) {
             setEntry(
@@ -42,19 +75,41 @@ function FormEdit({user, updateUser}) {
         }
     }, [])
 
+
+    //Handle onChange Event from Form Edit
     const handleChange = e => {
         setEntry({...entry, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = e => {
-        const updatedUser = {
-                firstName: entry.first_name,
-                lastName: entry.last_name,
-                email: entry.email,
-        }
-        console.log(updatedUser)
-        updateUser(updateUser)
+
+    //Handles onSubmit Event
+    const handleSubmit = (e, dispatch) => {
+
         e.preventDefault();
+
+       
+        console.log(entry, "Updated User prior to GraphQL Query")
+
+        gqlUpdateUser({ variables: {entry} }); 
+
+        if (mutationLoading) console.log("Loading...","UpdatedUser Loading");
+
+        if (mutationError){
+
+            console.log(mutationError.message,"UpdatedUser error msg");
+
+            dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: mutationError })
+
+        } 
+
+        console.log(mutationData, "Raw Updated User Data ALL GOOD! =======================")
+
+        // const updatedUserInfo = JSON.parse(mutationData.getUpdatedUser.userInfo);
+
+        // console.log(updatedUserInfo, "Parsed UpdatedUser")
+
+        // dispatch({ type: userConstants.UPDATE_USER_SUCCESS, payload: updatedUserInfo })
+
         
     }
 
