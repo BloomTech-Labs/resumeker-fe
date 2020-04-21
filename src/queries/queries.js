@@ -1,10 +1,28 @@
 import { gql } from 'apollo-boost';
 
 // User Queries 
+const getUserQuery=gql`
+    query($id: ID){
+        getUser(id: $id){
+            id
+            firstName
+        }
+    }
+`
+
+const allUsersQuery=gql`
+    query{
+        allUsers{
+            id
+            firstName
+        }
+    }
+`
+
 
 // User Mutations 
 
-const addUserMutation = gql`
+const createUserMutation = gql`
     mutation($email:String, 
             $userId:String,
             $userImageURL:String,
@@ -13,7 +31,7 @@ const addUserMutation = gql`
             $lastName:String
             
         ){
-        addUser(
+        createUser(
             email:$email,
             userId:$userId,
             userImageURL:$userImageURL,
@@ -38,5 +56,7 @@ const addUserMutation = gql`
 // Resume Mutations 
 
 export{
-    addUserMutation
+    createUserMutation,
+    getUserQuery,
+    allUsersQuery
 }
