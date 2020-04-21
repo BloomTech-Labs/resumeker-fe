@@ -20,9 +20,6 @@ const UserData = () => {
 
     const userInfo = JSON.parse(data.getUser.userInfo);
 
-    console.log(data, "Data ALL GOOD! =======================")
-    console.log(userInfo, "data.userInfo")
-
     return(
         <>
             <div>

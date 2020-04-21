@@ -25,18 +25,13 @@ function Login(props) {
           ...userData,
           [e.target.name]: e.target.value,
         })
-        console.log(userData, 'onChange')
+        
     }
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        //Push should be moved to addUser Mutation resolver
-        // props.history.push('/')
-
-        // console.log(userData, 'User Data')
-        
+                
         props.createUserMutation({
             variables:{
                 email:userData.email,

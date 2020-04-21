@@ -23,13 +23,9 @@ function App(props) {
 
   const { getUser, updateUser } = props
 
-  console.log(endpoint)
-
   const token = useGetToken();
-  console.log(token)
+  
   localStorage.setItem('token', token)
-
-  console.log(props.user, "<-- Props.user in App.js");
 
   useEffect(() => {
     if(token) {

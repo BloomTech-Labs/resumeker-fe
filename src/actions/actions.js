@@ -29,13 +29,15 @@ export const getUser = () => dispatch => {
     // Making a call to the backend for user information
     axios(options)  
         .then(res => {
-            console.log(JSON.parse(res.data.data.getUser.userInfo), "User Object from getUser()")
+            
             const userObj = JSON.parse(res.data.data.getUser.userInfo);
             dispatch({type: userConstants.GET_USER_SUCCESS, payload: userObj })
             dispatch(push('/'))
         })
         .catch(err => {
-            console.log(err);
+            
+            // console.log(err);
+            
             dispatch({type: userConstants.GET_USER_FAILURE, payload: err})
         })
 

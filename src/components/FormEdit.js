@@ -36,7 +36,7 @@ function FormEdit({user, updateUser}) {
 
     let history = useHistory();
 
-    console.log(user,'Form Edit');
+    // console.log(user,'Form Edit');
 
     //Holds Component State
     const [entry, setEntry] = useState({
@@ -78,16 +78,7 @@ function FormEdit({user, updateUser}) {
             )
         }
     }, [])
-
-
-    //useEffect to watch the data object being returned from updateUser Mutation call
-    useEffect(() => {
-
-        if(data){
-        console.log(JSON.parse(data.getUpdatedUser.userInfo), "Use Effect Data object")
-
-        }
-    }, [data])
+    
 
     //Handle onChange Event from Form Edit
     const handleChange = e => {
@@ -100,17 +91,12 @@ function FormEdit({user, updateUser}) {
 
         e.preventDefault();
 
-       
-        console.log(entry, "Updated User prior to GraphQL Query")
-
 
         await gqlUpdateUser({ variables: {firstName:entry.firstName, lastName:entry.lastName, email:entry.email} }); 
 
-        if (loading) console.log("Loading...","UpdatedUser Loading");
+        // if (loading) console.log("Loading...","UpdatedUser Loading");
 
         if (error){
-
-            console.log(error.message,"UpdatedUser error msg");
 
             dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: error })
 
