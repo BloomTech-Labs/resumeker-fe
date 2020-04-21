@@ -39,7 +39,6 @@ const ButtonStyled = styled.button`
 
 const Navbar= (props) => {
 
-
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     return (
