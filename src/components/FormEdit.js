@@ -1,32 +1,59 @@
-import React, {userState, useState} from 'react';
+import React, {userState, useState, useEffect} from 'react';
 import axios from 'axios'
 
+import { connect } from 'react-redux';
+import { updateUser } from '../actions/actions.js';
 
 import {endpoint} from '../endpoint_config.js'
 
-function FormEdit() {
+function FormEdit({user, updateUser}) {
 
     const [entry, setEntry] = useState({
-        first_name: localStorage.getItem('first_name'),
-        last_name: localStorage.getItem('last_name'),
-        email: localStorage.getItem('email'),
-        phone_number: localStorage.getItem('phone_number')
+        firstName: '',
+        lastName: '',
+        email: '',
     })
+
+    useEffect(() => {
+        if(Object.keys(user).includes('user_metadata')) {
+            setEntry(
+                {
+                    firstName: user.user_metadata.user_info.firstName,
+                    lastName: user.user_metadata.user_info.lastName,
+                    email: user.user_metadata.user_info.email
+                }
+            )
+        } else if(Object.keys(user).includes('given_name', 'family_name')) {
+            setEntry(
+                {
+                    firstName: user.given_name,
+                    lastName: user.family_name,
+                    email: user.email
+                }
+            )
+        } else {
+            setEntry(
+                {
+                    firstName: '',
+                    lastName: '',
+                    email: user.email
+                }
+            )
+        }
+    }, [])
 
     const handleChange = e => {
         setEntry({...entry, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = e => {
-        const user = {
-            "user_metadata": {
-                "first_name": entry.first_name,
-                "last_name": entry.last_name,
-                "email": entry.email,
-                "phone_number": entry.phone_number
-            }
+        const updatedUser = {
+                firstName: entry.first_name,
+                lastName: entry.last_name,
+                email: entry.email,
         }
-        console.log(user)
+        console.log(updatedUser)
+        updateUser(updateUser)
         e.preventDefault();
         
     }
@@ -39,22 +66,17 @@ function FormEdit() {
                 onChange={handleChange}
                 type='text'
                 name='first_name'
-                placeholder= {entry.first_name}/>
+                placeholder= {entry.firstName}/>
                 <input
                 onChange={handleChange}
                 type='text'
                 name='last_name'
-                placeholder= {entry.last_name}/>
+                placeholder= {entry.lastName}/>
                 <input
                 onChange={handleChange}
                 type='text'
                 name='email'
                 placeholder= {entry.email}/>
-                <input
-                onChange={handleChange}
-                type='text'
-                name='phone_number'
-                placeholder= {entry.phone_number}/>
                 <button>Submit</button>
             </form>
         </div>
@@ -62,4 +84,12 @@ function FormEdit() {
 
 }
 
-export default FormEdit;
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer.user,
+        error: state.userReducer.error,
+        loading: state.userReducer.loading
+    }
+}
+
+export default connect(mapStateToProps, { updateUser })(FormEdit);

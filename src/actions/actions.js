@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { push } from 'connected-react-router'
 import { userConstants } from './types.js'
+import { gql } from 'apollo-boost'
+import { client } from '../index.js'
 
 export const getUser = () => dispatch => {
 
@@ -24,7 +26,7 @@ export const getUser = () => dispatch => {
 
     dispatch({type: userConstants.GET_USER_REQUEST})
 
-    //Making a call to the backend for user information
+    // Making a call to the backend for user information
     axios(options)  
         .then(res => {
             console.log(JSON.parse(res.data.data.getUser.userInfo), "User Object from getUser()")
@@ -46,12 +48,12 @@ export const updateUser = (userData) => dispatch => {
         method: 'post',
         //GraphQL query structure
         data: {
-            query: `
+            mutation: `
                 mutation {    
                     getUpdatedUser (
-                        firstName: userData.firstName
-                        lastName: userData.lastName
-                        email: userData.email
+                        firstName: ${userData.firstName}
+                        lastName: ${userData.lastName}
+                        email: ${userData.email}
                     ) {
                         userInfo
                     }
@@ -63,14 +65,17 @@ export const updateUser = (userData) => dispatch => {
     }
 
     dispatch({ type: userConstants.UPDATE_USER_REQUEST })
-    axios(options)
-        .then(res => {
-            const userObj = JSON.parse(res.data.data.getUser.userInfo)
-            dispatch({ type: userConstants.UPDATE_USER_SUCCESS, payload: userObj })
-            dispatch(push('/profile'))
-        })
-        .catch(err => {
-            console.log(err)
-            dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: err })
-        })
+
+
+
+    // axios(options)
+    //     .then(res => {
+    //         const userObj = JSON.parse(res.data.data.getUser.userInfo)
+    //         dispatch({ type: userConstants.UPDATE_USER_SUCCESS, payload: userObj })
+    //         dispatch(push('/profile'))
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: err })
+    //     })
 }
