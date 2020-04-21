@@ -44,13 +44,13 @@ function Register(props) {
     const handlerChange = event => {
         event.preventDefault();
         setUser({ ...user, [event.target.name]: event.target.value });
-        console.log(props)
+        
     };
 
     const submitHandler = event => {
         event.preventDefault();
         props.registerUser(user)
-        console.log(user)
+        
     };
     
     return (

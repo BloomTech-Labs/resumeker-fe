@@ -39,14 +39,13 @@ const ButtonStyled = styled.button`
 
 const Navbar= (props) => {
 
-
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     return (
         <NavbarStyled >
             <Section>
                 <NavLink to='/'><ButtonStyled>Home</ButtonStyled></NavLink>
-                <NavLink to='/'><ButtonStyled>About</ButtonStyled></NavLink>
+                <NavLink to='/about'><ButtonStyled>About</ButtonStyled></NavLink>
                 <NavLink to='/'><ButtonStyled>Plans</ButtonStyled></NavLink>
             </Section>
             <Section>

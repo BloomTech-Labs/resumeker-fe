@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Switch} from 'react-router-dom';
-import {connect} from 'react-redux'
-import {endpoint} from '../endpoint_config.js'
+import React, {useEffect, useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { endpoint } from '../endpoint_config.js'
 
 // styles 
 import './App.css';
@@ -13,28 +13,26 @@ import Profile from './user/Profile';
 import FormEdit from './FormEdit'
 
 //Used for Token Authentication
-import {useGetToken} from "./getToken.js"
+import { useGetToken } from "./getToken.js"
 import PrivateRoute from "./auth/PrivateRoute"
-import {getUser} from '../actions/actions.js'
+import { getUser, updateUser } from '../actions/actions.js'
 
 //Statemanagement actions
 
 function App(props) {
 
-  const { getUser, user } = props
-
-  console.log(endpoint)
+  const { getUser, updateUser } = props
 
   const token = useGetToken();
-  console.log(token)
+  
   localStorage.setItem('token', token)
 
-  if(token) {
-    getUser()
-    console.log(user)
-  } else {
+  useEffect(() => {
+    if(token) {
+      getUser()
+    }
     
-  }
+  }, [token])
 
   return (
     <div className="App">
@@ -52,13 +50,13 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    error: state.error,
-    loading: state.loading
+    user: state.userReducer.user,
+    error: state.userReducer.error,
+    loading: state.userReducer.loading
   }
 }
 
 export default connect(
   mapStateToProps,
-  {getUser}
+  { getUser, updateUser }
 ) (App);
