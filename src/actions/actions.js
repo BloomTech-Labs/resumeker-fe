@@ -28,7 +28,8 @@ export const getUser = () => dispatch => {
     axios(options)  
         .then(res => {
             console.log(JSON.parse(res.data.data.getUser.userInfo), "User Object from getUser()")
-            dispatch({type: userConstants.GET_USER_SUCCESS, payload: JSON.parse(res.data.data.getUser.userInfo)})
+            const userObj = JSON.parse(res.data.data.getUser.userInfo);
+            dispatch({type: userConstants.GET_USER_SUCCESS, payload: userObj })
             dispatch(push('/'))
         })
         .catch(err => {
@@ -38,3 +39,38 @@ export const getUser = () => dispatch => {
 
 }
 
+export const updateUser = (userData) => dispatch => {
+    //Defining call information
+    const options = {
+        url: 'https://resumeker-pt-staging.herokuapp.com/graphql',
+        method: 'post',
+        //GraphQL query structure
+        data: {
+            query: `
+                mutation {    
+                    getUpdatedUser (
+                        firstName: userData.firstName
+                        lastName: userData.lastName
+                        email: userData.email
+                    ) {
+                        userInfo
+                    }
+                }
+            `
+        },
+        //Building token from localStorage token.
+        headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+    }
+
+    dispatch({ type: userConstants.UPDATE_USER_REQUEST })
+    axios(options)
+        .then(res => {
+            const userObj = JSON.parse(res.data.data.getUser.userInfo)
+            dispatch({ type: userConstants.UPDATE_USER_SUCCESS, payload: userObj })
+            dispatch(push('/profile'))
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: err })
+        })
+}

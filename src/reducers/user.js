@@ -1,22 +1,30 @@
 import { userConstants } from '../actions/types';
 
 const initialState = {
-    user:{},
+    user: {},
     loading: false,
     error: null
 }
 
-export const getUserReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
     switch(action.type) {
         case userConstants.GET_USER_REQUEST:
-            return {...state, loading: true}
+            return {...state, loading: true }
 
         case userConstants.GET_USER_SUCCESS:
             return {...state, user: action.payload}
         
         case userConstants.GET_USER_FAILURE:
-
             return {...state, error: action.payload}
+
+        case userConstants.UPDATE_USER_REQUEST:
+            return {...state, loading: true }
+
+        case userConstants.UPDATE_USER_SUCCESS:
+            return {...state, user: action.payload }
+
+        case userConstants.UPDATE_USER_FAILURE:
+            return { ...state, error: action.payload }
 
         default:
             return state;

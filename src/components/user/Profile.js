@@ -17,7 +17,7 @@ function Profile(props) {
                 <ResumeCard />
             </div>
             <div className="info-container">
-                <UserInfo user={props.user}/>
+                <UserInfo />
             </div>
 
         </div>

@@ -1,6 +1,7 @@
 import React, {userState, useState} from 'react';
 import axios from 'axios'
 
+
 import {endpoint} from '../endpoint_config.js'
 
 function FormEdit() {
@@ -27,16 +28,7 @@ function FormEdit() {
         }
         console.log(user)
         e.preventDefault();
-        axios.patch(`${endpoint}/api/updateUser`, user, {headers: {authorization: `Bearer ${localStorage.getItem('token')}`}})
-            .then(res => {
-                localStorage.setItem('first_name', res.data.user_metadata.first_name || null)
-                localStorage.setItem('last_name', res.data.user_metadata.last_name || null)
-                localStorage.setItem('email', res.data.user_metadata.email || null)
-                localStorage.setItem('phone_number', res.data.user_metadata.phone_number || null)
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        
     }
 
     return (
