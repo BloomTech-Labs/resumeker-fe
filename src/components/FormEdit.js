@@ -9,7 +9,9 @@ import { updateUser } from '../actions/actions.js';
 
 import { userConstants } from '../actions/types';
 
-import {endpoint} from '../endpoint_config.js'
+import {endpoint} from '../endpoint_config.js';
+
+import { useHistory } from "react-router-dom";
 
 
  //GraphQL Query String
@@ -32,6 +34,8 @@ import {endpoint} from '../endpoint_config.js'
 
 function FormEdit({user, updateUser}) {
 
+    let history = useHistory();
+
     console.log(user,'Form Edit');
 
     //Holds Component State
@@ -43,7 +47,7 @@ function FormEdit({user, updateUser}) {
 
 
     //Initializes useMutation graphQL query
-    const [gqlUpdateUser, {data: mutationData, loading: mutationLoading, error: mutationError}] = useMutation( UPDATED_USER_QUERY );
+    const [gqlUpdateUser, {data, loading, error}] = useMutation( UPDATED_USER_QUERY );
 
     //Runs Check on whether returned userInfo from Auth0
     //is a registered User or Not
@@ -76,6 +80,15 @@ function FormEdit({user, updateUser}) {
     }, [])
 
 
+    //useEffect to watch the data object being returned from updateUser Mutation call
+    useEffect(() => {
+
+        if(data){
+        console.log(JSON.parse(data.getUpdatedUser.userInfo), "Use Effect Data object")
+
+        }
+    }, [data])
+
     //Handle onChange Event from Form Edit
     const handleChange = e => {
         setEntry({...entry, [e.target.name]: e.target.value})
@@ -83,26 +96,27 @@ function FormEdit({user, updateUser}) {
 
 
     //Handles onSubmit Event
-    const handleSubmit = (e, dispatch) => {
+    const handleSubmit = async (e, dispatch) => {
 
         e.preventDefault();
 
        
         console.log(entry, "Updated User prior to GraphQL Query")
 
-        gqlUpdateUser({ variables: {firstName:entry.firstName, lastName:entry.lastName, email:entry.email} }); 
 
-        if (mutationLoading) console.log("Loading...","UpdatedUser Loading");
+        await gqlUpdateUser({ variables: {firstName:entry.firstName, lastName:entry.lastName, email:entry.email} }); 
 
-        if (mutationError){
+        if (loading) console.log("Loading...","UpdatedUser Loading");
 
-            console.log(mutationError.message,"UpdatedUser error msg");
+        if (error){
 
-            dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: mutationError })
+            console.log(error.message,"UpdatedUser error msg");
+
+            dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: error })
 
         } 
 
-        console.log(mutationData, "Raw Updated User Data ALL GOOD! =======================")
+        console.log(data, "Raw Updated User Data ALL GOOD! =======================")
 
         // const updatedUserInfo = JSON.parse(mutationData.getUpdatedUser.userInfo);
 
