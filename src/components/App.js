@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Switch} from 'react-router-dom';
-import axios from 'axios'
-import {endpoint} from '../endpoint_config.js'
+import React, {useEffect, useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { endpoint } from '../endpoint_config.js'
 
 // styles 
 import './App.css';
@@ -13,12 +13,15 @@ import Profile from './user/Profile';
 import FormEdit from './FormEdit'
 
 //Used for Token Authentication
-import {useGetToken} from "./getToken.js"
+import { useGetToken } from "./getToken.js"
 import PrivateRoute from "./auth/PrivateRoute"
+import { getUser, updateUser } from '../actions/actions.js'
 
 //Statemanagement actions
 
-export default function App() {
+function App(props) {
+
+  const { getUser, updateUser } = props
 
   console.log(endpoint)
 
@@ -26,24 +29,14 @@ export default function App() {
   console.log(token)
   localStorage.setItem('token', token)
 
-  let user = {};
+  console.log(props.user, "<-- Props.user in App.js");
 
-  if(token) {
-    axios.get(`${endpoint}/api/getUser`, {headers: {authorization: `Bearer ${token}`}})
-        .then(res => {
-            user=res.data;
-            console.log(user)
-            localStorage.setItem('first_name', res.data.user_metadata.first_name || null)
-            localStorage.setItem('last_name', res.data.user_metadata.last_name || null)
-            localStorage.setItem('email', res.data.user_metadata.email || null)
-            localStorage.setItem('phone_number', res.data.user_metadata.phone_number || null)
-        })
-        .catch(err => {
-            console.log(err);
-        })
-  } else {
-    localStorage.clear()
-  }
+  useEffect(() => {
+    if(token) {
+      getUser()
+    }
+    
+  }, [token])
 
   return (
     <div className="App">
@@ -58,3 +51,16 @@ export default function App() {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer.user,
+    error: state.userReducer.error,
+    loading: state.userReducer.loading
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { getUser, updateUser }
+) (App);
