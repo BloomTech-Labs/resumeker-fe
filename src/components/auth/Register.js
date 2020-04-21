@@ -1,5 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components'
+import { connect } from "react-redux";
+import {registerUser} from '../../actions/types'
 
 // RC1
 function Register(props) {
@@ -9,41 +12,91 @@ function Register(props) {
         props.history.push('/')
     }
 
+    const Form = styled.form`
+        margin-top: 2rem
+    `
+
+    const Container = styled.div`
+        border: 3px solid black;
+        width:30%;
+        margin-left: 32%;
+        padding: 3%;
+    `
+
+
+    const Button = styled.button`
+        color: white;
+        border: 3px solid silver
+    `
+
+    const Title = styled.h2`
+        color: #1890FF;
+        font-size: 4rem;
+        padding: 0px;
+        margin:0px; 
+    `
+    const [user, setUser] = useState({
+        first_name: "",
+        last_name: "",
+        email: ""
+    });
+
+    const handlerChange = event => {
+        event.preventDefault();
+        setUser({ ...user, [event.target.name]: event.target.value });
+        console.log(props)
+    };
+
+    const submitHandler = event => {
+        event.preventDefault();
+        props.registerUser(user)
+        console.log(user)
+    };
+    
     return (
         <div>
-            <h2>Register</h2>
+            <Title>Register</Title>
 
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={submitHandler}>
                 <input 
                     type="text"
                     name="first_name"
                     placeholder="First Name"
+                    onChange={handlerChange}
                     />
                 <input 
                     type="text"
                     name="last_name"
                     placeholder="Last Name"
+                    onChange={handlerChange}
                     />
-                <input 
+                <input
                     type="text"
-                    name="username"
-                    placeholder="Username"
+                    name="email"
+                    placeholder="Your Preferred Email"
+                    onChange={handlerChange}
                     />
-                <input 
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    />
-
-                <button
+                <Button
                     type="submit"
                     className="button-primary"
                     >
-                    Register
-                </button>
+                    Submit
+                </Button>
             </form>
         </div>
     )
 }
 
-export default withRouter(Register);
+function mapStateToProps(state) {
+    return {
+      user: state.user,
+    };
+  }
+  
+  const mapDispatchToProps = {
+    registerUser
+  };
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Register);
