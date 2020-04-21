@@ -90,7 +90,7 @@ function FormEdit({user, updateUser}) {
        
         console.log(entry, "Updated User prior to GraphQL Query")
 
-        gqlUpdateUser({ variables: {entry} }); 
+        gqlUpdateUser({ variables: {firstName:entry.firstName, lastName:entry.lastName, email:entry.email} }); 
 
         if (mutationLoading) console.log("Loading...","UpdatedUser Loading");
 
@@ -120,12 +120,12 @@ function FormEdit({user, updateUser}) {
                 <input
                 onChange={handleChange}
                 type='text'
-                name='first_name'
+                name='firstName'
                 placeholder= {entry.firstName}/>
                 <input
                 onChange={handleChange}
                 type='text'
-                name='last_name'
+                name='lastName'
                 placeholder= {entry.lastName}/>
                 <input
                 onChange={handleChange}

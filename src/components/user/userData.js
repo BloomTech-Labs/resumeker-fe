@@ -15,7 +15,7 @@ const UserData = () => {
 
     const { loading, error, data } = useQuery( GETUSER_QUERY );
 
-    if (loading) return <div>Loading...','useQuery - Loading</div>;
+    if (loading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
 
     const userInfo = JSON.parse(data.getUser.userInfo);
