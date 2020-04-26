@@ -139,3 +139,37 @@ textarea {
   margin: 0.5rem;
   margin-top: 2.5rem;
 }
+
+/* styling for nav bar */
+
+.styled-button{
+  border: none;
+    background: none;
+    color: #404040;
+    font-weight: 100;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.3s ease 0s;
+}
+
+.styled-button:hover {
+  color: #ffffff;
+  background: #096DD9;
+  transition: all 0.3s ease 0s;
+}
+
+.navbar {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  justify-content: space-around;
+}
