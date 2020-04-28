@@ -51,5 +51,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**",
+      "!**/data/migrations/**",
+      "!**/data/seeds/**",
+      "!**/coverage/**"
+    ]
   }
 }
