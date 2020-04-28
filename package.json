@@ -34,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "npm run test -- --coverage --watchAll=false --detectOpenHandles --forceExit || true"
   },
   "eslintConfig": {
     "extends": "react-app"
