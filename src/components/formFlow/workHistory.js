@@ -91,7 +91,8 @@ function WorkHistory(props) {
     companyName: "",
     startYear: "" ,
     endYear: "",
-    jobDescription: ""
+    jobDescription: "",
+    job_number: 1
   })
 
   const classes = useStyles();
@@ -103,10 +104,18 @@ function WorkHistory(props) {
     console.log("data from reducer", props.resumeData.jobs)
   }
 
+  const anotherJob = event => {
+    event.preventDefault();
+    props.addWorkData(info);
+    setInfo(info)
+    setInfo(info.job_number + 1);
+    onChange(event)
+  }
+
   const onChange = event => {
     event.preventDefault();
     setInfo({...info, [event.target.name]: event.target.value})
-
+    
   }
 
   return(
@@ -192,6 +201,17 @@ function WorkHistory(props) {
                   
                 >
                   Next
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={anotherJob}
+                  
+                >
+                  Another Job?
                 </Button>
 
                 
