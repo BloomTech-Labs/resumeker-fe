@@ -84,14 +84,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Education(props) {
+function WorkHistory(props) {
 
   const [info, setInfo] = useState({
-    type: `${props.resumeData.type}`,
-    schoolName: `${props.resumeData.schoolName}`,
-    yearIn: `${props.resumeData.yearIn}` ,
-    yearOut: `${props.resumeData.yearOut}`,
-    certificateName: `${props.resumeData.certificateName}`
+    jobTitle: "" ,
+    companyName: "",
+    startYear: "" ,
+    endYear: "",
+    jobDescription: ""
   })
 
   const classes = useStyles();
@@ -100,12 +100,13 @@ function Education(props) {
     event.preventDefault();
     props.addData(info);
     props.history.push("/form/work")
+    console.log("data from reducer", props.resumeData.jobs)
   }
 
   const onChange = event => {
     event.preventDefault();
     setInfo({...info, [event.target.name]: event.target.value})
-    console.log(info);
+
   }
 
   return(
@@ -127,67 +128,60 @@ function Education(props) {
           <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
             <div className={classes.paper}>
               <form className={classes.form} onSubmit={nextPage}>
-                <FormControl className={classes.selectorForm}>
-                    <InputLabel className={classes.selectorText} id='type'>Education</InputLabel>
-                    <Select
-                        variant="outlined"
-                        fullWidth
-                        id="type"
-                        label="Education"
-                        name="type"
-                        autoFocus
-                        onChange={onChange}
-                        value = {info.type}
-                        >
-                            <MenuItem value={"College"}>College</MenuItem>
-                            <MenuItem value={"University"}>University</MenuItem>
-                            <MenuItem value={"Certification"}>Certification</MenuItem>
-                            <MenuItem value={"Course"}>Course</MenuItem>
-                    </Select>
-                </FormControl>
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  name="schoolName"
-                  label="Name of the school"
-                  id="schoolName"
+                  name="jobTitle"
+                  label="Job Title"
+                  id="jobTitle"
                   onChange={onChange}
-                  value = {info.schoolName}
+                  value = {info.jobTitle}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  name="yearIn"
-                  label="Starting School"
-                  id="yearIn"
+                  name="companyName"
+                  label="Name of the company"
+                  id="companyName"
                   onChange={onChange}
-                  value = {info.yearIn}
+                  value = {info.companyName}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  name="yearOut"
-                  label="Finishing School"
-                  id="yearOut"
+                  name="startYear"
+                  label="Starting Your Job"
+                  id="startYear"
                   onChange={onChange}
-                  value = {info.yearOut}
+                  value = {info.startYear}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  name="certificateName"
-                  label="Name of the certificate"
-                  id="certificateName"
+                  name="endYear"
+                  label="Ending Your Job"
+                  id="endYear"
                   onChange={onChange}
-                  value = {info.certificateName}
+                  value = {info.endYear}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="jobDescription"
+                  label="Job Description"
+                  id="jobDescription"
+                  onChange={onChange}
+                  value = {info.jobDescription}
                 />
                 <Button
                   type="submit"
@@ -223,4 +217,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {addData}
-) (Education)
+) (WorkHistory)

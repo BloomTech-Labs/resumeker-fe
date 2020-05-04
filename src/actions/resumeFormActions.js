@@ -15,3 +15,11 @@ export const addData = (resumeData) => dispatch => {
     dispatch({type: resumeFormConstants.FORM_ADD_DATA_SUCCESS, payload: resumeData})
 
 }
+
+// export const addDataWork = (resumeData) => dispatch => {
+    
+//     dispatch({type: resumeFormConstants.FORM_ADD_DATA_REQUEST})
+
+//     dispatch({type: resumeFormConstants.FORM_ADD_DATA_SUCCESS, payload_jobs: resumeData.jobs})
+
+// }
