@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux';
 
 //Actions
-import {addData} from '../../actions/resumeFormActions.js'
+import {addWorkData} from '../../actions/resumeFormActions.js'
 
 
 import {
@@ -98,8 +98,8 @@ function WorkHistory(props) {
 
   const nextPage = event => {
     event.preventDefault();
-    props.addData(info);
-    props.history.push("/form/work")
+    props.addWorkData(info);
+    props.history.push("/form/test")
     console.log("data from reducer", props.resumeData.jobs)
   }
 
@@ -216,5 +216,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {addData}
+  {addWorkData}
 ) (WorkHistory)

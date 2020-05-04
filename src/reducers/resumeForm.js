@@ -30,6 +30,18 @@ export const resumeFormReducer = (state = initialState, action) => {
                 ...action.payload}, loading: false}
         case resumeFormConstants.FORM_ADD_DATA_FAILURE:
             return {...state, loading: false, error: action.payload}
+        
+        case resumeFormConstants.FORM_ADD_WORK_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_WORK_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    jobs:[...state.resumeData.jobs, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_WORK_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
         default:
             return state;
     }
