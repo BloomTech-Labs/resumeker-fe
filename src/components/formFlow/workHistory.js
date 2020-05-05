@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core'
 
 import DescriptionIcon from '@material-ui/icons/Description'
+import { resetApolloContext } from '@apollo/react-hooks';
 // import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -92,7 +93,7 @@ function WorkHistory(props) {
     startYear: "" ,
     endYear: "",
     jobDescription: "",
-    job_number: 1
+    job_added:Date.now()
   })
 
   const classes = useStyles();
@@ -100,16 +101,21 @@ function WorkHistory(props) {
   const nextPage = event => {
     event.preventDefault();
     props.addWorkData(info);
-    props.history.push("/form/test")
+    props.history.push("/form/review")
     console.log("data from reducer", props.resumeData.jobs)
   }
 
   const anotherJob = event => {
     event.preventDefault();
     props.addWorkData(info);
-    setInfo(info)
-    setInfo(info.job_number + 1);
-    onChange(event)
+    setInfo(
+{      jobTitle: "" ,
+      companyName: "",
+      startYear: "" ,
+      endYear: "",
+      jobDescription: "",
+      job_added: Date.now()
+    })
   }
 
   const onChange = event => {
@@ -136,11 +142,11 @@ function WorkHistory(props) {
           </Grid>
           <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
             <div className={classes.paper}>
-              <form className={classes.form} onSubmit={nextPage}>
+              <form id="workForm" className={classes.form} onSubmit={nextPage}>
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
                   name="jobTitle"
                   label="Job Title"
@@ -151,7 +157,7 @@ function WorkHistory(props) {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
                   name="companyName"
                   label="Name of the company"
@@ -162,21 +168,29 @@ function WorkHistory(props) {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
+                  type="date"
                   name="startYear"
-                  label="Starting Your Job"
+                  label="Starting Date"
                   id="startYear"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   onChange={onChange}
                   value = {info.startYear}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
                   name="endYear"
-                  label="Ending Your Job"
+                  label="End Date"
+                  type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   id="endYear"
                   onChange={onChange}
                   value = {info.endYear}
@@ -184,7 +198,7 @@ function WorkHistory(props) {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
                   name="jobDescription"
                   label="Job Description"
@@ -198,12 +212,11 @@ function WorkHistory(props) {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  
                 >
-                  Next
+                  Review
                 </Button>
                 <Button
-                  type="submit"
+                  type="reset"
                   fullWidth
                   variant="contained"
                   color="primary"

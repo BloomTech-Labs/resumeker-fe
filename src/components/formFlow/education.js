@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux';
 
 //Actions
-import {addData} from '../../actions/resumeFormActions.js'
+import {addEducationData} from '../../actions/resumeFormActions.js'
 
 
 import {
@@ -87,21 +87,34 @@ const useStyles = makeStyles((theme) => ({
 function Education(props) {
 
   const [info, setInfo] = useState({
-    type: `${props.resumeData.type}`,
-    schoolName: `${props.resumeData.schoolName}`,
-    yearIn: `${props.resumeData.yearIn}` ,
-    yearOut: `${props.resumeData.yearOut}`,
-    certificateName: `${props.resumeData.certificateName}`
+    type: "",
+    schoolName: "",
+    yearIn: "" ,
+    yearOut: "",
+    certificateName: "",
+    education_added: Date.now()
   })
 
   const classes = useStyles();
 
   const nextPage = event => {
     event.preventDefault();
-    props.addData(info);
+    props.addEducationData(info);
     props.history.push("/form/work")
   }
 
+  const anotherEducation = event => {
+    event.preventDefault();
+    props.addEducationData(info)
+    setInfo({
+      type: "",
+      schoolName: "",
+      yearIn: "" ,
+      yearOut: "",
+      certificateName: "",
+      education_added: Date.now()
+    })
+  }
   const onChange = event => {
     event.preventDefault();
     setInfo({...info, [event.target.name]: event.target.value})
@@ -162,8 +175,12 @@ function Education(props) {
                   required
                   fullWidth
                   name="yearIn"
-                  label="Starting School"
+                  type="date"
+                  label="School Starting Date"
                   id="yearIn"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   onChange={onChange}
                   value = {info.yearIn}
                 />
@@ -172,9 +189,13 @@ function Education(props) {
                   margin="normal"
                   required
                   fullWidth
+                  type= "date"
                   name="yearOut"
                   label="Finishing School"
                   id="yearOut"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   onChange={onChange}
                   value = {info.yearOut}
                 />
@@ -189,6 +210,16 @@ function Education(props) {
                   onChange={onChange}
                   value = {info.certificateName}
                 />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={anotherEducation}
+                >
+                  Add Another
+                </Button>
                 <Button
                   type="submit"
                   fullWidth
@@ -222,5 +253,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {addData}
+  {addEducationData}
 ) (Education)
