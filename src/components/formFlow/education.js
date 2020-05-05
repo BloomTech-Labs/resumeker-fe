@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
         display:"flex",
         flexDirection:"column",
         marginLeft: "1rem",
+        marginBottom: '100px'
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
@@ -122,13 +123,14 @@ function Education(props) {
         </Grid>
         <Grid item className={classes.tips}>
       </Grid>
-          </Grid>
+    </Grid>
           <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
             <div className={classes.paper}>
               <form className={classes.form} onSubmit={nextPage}>
                 <FormControl className={classes.selectorForm}>
                     <InputLabel className={classes.selectorText} id='type'>Education</InputLabel>
                     <Select
+                    className = {classes.textField}
                         variant="outlined"
                         fullWidth
                         id="type"
