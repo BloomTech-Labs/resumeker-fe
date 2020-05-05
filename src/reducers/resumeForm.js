@@ -8,17 +8,11 @@ const initialState = {
             firstName: "",
             lastName: "",
             email: "" ,
-            type: "",
-            schoolName: "",
-            yearIn: "",
-            yearOut: "",
-            certificateName: "",
-            jobTitle: "",
-            companyName: "",
-            startYear: "",
-            endYear: "",
-            jobDescription: "",
+            education: [],
+            jobs: [],
+            skills: []
     } // End resumeData object
+
 }
 
 export const resumeFormReducer = (state = initialState, action) => {
@@ -27,9 +21,49 @@ export const resumeFormReducer = (state = initialState, action) => {
         case resumeFormConstants.FORM_ADD_DATA_REQUEST:
             return {...state, loading: true}
         case resumeFormConstants.FORM_ADD_DATA_SUCCESS:
-            return {...state, resumeData: {...state.resumeData, ...action.payload}, loading: false}
+            return {...state, 
+                resumeData: {...state.resumeData, 
+                    // jobs: [...state.resumeData.jobs, ...action.payload_jobs], 
+                ...action.payload}, loading: false}
         case resumeFormConstants.FORM_ADD_DATA_FAILURE:
             return {...state, loading: false, error: action.payload}
+        
+        case resumeFormConstants.FORM_ADD_WORK_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_WORK_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    jobs:[...state.resumeData.jobs, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_WORK_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    education:[...state.resumeData.education, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_ADD_SKILL_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_SKILL_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    skills:[...state.resumeData.education, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_SKILL_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
+
         default:
             return state;
     }

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux';
 
 //Actions
-import {addEducationData} from '../../actions/resumeFormActions.js'
+import {addWorkData} from '../../actions/resumeFormActions.js'
 
 
 import {
@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core'
 
 import DescriptionIcon from '@material-ui/icons/Description'
+import { resetApolloContext } from '@apollo/react-hooks';
 // import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -78,48 +79,49 @@ const useStyles = makeStyles((theme) => ({
         display:"flex",
         flexDirection:"column",
         marginLeft: "1rem",
-        marginBottom: '100px'
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
 }));
 
-function Education(props) {
+function WorkHistory(props) {
 
   const [info, setInfo] = useState({
-    type: "",
-    schoolName: "",
-    yearIn: "" ,
-    yearOut: "",
-    certificateName: "",
-    education_added: Date.now()
+    jobTitle: "" ,
+    companyName: "",
+    startYear: "" ,
+    endYear: "",
+    jobDescription: "",
+    job_added:Date.now()
   })
 
   const classes = useStyles();
 
   const nextPage = event => {
     event.preventDefault();
-    props.addEducationData(info);
-    props.history.push("/form/work")
+    props.addWorkData(info);
+    props.history.push("/form/review")
+    console.log("data from reducer", props.resumeData.jobs)
   }
 
-  const anotherEducation = event => {
+  const anotherJob = event => {
     event.preventDefault();
-    props.addEducationData(info)
-    setInfo({
-      type: "",
-      schoolName: "",
-      yearIn: "" ,
-      yearOut: "",
-      certificateName: "",
-      education_added: Date.now()
+    props.addWorkData(info);
+    setInfo(
+{      jobTitle: "" ,
+      companyName: "",
+      startYear: "" ,
+      endYear: "",
+      jobDescription: "",
+      job_added: Date.now()
     })
   }
+
   const onChange = event => {
     event.preventDefault();
     setInfo({...info, [event.target.name]: event.target.value})
-    console.log(info);
+    
   }
 
   return(
@@ -137,80 +139,72 @@ function Education(props) {
         </Grid>
         <Grid item className={classes.tips}>
       </Grid>
-    </Grid>
+          </Grid>
           <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
             <div className={classes.paper}>
-              <form className={classes.form} onSubmit={nextPage}>
-                <FormControl className={classes.selectorForm}>
-                    <InputLabel className={classes.selectorText} id='type'>Education</InputLabel>
-                    <Select
-                    className = {classes.textField}
-                        variant="outlined"
-                        fullWidth
-                        id="type"
-                        label="Education"
-                        name="type"
-                        autoFocus
-                        onChange={onChange}
-                        value = {info.type}
-                        >
-                            <MenuItem value={"College"}>College</MenuItem>
-                            <MenuItem value={"University"}>University</MenuItem>
-                            <MenuItem value={"Certification"}>Certification</MenuItem>
-                            <MenuItem value={"Course"}>Course</MenuItem>
-                    </Select>
-                </FormControl>
+              <form id="workForm" className={classes.form} onSubmit={nextPage}>
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
-                  name="schoolName"
-                  label="Name of the school"
-                  id="schoolName"
+                  name="jobTitle"
+                  label="Job Title"
+                  id="jobTitle"
                   onChange={onChange}
-                  value = {info.schoolName}
+                  value = {info.jobTitle}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
-                  name="yearIn"
+                  name="companyName"
+                  label="Name of the company"
+                  id="companyName"
+                  onChange={onChange}
+                  value = {info.companyName}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  
+                  fullWidth
                   type="date"
-                  label="School Starting Date"
-                  id="yearIn"
+                  name="startYear"
+                  label="Starting Date"
+                  id="startYear"
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={onChange}
-                  value = {info.yearIn}
+                  value = {info.startYear}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
-                  type= "date"
-                  name="yearOut"
-                  label="Finishing School"
-                  id="yearOut"
+                  name="endYear"
+                  label="End Date"
+                  type="date"
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  id="endYear"
                   onChange={onChange}
-                  value = {info.yearOut}
+                  value = {info.endYear}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
-                  name="certificateName"
-                  label="Name of the certificate"
-                  id="certificateName"
+                  name="jobDescription"
+                  label="Job Description"
+                  id="jobDescription"
                   onChange={onChange}
-                  value = {info.certificateName}
+                  value = {info.jobDescription}
                 />
                 <Button
                   type="submit"
@@ -218,19 +212,19 @@ function Education(props) {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={anotherEducation}
                 >
-                  Add Another
+                  Review
                 </Button>
                 <Button
-                  type="submit"
+                  type="reset"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.submit}
+                  onClick={anotherJob}
                   
                 >
-                  Next
+                  Another Job?
                 </Button>
 
                 
@@ -255,5 +249,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {addEducationData}
-) (Education)
+  {addWorkData}
+) (WorkHistory)
