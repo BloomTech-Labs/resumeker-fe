@@ -5,7 +5,8 @@ import {Switch, Route, useRouteMatch} from 'react-router-dom'
 import GeneralInfo from './generalInfo.js'
 import Education from './education.js'
 import WorkHistory from "./workHistory"
-import endFormReview from "./endFormReview"
+import EndFormReview from "./endFormReview"
+import Skills from "./skill"
 
 //State import
 // import 
@@ -21,7 +22,8 @@ function MasterForm() {
                 <Route path={`${url}/generalInfo`} component={GeneralInfo}/>
                 <Route path={`${url}/education`} component ={Education}/>
                 <Route path={`${url}/work`} component={WorkHistory} />
-                <Route path={`${url}/review`} component={endFormReview}/> 
+                <Route path={`${url}/review`} component={EndFormReview}/> 
+                <Rout path={`${url}/skills`} component={Skills} />
             </Switch>
         </div>
     )

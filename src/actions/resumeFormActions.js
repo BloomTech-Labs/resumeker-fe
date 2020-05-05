@@ -1,5 +1,3 @@
-import { push } from "connected-react-router"
-
 export const resumeFormConstants = {
 
     FORM_ADD_DATA_REQUEST: "FORM_ADD_DATA_REQUEST",
@@ -12,7 +10,11 @@ export const resumeFormConstants = {
 
     FORM_ADD_EDUCATION_DATA_REQUEST: "FORM_ADD_EDUCATION_DATA_REQUEST",
     FORM_ADD_EDUCATION_DATA_SUCCESS: "FORM_ADD_EDUCATION_DATA_SUCCESS",
-    FORM_ADD_EDUCATION_DATA_FAILURE: "FORM_ADD_EDUCATION_DATA_FAILURE"
+    FORM_ADD_EDUCATION_DATA_FAILURE: "FORM_ADD_EDUCATION_DATA_FAILURE",
+
+    FORM_ADD_SKILL_DATA_REQUEST: "FORM_ADD_SKILL_DATA_REQUEST",
+    FORM_ADD_SKILL_DATA_SUCCESS: "FORM_ADD_SKILL_DATA_SUCCESS",
+    FORM_ADD_SKILL_DATA_FAILURE: "FORM_ADD_SKILL_DATA_FAILURE"
 }
 
 export const addData = (resumeData) => dispatch => {
@@ -33,10 +35,8 @@ export const addEducationData = (educationData) => dispatch =>  {
     dispatch({type: resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS, payload: educationData})
 }
 
-// export const addDataWork = (resumeData) => dispatch => {
-    
-//     dispatch({type: resumeFormConstants.FORM_ADD_DATA_REQUEST})
+export const addSkill = (skillData) => dispatch =>  {
+    dispatch({type: resumeFormConstants.FORM_ADD_SKILL_DATA_REQUEST} )
+    dispatch({type: resumeFormConstants.FORM_ADD_SKILL_DATA_SUCCESS, payload: skillData})
+}
 
-//     dispatch({type: resumeFormConstants.FORM_ADD_DATA_SUCCESS, payload_jobs: resumeData.jobs})
-
-// }
