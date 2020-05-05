@@ -23,7 +23,7 @@ function MasterForm() {
                 <Route path={`${url}/education`} component ={Education}/>
                 <Route path={`${url}/work`} component={WorkHistory} />
                 <Route path={`${url}/review`} component={EndFormReview}/> 
-                <Rout path={`${url}/skills`} component={Skills} />
+                <Route path={`${url}/skills`} component={Skills} />
             </Switch>
         </div>
     )
