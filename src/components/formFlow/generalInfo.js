@@ -79,7 +79,7 @@ function GeneralInfo(props) {
 
   const nextPage = event => {
     event.preventDefault();
-    props.addData(info);
+    props.addData(info)
     props.history.push("/form/education")
   }
 

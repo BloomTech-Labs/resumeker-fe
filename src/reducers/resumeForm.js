@@ -3,7 +3,7 @@ import {resumeFormConstants} from '../actions/resumeFormActions.js'
 const initialState = {
     loading: false,
     error: "",
-
+ 
     resumeData:{
             firstName: "",
             lastName: "",
