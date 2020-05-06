@@ -108,13 +108,13 @@ function WorkHistory(props) {
   const anotherJob = event => {
     event.preventDefault();
     props.addWorkData(info);
-    setInfo(
-{      jobTitle: "" ,
+    setInfo({
+      jobTitle: "" ,
       companyName: "",
       startYear: "" ,
       endYear: "",
       jobDescription: "",
-      job_added: Date.now()
+      id: Date.now()
     })
   }
 
@@ -230,6 +230,22 @@ function WorkHistory(props) {
                 
               </form>
             </div>
+
+            {/* !!!!!!! Change later for the component with jobs */}
+            {
+            props.resumeData.jobs.length ?
+            props.resumeData.jobs.map(job => (
+              <div key={job.id}>
+                <p>{job.jobTitle}</p>
+                <p>{job.companyName}</p>
+                <p>{job.startYear}</p>
+                <p>{job.endYear}</p>
+                <p>{job.jobDescription}</p>
+              </div>
+            )) : 
+            <p>Here you can see your added jobs</p>
+            }
+
           </Grid>
         </Grid>
         <button onClick={() => nextPage()}>Next Page</button>

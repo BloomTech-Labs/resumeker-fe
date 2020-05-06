@@ -113,7 +113,7 @@ function Education(props) {
       yearIn: "" ,
       yearOut: "",
       certificateName: "",
-      education_added: Date.now()
+      id: Date.now()
     })
   }
   const onChange = event => {
@@ -236,6 +236,22 @@ function Education(props) {
                 
               </form>
             </div>
+
+            {/* !!!!!!! Change later for the component with education */}
+            {
+            props.resumeData.education.length ?
+            props.resumeData.education.map(education => (
+              <div key={education.id}>
+                <p>{education.type}</p>
+                <p>{education.schoolName}</p>
+                <p>{education.yearIn}</p>
+                <p>{education.yearOut}</p>
+                <p>{education.certificateName}</p>
+              </div>
+            )) : 
+            <p>Here you can see your added education</p>
+          }
+
           </Grid>
         </Grid>
         <button onClick={() => nextPage()}>Next Page</button>
