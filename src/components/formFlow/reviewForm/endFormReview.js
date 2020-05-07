@@ -5,7 +5,9 @@ import { push } from "connected-react-router";
 import "../formStyles/reviewForm.css";
 
 //Components
-import GeneralInfoComponent from "./generalInfo";
+import GeneralInfoComponent from "./generalInfoComponent";
+import EducationComponent from "./educationComponent";
+import JobHistoryComponent from "./jobHistoryComponent";
 
 import {
   Avatar,
@@ -119,68 +121,8 @@ function EndFormReview(props) {
           <div>
             <Paper>
               <GeneralInfoComponent />
-              <Card>
-                <h1>Education</h1>
-                {props.resumeData.education.map((education) => {
-                  return (
-                    <div key={education.education_added}>
-                      <CardContent className={classes.cardContent}>
-                        <p>Type of Education: {education.type}</p>
-                        <p>Name of School: {education.schoolName}</p>
-                        <p>Starting Date: {education.yearIn}</p>
-                        <p>End Date: {education.yearOut}</p>
-                        <p>
-                          Type of Certificate/ Name: {education.certificateName}
-                        </p>
-                      </CardContent>
-                      <CardActions>
-                        <Button
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          className={classes.submit}
-                        >
-                          Edit
-                        </Button>
-                      </CardActions>
-                    </div>
-                  );
-                })}
-              </Card>
-              {/* <Button 
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    >
-                        Edit
-                    </Button>  */}
-              <Card>
-                <h1>Your Job History</h1>
-                {props.resumeData.jobs.map((job) => {
-                  return (
-                    <div key={job.job_added}>
-                      <CardContent>
-                        <p>Company Name: {job.companyName} </p>
-                        <p>Job Title: {job.jobTitle}</p>
-                        <p>Starting Date: {job.startYear}</p>
-                        <p>End Date: {job.endYear}</p>
-                        <p>Job Description: {job.jobDescription}</p>
-                      </CardContent>
-                      <CardActions>
-                        <Button
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          className={classes.submit}
-                        >
-                          Edit
-                        </Button>
-                      </CardActions>
-                    </div>
-                  );
-                })}
-              </Card>
+              <EducationComponent />
+              <JobHistoryComponent />
             </Paper>
           </div>
         </Grid>

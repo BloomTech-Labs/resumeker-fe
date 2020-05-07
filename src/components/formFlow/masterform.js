@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {Switch, Route, useRouteMatch} from 'react-router-dom'
+import React, { useState } from "react";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 //Components import
 import GeneralInfo from './generalInfo.js'
@@ -10,7 +10,7 @@ import PersonalProjects from './PersonalProjects'
 import TechSkills from './TechSkills.js'
 
 //State import
-// import 
+// import
 
 function MasterForm() {
 
@@ -32,5 +32,4 @@ function MasterForm() {
 
 }
 
-export default MasterForm
-
+export default MasterForm;
