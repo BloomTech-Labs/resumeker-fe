@@ -196,15 +196,6 @@ function WorkHistory(props) {
                 value={info.jobDescription}
               />
               <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Review
-              </Button>
-              <Button
                 type="reset"
                 fullWidth
                 variant="contained"
@@ -214,11 +205,33 @@ function WorkHistory(props) {
               >
                 Another Job?
               </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Review
+              </Button>
             </form>
+            {/* !!!!!!! Change later for the component with jobs */}
+            {props.resumeData.jobs.length ? (
+              props.resumeData.jobs.map((job) => (
+                <div key={job.id}>
+                  <p>{job.jobTitle}</p>
+                  <p>{job.companyName}</p>
+                  <p>{job.startYear}</p>
+                  <p>{job.endYear}</p>
+                  <p>{job.jobDescription}</p>
+                </div>
+              ))
+            ) : (
+              <p>Here you can see your added jobs</p>
+            )}
           </div>
         </Grid>
       </Grid>
-      <button onClick={() => nextPage()}>Next Page</button>
     </div>
   );
 }

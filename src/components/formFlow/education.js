@@ -229,10 +229,24 @@ function Education(props) {
                 Next
               </Button>
             </form>
+
+            {/* !!!!!!! Change later for the component with education */}
+            {props.resumeData.education.length ? (
+              props.resumeData.education.map((education) => (
+                <div key={education.id}>
+                  <p>{education.type}</p>
+                  <p>{education.schoolName}</p>
+                  <p>{education.yearIn}</p>
+                  <p>{education.yearOut}</p>
+                  <p>{education.certificateName}</p>
+                </div>
+              ))
+            ) : (
+              <p>Here you can see your added education</p>
+            )}
           </div>
         </Grid>
       </Grid>
-      <button onClick={() => nextPage()}>Next Page</button>
     </div>
   );
 }

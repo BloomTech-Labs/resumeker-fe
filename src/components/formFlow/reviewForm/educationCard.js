@@ -167,15 +167,15 @@ function EducationCard(props) {
     return (
       <CardContent className={classes.cardContent}>
         <p>
-          Type of Education: {props.education.type}{" "}
+          Type of Education: {info.type}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
           </EditIcon>
         </p>
-        <p>Name of School: {props.education.schoolName}</p>
-        <p>Starting Date: {props.education.yearIn}</p>
-        <p>End Date: {props.education.yearOut}</p>
-        <p>Type of Certificate: {props.education.certificateName}</p>
+        <p>Name of School: {info.schoolName}</p>
+        <p>Starting Date: {info.yearIn}</p>
+        <p>End Date: {info.yearOut}</p>
+        <p>Type of Certificate: {info.certificateName}</p>
       </CardContent>
     );
   }

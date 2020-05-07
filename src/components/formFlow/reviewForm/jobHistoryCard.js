@@ -152,15 +152,15 @@ function JobHistoryCard(props) {
     return (
       <CardContent className={classes.cardContent}>
         <p>
-          Job Title: {props.job.jobTitle}{" "}
+          Job Title: {info.jobTitle}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
           </EditIcon>
         </p>
-        <p>Company Name: {props.job.companyName}</p>
-        <p>Starting Date: {props.job.startYear}</p>
-        <p>End Date: {props.job.endYear}</p>
-        <p>Job Description: {props.job.jobDescription}</p>
+        <p>Company Name: {info.companyName}</p>
+        <p>Starting Date: {info.startYear}</p>
+        <p>End Date: {info.endYear}</p>
+        <p>Job Description: {info.jobDescription}</p>
       </CardContent>
     );
   }
