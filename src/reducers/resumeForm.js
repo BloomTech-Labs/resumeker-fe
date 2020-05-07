@@ -10,7 +10,10 @@ const initialState = {
             email: "" ,
             education: [],
             jobs: [],
-            skills: []
+            projects: [],
+            techSkills: [],
+            generalSkills:[]
+
     } // End resumeData object
 
 }
@@ -52,16 +55,40 @@ export const resumeFormReducer = (state = initialState, action) => {
         case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
 
-        case resumeFormConstants.FORM_ADD_SKILL_DATA_REQUEST:
+        case resumeFormConstants.FORM_ADD_PROJECT_DATA_REQUEST:
             return {...state, loading: true}
-        case resumeFormConstants.FORM_ADD_SKILL_DATA_SUCCESS:
+        case resumeFormConstants.FORM_ADD_PROJECT_DATA_SUCCESS:
             return {...state,
                 resumeData:{
                     ...state.resumeData,
-                    skills:[...state.resumeData.education, action.payload]
+                    projects:[...state.resumeData.projects, action.payload]
                 }
                 ,loading:false}
-        case resumeFormConstants.FORM_ADD_SKILL_DATA_FAILURE:
+        case resumeFormConstants.FORM_ADD_PROJECT_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    techSkills:[...state.resumeData.techSkills, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    generalSkills:[...state.resumeData.generalSkills, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
 
         default:

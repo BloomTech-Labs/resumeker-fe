@@ -26,7 +26,6 @@ import {
 } from "@material-ui/core";
 
 import DescriptionIcon from "@material-ui/icons/Description";
-import { AutoComplete } from "material-ui";
 
 const useStyles = makeStyles((theme) => ({
   root: {
