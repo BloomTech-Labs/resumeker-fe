@@ -11,6 +11,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import Profile from './user/Profile';
 import FormEdit from './FormEdit'
+import MasterForm from './formFlow/masterform.js'
 
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js"
@@ -43,6 +44,7 @@ function App(props) {
         <Route exact path='/' component={Home} />
         <Route path="/profile" component={Profile} />
         <Route path="/edit" component ={FormEdit}/>
+        <Route path="/form" component={MasterForm}/>
       </Switch>
     </div>
   );
@@ -52,7 +54,7 @@ const mapStateToProps = state => {
   return {
     user: state.userReducer.user,
     error: state.userReducer.error,
-    loading: state.userReducer.loading
+    loading: state.userReducer.loading,
   }
 }
 
