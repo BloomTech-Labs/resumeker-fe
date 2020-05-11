@@ -21,6 +21,8 @@ import {
     Chip
 } from '@material-ui/core'
 
+import AddBoxIcon from '@material-ui/icons/AddBox';
+
 import DescriptionIcon from '@material-ui/icons/Description'
 // import { blue } from '@material-ui/core/colors';
 
@@ -65,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     //   marginTop: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+
   
     },
     selectorForm: {
@@ -81,12 +83,26 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "1rem",
         marginBottom: '100px'
     },
-    submit: {
+    previousButton: {
       margin: theme.spacing(3, 0, 2),
+      width: "49%"
+    },
+    nextButton: {
+      margin: theme.spacing(3, 0, 2),
+      width: "49%",
+      height: "3.5rem" 
+    },
+    addButton: {
+      margin: theme.spacing(3, 0, 2),
+      width: "25%"
+    },
+    skillContainer: {
+      display: "flex",
+      // justifyContent: "flex-start"
     },
     chipContainer: {
         display: 'flex',
-        justifyContent: 'center',
+        // justifyContent: 'flex-start',
         flexWrap: 'wrap',
         listStyle: 'none',
         padding: theme.spacing(0.5),
@@ -95,6 +111,31 @@ const useStyles = makeStyles((theme) => ({
     chip: {
         margin: theme.spacing(1.2),
     },
+    buttonContainer:{
+      width: "100%",
+      display:'flex',
+      justifyContent: 'space-between',
+      flexDirection: 'row'
+    },
+    formContainer:{
+      width: "100%",
+      display:'flex',
+      justifyContent: 'space-around',
+      flexDirection: 'row',
+      alignItems:"center",
+      height: "6rem"
+    },
+    skillTextField: {
+      width: "90%",
+      height: "4rem",
+    },
+    addIcon:{
+      width: "auto",
+      height: "75%",
+      // marginBottom: "2px",
+      // margin: "0",
+      // padding: "4px"
+    }
 }));
 
 function TechSkills(props) {
@@ -109,7 +150,7 @@ function TechSkills(props) {
   const nextPage = event => {
     event.preventDefault();
     props.addTechSkill(info);
-    props.history.push("/form/work")
+    props.history.push("/form/generalskills")
   }
 
   const anotherSkill = event => {
@@ -131,6 +172,7 @@ function TechSkills(props) {
     console.log(info)
   };
 
+  console.log(props.history)
   return(
     <div>
     <Grid container componet ="main" className={classes.root}>
@@ -156,19 +198,29 @@ function TechSkills(props) {
                     (CSS, HTML, JS, React, Redux, JAVA, NodeJS, GraphQL, Express, Postgres, SQLite, Knex,etc)
                 </Typography>  
                 <form className={classes.form} onSubmit={nextPage}>
-                    <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="skill"
-                    label="Tech Skill"
-                    id="skill"
-                    onChange={onChange}
-                    value = {info.skill}
-                    />
+                    <Grid className={classes.formContainer} fullWidth>
+                      <TextField
+                      variant="outlined"
+                      margin="normal"
+                      className = {classes.skillTextField}
+                      required
+                      fullWidth
+                      name="skill"
+                      label="Tech Skill"
+                      id="skill"
+                      onChange={onChange}
+                      value = {info.skill}
+                      />
+                      <AddBoxIcon
+                        fullWidth
+                        className ={classes.addIcon}
+                        color="primary"
+                        onClick={anotherSkill}
+                      />
+                    </Grid>
 
-                    <Paper component="ul" square= "true" className={classes.chipContainer}>
+                    <Grid className={classes.skillContainer}>
+                      <Paper component="ul" square= "true" className={classes.chipContainer}>
                         <Chip
                             label="Your Skills:"
                             className={classes.chip}
@@ -186,28 +238,33 @@ function TechSkills(props) {
                             </li>
                             );
                         })}
-                    </Paper>
+                      </Paper>                      
+                    </Grid>
+                    
 
-                    <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    onClick={anotherSkill}
-                    >
-                    Add Another Skill
-                    </Button>
+                    <Grid className={classes.buttonContainer}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.previousButton}
+                        onClick={() => {props.history.push("/form/work")}}
+                      >
+                        Previous Form
+                      </Button>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.nextButton}
+                      >
+                        Next Form
+                      </Button>
+                    </Grid>
+                    
 
-                    <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    >
-                    Next Form
-                    </Button>
 
                 
                 </form>
