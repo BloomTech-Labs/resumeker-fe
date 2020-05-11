@@ -80,6 +80,21 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  previousButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%"
+  },
+  nextButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+    height: "3.5rem" 
+  },
+  buttonContainer:{
+    width: "100%",
+    display:'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  },
 }));
 
 function WorkHistory(props) {
@@ -97,7 +112,7 @@ function WorkHistory(props) {
   const nextPage = (event) => {
     event.preventDefault();
     props.addWorkData(info);
-    props.history.push("/form/review");
+    props.history.push("/form/techskills");
     console.log("data from reducer", props.resumeData.jobs);
   };
 
@@ -205,15 +220,27 @@ function WorkHistory(props) {
               >
                 Another Job?
               </Button>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Review
-              </Button>
+              <Grid className={classes.buttonContainer}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.previousButton}
+                  onClick={() => {props.history.push("/form/education")}}
+                >
+                  Previous Form
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.nextButton}
+                >
+                  Next Form
+                </Button>
+              </Grid>
             </form>
             {/* !!!!!!! Change later for the component with jobs */}
             {props.resumeData.jobs.length ? (

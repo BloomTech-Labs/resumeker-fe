@@ -95,6 +95,17 @@ export const resumeFormReducer = (state = initialState, action) => {
         case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
 
+        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    languages:[...state.resumeData.languages, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_REQUEST:
       return { ...state, loading: true };
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_SUCCESS:

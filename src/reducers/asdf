@@ -1,0 +1,11 @@
+case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    languages:[...state.resumeData.languages, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
