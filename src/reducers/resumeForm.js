@@ -26,7 +26,6 @@ export const resumeFormReducer = (state = initialState, action) => {
         ...state,
         resumeData: {
           ...state.resumeData,
-          // jobs: [...state.resumeData.jobs, ...action.payload_jobs],
           ...action.payload,
         },
         loading: false,
@@ -106,6 +105,20 @@ export const resumeFormReducer = (state = initialState, action) => {
                 ,loading:false}
         case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
+        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
+          return { ...state, loading: true };
+        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
+          return {
+            ...state,
+            resumeData: {
+              ...state.resumeData,
+              education: [...state.resumeData.education, action.payload],
+            },
+            loading: false,
+          };
+        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
+          return { ...state, loading: false, error: action.payload };
+
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_REQUEST:
       return { ...state, loading: true };
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_SUCCESS:
