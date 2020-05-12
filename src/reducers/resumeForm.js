@@ -72,6 +72,17 @@ export const resumeFormReducer = (state = initialState, action) => {
         case resumeFormConstants.FORM_ADD_PROJECT_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
 
+        case resumeFormConstants.FORM_UPDATE_PROJECT_DATA_REQUEST:
+          return { ...state, loading: true };
+        case resumeFormConstants.FORM_UPDATE_PROJECT_DATA_SUCCESS:
+          var projectsPos = state.resumeData.projects
+            .map(function (x) {
+              return x.id;
+            })
+            .indexOf(action.payload.id);
+          state.resumeData.projects[projectsPos] = action.payload;
+          return { ...state };
+
         case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_REQUEST:
             return {...state, loading: true}
         case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_SUCCESS:
@@ -83,6 +94,17 @@ export const resumeFormReducer = (state = initialState, action) => {
                 ,loading:false}
         case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_UPDATE_TECH_SKILLS_DATA_REQUEST:
+          return { ...state, loading: true };
+        case resumeFormConstants.FORM_UPDATE_TECH_SKILLS_DATA_SUCCESS:
+          var techSkillsPos = state.resumeData.techSkills
+            .map(function (x) {
+              return x.id;
+            })
+            .indexOf(action.payload.id);
+          state.resumeData.techSkills[techSkillsPos] = action.payload;
+          return { ...state };
 
         case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_REQUEST:
             return {...state, loading: true}
@@ -96,6 +118,17 @@ export const resumeFormReducer = (state = initialState, action) => {
         case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
 
+        case resumeFormConstants.FORM_UPDATE_GENERAL_SKILLS_DATA_REQUEST:
+          return { ...state, loading: true };
+        case resumeFormConstants.FORM_UPDATE_GENERAL_SKILLS_DATA_SUCCESS:
+          var generalSkillsPos = state.resumeData.generalSkills
+            .map(function (x) {
+              return x.id;
+            })
+            .indexOf(action.payload.id);
+          state.resumeData.generalSkills[generalSkillsPos] = action.payload;
+          return { ...state };
+
         case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_REQUEST:
             return {...state, loading: true}
         case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_SUCCESS:
@@ -107,6 +140,17 @@ export const resumeFormReducer = (state = initialState, action) => {
                 ,loading:false}
         case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_REQUEST:
+          return { ...state, loading: true };
+        case resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_SUCCESS:
+          var languagesPos = state.resumeData.languages
+            .map(function (x) {
+              return x.id;
+            })
+            .indexOf(action.payload.id);
+          state.resumeData.languages[languagesPos] = action.payload;
+          return { ...state };
 
         case resumeFormConstants.FORM_ADD_HOBBY_DATA_REQUEST:
             return {...state, loading: true}

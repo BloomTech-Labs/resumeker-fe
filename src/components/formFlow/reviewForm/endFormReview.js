@@ -8,6 +8,10 @@ import "../formStyles/reviewForm.css";
 import GeneralInfoComponent from "./generalInfoComponent";
 import EducationComponent from "./educationComponent";
 import JobHistoryComponent from "./jobHistoryComponent";
+import ProjectsComponent from "./projectComponent";
+import TechSkillsComponent from "./techSkillsComponent";
+import GeneralSkillsComponent from "./generalSkillsComponent"
+
 
 import {
   Avatar,
@@ -123,6 +127,9 @@ function EndFormReview(props) {
               <GeneralInfoComponent />
               <EducationComponent />
               <JobHistoryComponent />
+              <ProjectsComponent />
+              <TechSkillsComponent />
+              <GeneralSkillsComponent />
             </Paper>
           </div>
         </Grid>

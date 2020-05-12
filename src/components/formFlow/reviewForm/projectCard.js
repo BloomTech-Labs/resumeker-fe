@@ -64,7 +64,7 @@ function ProjectCard(props) {
 
   const saveInfo = (event) => {
     event.preventDefault();
-    props.updateWorkData(info);
+    props.updateProjectData(info);
     setEdit(false);
   };
 

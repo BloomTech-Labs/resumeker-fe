@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import "../formStyles/reviewForm.css";
 
 //Actions
-import { updateProjectData } from "../../../actions/resumeFormActions.js";
+import { updateGeneralSkillsData } from "../../../actions/resumeFormActions.js";
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
 //Import Components
-import ProjectCard from "./projectCard";
+import GeneralSkillsCard from "./generalSkillsCard";
 
 import {
   CardContent,
@@ -36,14 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProjectsComponent(props) {
+function GeneralSkillsComponent(props) {
   return (
     <Card>
-      <h1>Projects</h1>
-      {props.resumeData.projects.map((project) => {
+      <h1>General Skills</h1>
+      {props.resumeData.generalSkills.map((generalSkill) => {
         return (
-          <div key={project.id}>
-            <ProjectCard projects={project} updateProjectData={props.updateProjectData} />
+          <div key={generalSkill.id}>
+            <GeneralSkillsCard generalSkills={generalSkill} updateGeneralSkillsData={props.updateGeneralSkillsData} />
           </div>
         );
       })}
@@ -59,6 +59,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { updateProjectData })(
-  ProjectsComponent
+export default connect(mapStateToProps, { updateGeneralSkillsData })(
+  GeneralSkillsComponent
 );
