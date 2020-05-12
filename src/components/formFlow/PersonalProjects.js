@@ -83,6 +83,21 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    previousButton: {
+      margin: theme.spacing(3, 0, 2),
+      width: "49%"
+    },
+    nextButton: {
+      margin: theme.spacing(3, 0, 2),
+      width: "49%",
+      height: "3.5rem" 
+    },
+    buttonContainer:{
+      width: "100%",
+      display:'flex',
+      justifyContent: 'space-between',
+      flexDirection: 'row'
+    },
 }));
 
 function PersonalProjects(props) {
@@ -102,7 +117,7 @@ function PersonalProjects(props) {
   const nextPage = event => {
     event.preventDefault();
     props.addProjectData(info);
-    props.history.push("/form/work")
+    props.history.push("/form/techskills")
   }
 
   const anotherProject = event => {
@@ -224,23 +239,33 @@ function PersonalProjects(props) {
                 >
                   Add Another
                 </Button>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  
-                >
-                  Next
-                </Button>
+                <Grid className={classes.buttonContainer}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    className={classes.previousButton}
+                    onClick={() => {props.history.push("/form/work")}}
+                  >
+                    Previous Form
+                  </Button>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.nextButton}
+                  >
+                    Next Form
+                  </Button>
+              </Grid>
 
                 
               </form>
             </div>
           </Grid>
         </Grid>
-        <button onClick={() => nextPage()}>Next Page</button>
       </div>
 
   )

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux';
 
 //Actions
-import {addGeneralSkill} from '../../actions/resumeFormActions.js'
+import {addLanguage} from '../../actions/resumeFormActions.js'
 
 
 import {
@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems:"center",
       height: "6rem"
     },
-    skillTextField: {
+    languageTextField: {
       width: "90%",
       height: "4rem",
     },
@@ -138,27 +138,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function GeneralSkills(props) {
+function Languages(props) {
 
   const [info, setInfo] = useState({
     id: Date.now(),
-    skill: ""
+    language: ""
   })
 
   const classes = useStyles();
 
   const nextPage = event => {
     event.preventDefault();
-    props.addGeneralSkill(info);
-    props.history.push("/form/languages")
+    props.addLanguage(info);
+    props.history.push("/form/hobbies")
   }
 
   const anotherSkill = event => {
     event.preventDefault();
-    props.addGeneralSkill(info)
+    props.addLanguage(info)
     setInfo({
         id: Date.now(),
-        skill: ""
+        language: ""
     })
   }
   const onChange = event => {
@@ -167,12 +167,6 @@ function GeneralSkills(props) {
     console.log(info);
   }
 
-  const handleDelete = (skillToDelete) => () => {
-    setInfo((skillInfo) => skillInfo.filter((skill) => skill.id !== skillToDelete.id));
-    console.log(info)
-  };
-
-  console.log(props.resumeData.size)
   return(
     <div>
     <Grid container componet ="main" className={classes.root}>
@@ -192,24 +186,20 @@ function GeneralSkills(props) {
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
-                    Tell us about some of your other skills that didn't quite make it into the technical section! 
-                    
-                </Typography>
-                <Typography color="grey" component="h5" variant="h7">
-                    (Time Management, Critical Thinking, Teamwork, Problem Solving, Comunication, etc)
+                    What Languages Do You Speak? 
                 </Typography>  
                 <form className={classes.form} onSubmit={nextPage}>
                     <Grid className={classes.formContainer} fullWidth>
                       <TextField
                       variant="outlined"
                       margin="normal"
-                      className = {classes.skillTextField}
+                      className = {classes.languageTextField}
                       fullWidth
-                      name="skill"
-                      label="General Skill"
-                      id="skill"
+                      name="language"
+                      label="Language"
+                      id="language"
                       onChange={onChange}
-                      value = {info.skill}
+                      value = {info.language}
                       />
                       <AddBoxIcon
                         fullWidth
@@ -222,17 +212,16 @@ function GeneralSkills(props) {
                     <Grid className={classes.skillContainer}>
                       <Paper component="ul" square= "true" className={classes.chipContainer}>
                         <Chip
-                            label="Your Skills:"
+                            label="Your Languages:"
                             className={classes.chip}
                             color="primary"
                         />
-                        {props.resumeData.generalSkills.map((data) => {
+                        {props.resumeData.languages.map((data) => {
 
                             return (
                             <li key={data.id}>
                                 <Chip
-                                label={data.skill}
-                                onDelete={handleDelete(data)}
+                                label={data.language}
                                 className={classes.chip}
                                 />
                             </li>
@@ -248,7 +237,7 @@ function GeneralSkills(props) {
                         variant="contained"
                         color="primary"
                         className={classes.previousButton}
-                        onClick={() => {props.history.push("/form/techskills")}}
+                        onClick={() => {props.history.push("/form/generalskills")}}
                       >
                         Previous Form
                       </Button>
@@ -270,7 +259,6 @@ function GeneralSkills(props) {
             </div>
         </Grid>
             </Grid>
-        <button onClick={() => nextPage()}>Next Page</button>
       </div>
 
   )
@@ -287,5 +275,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {addGeneralSkill}
-) (GeneralSkills)
+  {addLanguage}
+) (Languages)

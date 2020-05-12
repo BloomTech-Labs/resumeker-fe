@@ -249,7 +249,7 @@ function TechSkills(props) {
                         variant="contained"
                         color="primary"
                         className={classes.previousButton}
-                        onClick={() => {props.history.push("/form/work")}}
+                        onClick={() => {props.history.push("/form/projects")}}
                       >
                         Previous Form
                       </Button>

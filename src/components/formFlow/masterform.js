@@ -9,6 +9,8 @@ import EndFormReview from "./reviewForm/endFormReview"
 import PersonalProjects from './PersonalProjects'
 import TechSkills from './TechSkills.js'
 import GeneralSkills from "./GeneralSkills.js";
+import Languages from "./Languages.js";
+import Hobbies from "./Hobbies"
 
 //State import
 // import
@@ -28,6 +30,8 @@ function MasterForm() {
                 <Route path={`${url}/projects`} component={PersonalProjects} />
                 <Route path={`${url}/techskills`} component={TechSkills}/>
                 <Route path={`${url}/generalskills`} component={GeneralSkills}/>
+                <Route path={`${url}/languages`} component={Languages}/>
+                <Route path={`${url}/hobbies`} component={Hobbies}/>
             </Switch>
         </div>
     )

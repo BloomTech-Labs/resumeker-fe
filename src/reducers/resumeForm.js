@@ -12,7 +12,9 @@ const initialState = {
             jobs: [],
             projects: [],
             techSkills: [],
-            generalSkills:[]
+            generalSkills:[],
+            languages:[],
+            hobbies:[]
 
     } // End resumeData object
 };
@@ -105,6 +107,20 @@ export const resumeFormReducer = (state = initialState, action) => {
                 ,loading:false}
         case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
+
+        case resumeFormConstants.FORM_ADD_HOBBY_DATA_REQUEST:
+            return {...state, loading: true}
+        case resumeFormConstants.FORM_ADD_HOBBY_DATA_SUCCESS:
+            return {...state,
+                resumeData:{
+                    ...state.resumeData,
+                    hobbies:[...state.resumeData.hobbies, action.payload]
+                }
+                ,loading:false}
+        case resumeFormConstants.FORM_ADD_HOBBY_DATA_FAILURE:
+            return{...state, loading:false, error: action.payload}
+
+
         case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
           return { ...state, loading: true };
         case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
