@@ -164,6 +164,18 @@ export const resumeFormReducer = (state = initialState, action) => {
         case resumeFormConstants.FORM_ADD_HOBBY_DATA_FAILURE:
             return{...state, loading:false, error: action.payload}
 
+        case resumeFormConstants.FORM_UPDATE_HOBBY_DATA_REQUEST:
+          return { ...state, loading: true };
+        case resumeFormConstants.FORM_UPDATE_HOBBY_DATA_SUCCESS:
+          var hobbiesPos = state.resumeData.hobbies
+            .map(function (x) {
+              return x.id;
+            })
+            .indexOf(action.payload.id);
+          state.resumeData.hobbies[hobbiesPos] = action.payload;
+          return { ...state };
+    
+
 
         case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
           return { ...state, loading: true };

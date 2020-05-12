@@ -11,7 +11,8 @@ import JobHistoryComponent from "./jobHistoryComponent";
 import ProjectsComponent from "./projectComponent";
 import TechSkillsComponent from "./techSkillsComponent";
 import GeneralSkillsComponent from "./generalSkillsComponent";
-import LanguageComponent from "./languageComponent"
+import LanguageComponent from "./languageComponent";
+import HobbyComponent from "./hobbyComponent"
 
 
 import {
@@ -132,6 +133,7 @@ function EndFormReview(props) {
               <TechSkillsComponent />
               <GeneralSkillsComponent />
               <LanguageComponent />
+              <HobbyComponent />
             </Paper>
           </div>
         </Grid>

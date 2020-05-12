@@ -48,6 +48,9 @@ export const resumeFormConstants = {
 
   FORM_UPDATE_LANGUAGE_DATA_REQUEST: "FORM_UPDATE_LANGUAGE_DATA_REQUEST",
   FORM_UPDATE_LANGUAGE_DATA_SUCCESS: "FORM_UPDATE_LANGUAGE_DATA_SUCCESS",
+
+  FORM_UPDATE_HOBBY_DATA_REQUEST: "FORM_UPDATE_HOBBY_DATA_REQUEST",
+  FORM_UPDATE_HOBBY_DATA_SUCCESS: "FORM_UPDATE_HOBBY_DATA_SUCCESS",
 }
 
 
@@ -150,3 +153,11 @@ export const addHobby = (hobbyData) => dispatch => {
   dispatch({type: resumeFormConstants.FORM_ADD_HOBBY_DATA_REQUEST})
   dispatch({type: resumeFormConstants.FORM_ADD_HOBBY_DATA_SUCCESS, payload: hobbyData})
 }
+
+export const updateHobbyData = (hobbyData) => (dispatch) => {
+  dispatch({ type: resumeFormConstants.FORM_UPDATE_HOBBY_DATA_REQUEST });
+  dispatch({
+    type: resumeFormConstants.FORM_UPDATE_HOBBY_DATA_SUCCESS,
+    payload: hobbyData,
+  });
+};
