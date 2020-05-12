@@ -16,8 +16,6 @@ import GeneralSkills from "./GeneralSkills.js";
 function MasterForm() {
   const { path, url } = useRouteMatch();
 
-  const { path, url } = useRouteMatch();
-
   return (
     <div>
       <h1>Resume Form</h1>

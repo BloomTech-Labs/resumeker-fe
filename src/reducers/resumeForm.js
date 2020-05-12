@@ -1,24 +1,29 @@
 import { resumeFormConstants } from "../actions/resumeFormActions.js";
 
 const initialState = {
-    loading: false,
-    error: "",
- 
-    resumeData:{
-            firstName: "",
-            lastName: "",
-            email: "" ,
-            education: [],
-            jobs: [],
-            projects: [],
-            techSkills: [],
-            generalSkills:[]
+  loading: false,
+  error: "",
 
-    } // End resumeData object
+  resumeData: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    education: [],
+    jobs: [],
+    projects: [],
+    techSkills: [],
+    generalSkills: [],
+  }, // End resumeData object
 };
 
 export const resumeFormReducer = (state = initialState, action) => {
   switch (action.type) {
+    /* 
+    ***********************************
+    General Info Reducers
+    ***********************************
+    */
+
     case resumeFormConstants.FORM_ADD_DATA_REQUEST:
       return { ...state, loading: true };
     case resumeFormConstants.FORM_ADD_DATA_SUCCESS:
@@ -32,6 +37,12 @@ export const resumeFormReducer = (state = initialState, action) => {
       };
     case resumeFormConstants.FORM_ADD_DATA_FAILURE:
       return { ...state, loading: false, error: action.payload };
+
+    /* 
+    ***********************************
+    Work Reducers
+    ***********************************
+    */
 
     case resumeFormConstants.FORM_ADD_WORK_DATA_REQUEST:
       return { ...state, loading: true };
@@ -58,66 +69,126 @@ export const resumeFormReducer = (state = initialState, action) => {
       state.resumeData.jobs[jobPos] = action.payload;
       return { ...state };
 
-        case resumeFormConstants.FORM_ADD_PROJECT_DATA_REQUEST:
-            return {...state, loading: true}
-        case resumeFormConstants.FORM_ADD_PROJECT_DATA_SUCCESS:
-            return {...state,
-                resumeData:{
-                    ...state.resumeData,
-                    projects:[...state.resumeData.projects, action.payload]
-                }
-                ,loading:false}
-        case resumeFormConstants.FORM_ADD_PROJECT_DATA_FAILURE:
-            return{...state, loading:false, error: action.payload}
+    /* 
+    ***********************************
+    Project Reducers
+    ***********************************
+    */
 
-        case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_REQUEST:
-            return {...state, loading: true}
-        case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_SUCCESS:
-            return {...state,
-                resumeData:{
-                    ...state.resumeData,
-                    techSkills:[...state.resumeData.techSkills, action.payload]
-                }
-                ,loading:false}
-        case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_FAILURE:
-            return{...state, loading:false, error: action.payload}
+    case resumeFormConstants.FORM_ADD_PROJECT_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_ADD_PROJECT_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          projects: [...state.resumeData.projects, action.payload],
+        },
+        loading: false,
+      };
+    case resumeFormConstants.FORM_ADD_PROJECT_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
 
-        case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_REQUEST:
-            return {...state, loading: true}
-        case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_SUCCESS:
-            return {...state,
-                resumeData:{
-                    ...state.resumeData,
-                    generalSkills:[...state.resumeData.generalSkills, action.payload]
-                }
-                ,loading:false}
-        case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_FAILURE:
-            return{...state, loading:false, error: action.payload}
+    /* 
+    ***********************************
+    Tech Skills Reducers
+    ***********************************
+    */
 
-        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_REQUEST:
-            return {...state, loading: true}
-        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_SUCCESS:
-            return {...state,
-                resumeData:{
-                    ...state.resumeData,
-                    languages:[...state.resumeData.languages, action.payload]
-                }
-                ,loading:false}
-        case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
-            return{...state, loading:false, error: action.payload}
-        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
-          return { ...state, loading: true };
-        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
-          return {
-            ...state,
-            resumeData: {
-              ...state.resumeData,
-              education: [...state.resumeData.education, action.payload],
-            },
-            loading: false,
-          };
-        case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
-          return { ...state, loading: false, error: action.payload };
+    //Adding Skills to State
+    case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          techSkills: [...state.resumeData.techSkills, action.payload],
+        },
+        loading: false,
+      };
+    case resumeFormConstants.FORM_ADD_TECH_SKILLS_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    //Deleting Skill from State
+    case resumeFormConstants.FORM_DELETE_TECH_SKILLS_DATA_SUCCESS:
+      if (state.resumeData.techSkills.some((e) => e.id === action.payload.id)) {
+        state.resumeData.techSkills = state.resumeData.techSkills.filter(
+          (e) => e.id !== action.payload.id
+        );
+      }
+      return { ...state };
+
+    /* 
+    ***********************************
+    General Skills Reducers
+    ***********************************
+    */
+
+    case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          generalSkills: [...state.resumeData.generalSkills, action.payload],
+        },
+        loading: false,
+      };
+    case resumeFormConstants.FORM_ADD_GENERAL_SKILLS_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    //Deleting Skill from State
+
+    case resumeFormConstants.FORM_DELETE_GENERAL_SKILLS_DATA_SUCCESS:
+      if (
+        state.resumeData.generalSkills.some((e) => e.id === action.payload.id)
+      ) {
+        state.resumeData.generalSkills = state.resumeData.generalSkills.filter(
+          (e) => e.id !== action.payload.id
+        );
+      }
+      return { ...state };
+
+    /* 
+    ***********************************
+    Language Reducers
+    ***********************************
+    */
+
+    case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          languages: [...state.resumeData.languages, action.payload],
+        },
+        loading: false,
+      };
+    case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          education: [...state.resumeData.education, action.payload],
+        },
+        loading: false,
+      };
+    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    /* 
+    ***********************************
+    Education Reducers
+    ***********************************
+    */
 
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_REQUEST:
       return { ...state, loading: true };
@@ -129,6 +200,12 @@ export const resumeFormReducer = (state = initialState, action) => {
         .indexOf(action.payload.id);
       state.resumeData.education[educationPos] = action.payload;
       return { ...state };
+
+    /* 
+    ***********************************
+    Education Reducers
+    ***********************************
+    */
 
     case resumeFormConstants.FORM_ADD_SKILL_DATA_REQUEST:
       return { ...state, loading: true };

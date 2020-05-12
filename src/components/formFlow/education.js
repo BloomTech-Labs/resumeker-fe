@@ -82,18 +82,18 @@ const useStyles = makeStyles((theme) => ({
   },
   previousButton: {
     margin: theme.spacing(3, 0, 2),
-    width: "49%"
+    width: "49%",
   },
   nextButton: {
     margin: theme.spacing(3, 0, 2),
     width: "49%",
-    height: "3.5rem" 
+    height: "3.5rem",
   },
-  buttonContainer:{
+  buttonContainer: {
     width: "100%",
-    display:'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
 }));
 
@@ -152,7 +152,11 @@ function Education(props) {
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
               <FormControl className={classes.selectorForm}>
-                <InputLabel data-testid="label" className={classes.selectorText} id="type">
+                <InputLabel
+                  data-testid="label"
+                  className={classes.selectorText}
+                  id="type"
+                >
                   Education
                 </InputLabel>
                 <Select
@@ -175,7 +179,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="schoolName"
                 label="Name of the school"
@@ -186,7 +189,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="yearIn"
                 type="date"
@@ -201,7 +203,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 type="date"
                 name="yearOut"
@@ -216,7 +217,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="certificateName"
                 label="Name of the certificate"
@@ -241,7 +241,9 @@ function Education(props) {
                   variant="contained"
                   color="primary"
                   className={classes.previousButton}
-                  onClick={() => {props.history.push("/form/generalInfo")}}
+                  onClick={() => {
+                    props.history.push("/form/generalInfo");
+                  }}
                 >
                   Previous Form
                 </Button>
