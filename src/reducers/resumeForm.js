@@ -13,6 +13,8 @@ const initialState = {
     projects: [],
     techSkills: [],
     generalSkills: [],
+    languages: [],
+    hobbies: [],
   }, // End resumeData object
 };
 
@@ -184,6 +186,17 @@ export const resumeFormReducer = (state = initialState, action) => {
     case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
+    case resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_SUCCESS:
+      var languagesPos = state.resumeData.languages
+        .map(function (x) {
+          return x.id;
+        })
+        .indexOf(action.payload.id);
+      state.resumeData.languages[languagesPos] = action.payload;
+      return { ...state };
+
     /* 
     ***********************************
     Education Reducers
@@ -203,7 +216,7 @@ export const resumeFormReducer = (state = initialState, action) => {
 
     /* 
     ***********************************
-    Education Reducers
+    Skill Reducers
     ***********************************
     */
 
@@ -220,6 +233,37 @@ export const resumeFormReducer = (state = initialState, action) => {
       };
     case resumeFormConstants.FORM_ADD_SKILL_DATA_FAILURE:
       return { ...state, loading: false, error: action.payload };
+
+    /* 
+    ***********************************
+    Hobby Reducers
+    ***********************************
+    */
+
+    case resumeFormConstants.FORM_ADD_HOBBY_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_ADD_HOBBY_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          hobbies: [...state.resumeData.hobbies, action.payload],
+        },
+        loading: false,
+      };
+    case resumeFormConstants.FORM_ADD_HOBBY_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    case resumeFormConstants.FORM_UPDATE_HOBBY_DATA_REQUEST:
+      return { ...state, loading: true };
+    case resumeFormConstants.FORM_UPDATE_HOBBY_DATA_SUCCESS:
+      var hobbiesPos = state.resumeData.hobbies
+        .map(function (x) {
+          return x.id;
+        })
+        .indexOf(action.payload.id);
+      state.resumeData.hobbies[hobbiesPos] = action.payload;
+      return { ...state };
 
     default:
       return state;

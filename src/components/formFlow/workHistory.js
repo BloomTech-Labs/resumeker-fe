@@ -112,7 +112,7 @@ function WorkHistory(props) {
   const nextPage = (event) => {
     event.preventDefault();
     props.addWorkData(info);
-    props.history.push("/form/techskills");
+    props.history.push("/form/projects");
     console.log("data from reducer", props.resumeData.jobs);
   };
 

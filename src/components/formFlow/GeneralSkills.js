@@ -235,11 +235,51 @@ function GeneralSkills(props) {
                           onDelete={handleDelete(data)}
                           className={classes.chip}
                         />
+<<<<<<< HEAD
                       </li>
                     );
                   })}
                 </Paper>
               </Grid>
+=======
+                        {props.resumeData.generalSkills.map((data) => {
+
+                            return (
+                            <li key={data.id}>
+                                <Chip
+                                label={data.skill}
+                                onDelete={handleDelete(data)}
+                                className={classes.chip}
+                                />
+                            </li>
+                            );
+                        })}
+                      </Paper>                      
+                    </Grid>
+                    
+
+                    <Grid className={classes.buttonContainer}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.previousButton}
+                        onClick={() => {props.history.push("/form/techskills")}}
+                      >
+                        Previous Form
+                      </Button>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.nextButton}
+                      >
+                        Next Form
+                      </Button>
+                    </Grid>
+                    
+>>>>>>> bae8742d9b9c8e4d043fd84ef0570ec46433a302
 
               <Grid className={classes.buttonContainer}>
                 <Button
