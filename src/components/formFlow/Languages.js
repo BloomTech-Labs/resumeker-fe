@@ -14,10 +14,6 @@ import {
     Grid,
     Typography,
     makeStyles,
-    Select,
-    MenuItem,
-    InputLabel,
-    FormControl,
     Chip
 } from '@material-ui/core'
 

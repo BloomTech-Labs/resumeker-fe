@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
 
@@ -10,14 +9,9 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import {
   CardContent,
-  Card,
   makeStyles,
   TextField,
   Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
