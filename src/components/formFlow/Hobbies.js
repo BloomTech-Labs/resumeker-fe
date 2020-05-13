@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addHobby } from "../../actions/resumeFormActions.js";
+import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
 
 import {
   Avatar,
@@ -158,12 +158,11 @@ function Hobbies(props) {
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
-    console.log(info);
   };
 
   const handleDelete = (hobbyToDelete) => (event) => {
     event.preventDefault();
-
+    props.removeHobbyData(hobbyToDelete);
     setInfo({ ...info });
   };
 
@@ -275,4 +274,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addHobby })(Hobbies);
+export default connect(mapStateToProps, { addHobby, removeHobbyData })(Hobbies);

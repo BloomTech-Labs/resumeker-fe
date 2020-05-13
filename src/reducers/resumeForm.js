@@ -234,26 +234,6 @@ export const resumeFormReducer = (state = initialState, action) => {
 
     /* 
     ***********************************
-    Skill Reducers
-    ***********************************
-    */
-
-    case resumeFormConstants.FORM_ADD_SKILL_DATA_REQUEST:
-      return { ...state, loading: true };
-    case resumeFormConstants.FORM_ADD_SKILL_DATA_SUCCESS:
-      return {
-        ...state,
-        resumeData: {
-          ...state.resumeData,
-          skills: [...state.resumeData.education, action.payload],
-        },
-        loading: false,
-      };
-    case resumeFormConstants.FORM_ADD_SKILL_DATA_FAILURE:
-      return { ...state, loading: false, error: action.payload };
-
-    /* 
-    ***********************************
     Hobby Reducers
     ***********************************
     */
@@ -274,6 +254,7 @@ export const resumeFormReducer = (state = initialState, action) => {
 
     case resumeFormConstants.FORM_UPDATE_HOBBY_DATA_REQUEST:
       return { ...state, loading: true };
+
     case resumeFormConstants.FORM_UPDATE_HOBBY_DATA_SUCCESS:
       var hobbiesPos = state.resumeData.hobbies
         .map(function (x) {
@@ -282,6 +263,23 @@ export const resumeFormReducer = (state = initialState, action) => {
         .indexOf(action.payload.id);
       state.resumeData.hobbies[hobbiesPos] = action.payload;
       return { ...state };
+
+    case resumeFormConstants.FORM_DELETE_HOBBY_DATA_REQUEST:
+      return { ...state, loading: true };
+
+    case resumeFormConstants.FORM_DELETE_HOBBY_DATA_SUCCESS:
+      if (state.resumeData.hobbies.some((e) => e.id === action.payload.id)) {
+        state.resumeData.hobbies = state.resumeData.hobbies.filter(
+          (e) => e.id !== action.payload.id
+        );
+      }
+      return { ...state, loading: false };
+
+    /* 
+    ***********************************
+    Default Case
+    ***********************************
+    */
 
     default:
       return state;
