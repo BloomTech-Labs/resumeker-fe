@@ -161,6 +161,7 @@ export const resumeFormReducer = (state = initialState, action) => {
 
     case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_REQUEST:
       return { ...state, loading: true };
+
     case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_SUCCESS:
       return {
         ...state,
@@ -170,24 +171,13 @@ export const resumeFormReducer = (state = initialState, action) => {
         },
         loading: false,
       };
+
     case resumeFormConstants.FORM_ADD_LANGUAGE_DATA_FAILURE:
-      return { ...state, loading: false, error: action.payload };
-    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
-      return { ...state, loading: true };
-    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
-      return {
-        ...state,
-        resumeData: {
-          ...state.resumeData,
-          education: [...state.resumeData.education, action.payload],
-        },
-        loading: false,
-      };
-    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
     case resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_REQUEST:
       return { ...state, loading: true };
+
     case resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_SUCCESS:
       var languagesPos = state.resumeData.languages
         .map(function (x) {
@@ -197,14 +187,42 @@ export const resumeFormReducer = (state = initialState, action) => {
       state.resumeData.languages[languagesPos] = action.payload;
       return { ...state };
 
+    case resumeFormConstants.FORM_DELETE_LANGUAGE_DATA_REQUEST:
+      return { ...state, loading: true };
+
+    case resumeFormConstants.FORM_DELETE_LANGUAGE_DATA_SUCCESS:
+      if (state.resumeData.languages.some((e) => e.id === action.payload.id)) {
+        state.resumeData.languages = state.resumeData.languages.filter(
+          (e) => e.id !== action.payload.id
+        );
+      }
+      return { ...state, loading: false };
+
     /* 
     ***********************************
     Education Reducers
     ***********************************
     */
 
+    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_REQUEST:
+      return { ...state, loading: true };
+
+    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_SUCCESS:
+      return {
+        ...state,
+        resumeData: {
+          ...state.resumeData,
+          education: [...state.resumeData.education, action.payload],
+        },
+        loading: false,
+      };
+
+    case resumeFormConstants.FORM_ADD_EDUCATION_DATA_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_REQUEST:
       return { ...state, loading: true };
+
     case resumeFormConstants.FORM_UPDATE_EDUCATION_DATA_SUCCESS:
       var educationPos = state.resumeData.education
         .map(function (x) {

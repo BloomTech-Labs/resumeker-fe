@@ -26,7 +26,7 @@ function FormEdit({ user, updateUser }) {
   });
 
   //Initializes useMutation graphQL query
-  const [gqlUpdateUser, { data, error }] = useMutation(UPDATED_USER_QUERY);
+  const [gqlUpdateUser, { error }] = useMutation(UPDATED_USER_QUERY);
 
   //Runs Check on whether returned userInfo from Auth0
   //is a registered User or Not
@@ -50,7 +50,7 @@ function FormEdit({ user, updateUser }) {
         email: user.email,
       });
     }
-  }, []);
+  }, [user]);
 
   //Handle onChange Event from Form Edit
   const handleChange = (e) => {
@@ -69,22 +69,9 @@ function FormEdit({ user, updateUser }) {
       },
     });
 
-    // if (loading) console.log("Loading...","UpdatedUser Loading");
-
     if (error) {
       dispatch({ type: userConstants.UPDATE_USER_FAILURE, payload: error });
     }
-
-    console.log(
-      data,
-      "Raw Updated User Data ALL GOOD! ======================="
-    );
-
-    // const updatedUserInfo = JSON.parse(mutationData.getUpdatedUser.userInfo);
-
-    // console.log(updatedUserInfo, "Parsed UpdatedUser")
-
-    // dispatch({ type: userConstants.UPDATE_USER_SUCCESS, payload: updatedUserInfo })
   };
 
   return (

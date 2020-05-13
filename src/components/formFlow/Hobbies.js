@@ -139,14 +139,17 @@ function Hobbies(props) {
   const classes = useStyles();
 
   const nextPage = (event) => {
-    event.preventDefault();
-    props.addHobby(info);
+    if (info.hobby.length > 0) {
+      props.addHobby(info);
+    }
     props.history.push("/form/review");
   };
 
-  const anotherSkill = (event) => {
+  const anotherHobby = (event) => {
     event.preventDefault();
-    props.addHobby(info);
+    if (info.hobby.length > 0) {
+      props.addHobby(info);
+    }
     setInfo({
       id: Date.now(),
       hobby: "",
@@ -156,6 +159,12 @@ function Hobbies(props) {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
     console.log(info);
+  };
+
+  const handleDelete = (hobbyToDelete) => (event) => {
+    event.preventDefault();
+
+    setInfo({ ...info });
   };
 
   return (
@@ -178,7 +187,7 @@ function Hobbies(props) {
             <Typography component="h1" variant="h5">
               What Are Some Of Your Hobbies?
             </Typography>
-            <form className={classes.form} onSubmit={nextPage}>
+            <form className={classes.form} onSubmit={anotherHobby}>
               <Grid className={classes.formContainer} fullWidth>
                 <TextField
                   variant="outlined"
@@ -195,7 +204,7 @@ function Hobbies(props) {
                   fullWidth
                   className={classes.addIcon}
                   color="primary"
-                  onClick={anotherSkill}
+                  onClick={anotherHobby}
                 />
               </Grid>
 
@@ -213,7 +222,11 @@ function Hobbies(props) {
                   {props.resumeData.hobbies.map((data) => {
                     return (
                       <li key={data.id}>
-                        <Chip label={data.hobby} className={classes.chip} />
+                        <Chip
+                          label={data.hobby}
+                          onDelete={handleDelete(data)}
+                          className={classes.chip}
+                        />
                       </li>
                     );
                   })}
@@ -223,7 +236,8 @@ function Hobbies(props) {
               <Grid className={classes.buttonContainer}>
                 <Button
                   fullWidth
-                  variant="contained"
+                  type="button"
+                  variant="outlined"
                   color="primary"
                   className={classes.previousButton}
                   onClick={() => {
@@ -233,11 +247,14 @@ function Hobbies(props) {
                   Previous Form
                 </Button>
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.nextButton}
+                  onClick={() => {
+                    nextPage();
+                  }}
                 >
                   Review
                 </Button>
