@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import "../formStyles/reviewForm.css";
 
-//Actions
-
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 

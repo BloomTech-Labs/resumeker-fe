@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addProjectData } from "../../actions/resumeFormActions.js";
+import { addProjectData, updateProjectData } from "../../actions/resumeFormActions.js";
+import ProjectCard from "./reviewForm/projectCard"
 
 import {
   Avatar,
@@ -253,6 +254,20 @@ function PersonalProjects(props) {
                 </Button>
               </Grid>
             </form>
+
+            {props.resumeData.projects.length ? (
+              props.resumeData.projects.map((project) => (
+                <div key={project.id}>
+                  <ProjectCard
+                    projects={project}
+                    updateProjectData={props.updateProjectData}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>Here you can see your added jobs</p>
+            )}
+
           </div>
         </Grid>
       </Grid>
@@ -268,4 +283,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addProjectData })(PersonalProjects);
+export default connect(mapStateToProps, { addProjectData, updateProjectData })(PersonalProjects);

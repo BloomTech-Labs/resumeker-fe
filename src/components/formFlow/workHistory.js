@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addWorkData } from "../../actions/resumeFormActions.js";
+import { addWorkData, updateWorkData } from "../../actions/resumeFormActions.js";
+
+import JobHistoryCard from "./reviewForm/jobHistoryCard"
 
 import {
   Avatar,
@@ -239,15 +241,11 @@ function WorkHistory(props) {
                 </Button>
               </Grid>
             </form>
-            {/* !!!!!!! Change later for the component with jobs */}
+
             {props.resumeData.jobs.length ? (
               props.resumeData.jobs.map((job) => (
                 <div key={job.id}>
-                  <p>{job.jobTitle}</p>
-                  <p>{job.companyName}</p>
-                  <p>{job.startYear}</p>
-                  <p>{job.endYear}</p>
-                  <p>{job.jobDescription}</p>
+                  <JobHistoryCard job={job} updateWorkData={props.updateWorkData} />
                 </div>
               ))
             ) : (
@@ -268,4 +266,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData })(WorkHistory);
+export default connect(mapStateToProps, { addWorkData, updateWorkData })(WorkHistory);
