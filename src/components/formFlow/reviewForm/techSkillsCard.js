@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
 
@@ -10,14 +9,9 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import {
   CardContent,
-  Card,
   makeStyles,
   TextField,
   Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TechSkillsCard(props) {
-  const [edit, setEdit] = useState(false);
+  // const [edit, setEdit] = useState(false);
 
   const [info, setInfo] = useState({
     skill: `${props.techSkills.skill}`,
@@ -64,7 +58,7 @@ function TechSkillsCard(props) {
   const saveInfo = (event) => {
     event.preventDefault();
     props.updateTechSkillsData(info);
-    setEdit(false);
+    // setEdit(false);
   };
 
   const onChange = (event) => {
@@ -74,7 +68,7 @@ function TechSkillsCard(props) {
 
   const classes = useStyles();
 
-  if (edit) {
+  // if (edit) {
     return (
       <CardContent>
         <form onSubmit={saveInfo}>
@@ -102,18 +96,18 @@ function TechSkillsCard(props) {
         </form>
       </CardContent>
     );
-  } else {
+  // } else {
     return (
       <CardContent className={classes.cardContent}>
         <p>
           {info.skill}{" "}
-          <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
+          {/* <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
-          </EditIcon>
+          </EditIcon> */}
         </p>
       </CardContent>
     );
-  }
+  // }
 }
 
 export default TechSkillsCard;

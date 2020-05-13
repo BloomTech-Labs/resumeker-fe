@@ -235,13 +235,10 @@ function GeneralSkills(props) {
                           onDelete={handleDelete(data)}
                           className={classes.chip}
                         />
-<<<<<<< HEAD
                       </li>
                     );
                   })}
-                </Paper>
-              </Grid>
-=======
+
                         {props.resumeData.generalSkills.map((data) => {
 
                             return (
@@ -279,7 +276,6 @@ function GeneralSkills(props) {
                       </Button>
                     </Grid>
                     
->>>>>>> bae8742d9b9c8e4d043fd84ef0570ec46433a302
 
               <Grid className={classes.buttonContainer}>
                 <Button
