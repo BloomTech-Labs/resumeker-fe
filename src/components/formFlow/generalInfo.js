@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
@@ -10,13 +10,11 @@ import {
   CssBaseline,
   TextField,
   Paper,
-  Box,
   Grid,
   Typography,
   makeStyles,
 } from "@material-ui/core";
 import DescriptionIcon from "@material-ui/icons/Description";
-import { blue } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {

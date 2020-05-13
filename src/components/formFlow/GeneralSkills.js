@@ -16,10 +16,6 @@ import {
   Grid,
   Typography,
   makeStyles,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Chip,
 } from "@material-ui/core";
 
@@ -238,6 +234,7 @@ function GeneralSkills(props) {
                       </li>
                     );
                   })}
+<<<<<<< HEAD
 
                         {props.resumeData.generalSkills.map((data) => {
 
@@ -276,6 +273,10 @@ function GeneralSkills(props) {
                       </Button>
                     </Grid>
                     
+=======
+                </Paper>
+              </Grid>
+>>>>>>> 57fb7fbf308f69206f53667403fd79697052b254
 
               <Grid className={classes.buttonContainer}>
                 <Button

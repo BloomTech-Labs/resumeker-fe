@@ -7,12 +7,16 @@ import "../formStyles/reviewForm.css";
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
+<<<<<<< HEAD
 import {
   CardContent,
   makeStyles,
   TextField,
   Button,
 } from "@material-ui/core";
+=======
+import { CardContent, makeStyles, TextField, Button } from "@material-ui/core";
+>>>>>>> 57fb7fbf308f69206f53667403fd79697052b254
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -72,25 +76,25 @@ function TechSkillsCard(props) {
     return (
       <CardContent>
         <form onSubmit={saveInfo}>
-            <TextField
+          <TextField
             variant="outlined"
             margin="normal"
-            className = {classes.skillTextField}
+            className={classes.skillTextField}
             required
             fullWidth
             name="skill"
             label="Tech Skill"
             id="skill"
             onChange={onChange}
-            value = {info.skill}
-            />
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
+            value={info.skill}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
             Save
           </Button>
         </form>

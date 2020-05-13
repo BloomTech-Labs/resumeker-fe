@@ -11,8 +11,9 @@ import ProjectsComponent from "./projectComponent";
 import TechSkillsComponent from "./techSkillsComponent";
 import GeneralSkillsComponent from "./generalSkillsComponent";
 import LanguageComponent from "./languageComponent";
-import HobbyComponent from "./hobbyComponent"
+import HobbyComponent from "./hobbyComponent";
 
+<<<<<<< HEAD
 
 import {
   Avatar,
@@ -21,6 +22,9 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+=======
+import { Avatar, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
+>>>>>>> 57fb7fbf308f69206f53667403fd79697052b254
 
 import DescriptionIcon from "@material-ui/icons/Description";
 
