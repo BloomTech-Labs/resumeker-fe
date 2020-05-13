@@ -177,11 +177,6 @@ function TechSkillsComponent(props) {
                   square="true"
                   className={classes.chipContainer}
                 >
-                  <Chip
-                    label="Your Skills:"
-                    className={classes.chip}
-                    color="primary"
-                  />
                   {props.resumeData.techSkills.map((data) => {
                     return (
                       <li key={data.id}>

@@ -7,16 +7,7 @@ import "../formStyles/reviewForm.css";
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
-<<<<<<< HEAD
-import {
-  CardContent,
-  makeStyles,
-  TextField,
-  Button,
-} from "@material-ui/core";
-=======
 import { CardContent, makeStyles, TextField, Button } from "@material-ui/core";
->>>>>>> 57fb7fbf308f69206f53667403fd79697052b254
 
 const useStyles = makeStyles((theme) => ({
   avatar: {

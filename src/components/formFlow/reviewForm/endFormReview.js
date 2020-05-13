@@ -13,18 +13,7 @@ import GeneralSkillsComponent from "./generalSkillsComponent";
 import LanguageComponent from "./languageComponent";
 import HobbyComponent from "./hobbyComponent";
 
-<<<<<<< HEAD
-
-import {
-  Avatar,
-  Paper,
-  Grid,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
-=======
 import { Avatar, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
->>>>>>> 57fb7fbf308f69206f53667403fd79697052b254
 
 import DescriptionIcon from "@material-ui/icons/Description";
 
