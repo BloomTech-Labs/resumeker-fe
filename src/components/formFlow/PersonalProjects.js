@@ -128,7 +128,6 @@ function PersonalProjects(props) {
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
-    console.log(info);
   };
 
   return (

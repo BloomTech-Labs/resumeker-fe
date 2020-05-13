@@ -189,7 +189,7 @@ function TechSkills(props) {
             <Typography component="h1" variant="h5">
               Tell us about some of the technical skills that you possess!
             </Typography>
-            <Typography color="grey" component="h5" variant="h7">
+            <Typography color="textSecondary" component="h5" variant="subtitle2">
               (CSS, HTML, JS, React, Redux, JAVA, NodeJS, GraphQL, Express,
               Postgres, SQLite, Knex,etc)
             </Typography>

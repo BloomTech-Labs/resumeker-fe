@@ -190,7 +190,7 @@ function GeneralSkills(props) {
               Tell us about some of your other skills that didn't quite make it
               into the technical section!
             </Typography>
-            <Typography color="grey" component="h5" variant="h7">
+            <Typography color="textSecondary" component="h5" variant="subtitle2">
               (Time Management, Critical Thinking, Teamwork, Problem Solving,
               Comunication, etc)
             </Typography>
@@ -251,30 +251,7 @@ function GeneralSkills(props) {
                             );
                         })}
                       </Paper>                      
-                    </Grid>
-                    
-
-                    <Grid className={classes.buttonContainer}>
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.previousButton}
-                        onClick={() => {props.history.push("/form/techskills")}}
-                      >
-                        Previous Form
-                      </Button>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.nextButton}
-                      >
-                        Next Form
-                      </Button>
-                    </Grid>
-                    
+                    </Grid>   
 
               <Grid className={classes.buttonContainer}>
                 <Button
