@@ -217,9 +217,9 @@ function WorkHistory(props) {
               </Button>
               <Grid className={classes.buttonContainer}>
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   className={classes.previousButton}
                   onClick={() => {

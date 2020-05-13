@@ -232,10 +232,10 @@ function PersonalProjects(props) {
               </Button>
               <Grid className={classes.buttonContainer}>
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
-                  variant="contained"
-                  color="secondary"
+                  variant="outlined"
+                  color="primary"
                   className={classes.previousButton}
                   onClick={() => {
                     props.history.push("/form/work");

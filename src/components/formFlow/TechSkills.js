@@ -142,7 +142,6 @@ function TechSkills(props) {
   const classes = useStyles();
 
   const nextPage = (event) => {
-    // event.preventDefault();
     if (info.skill.length > 0) {
       props.addTechSkill(info);
     }
@@ -171,7 +170,7 @@ function TechSkills(props) {
   };
 
   return (
-    <div>
+    <Grid>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={3} className={classes.image}>
@@ -186,7 +185,7 @@ function TechSkills(props) {
           <Grid item className={classes.tips}></Grid>
         </Grid>
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
+          <Grid className={classes.paper}>
             <Typography component="h1" variant="h5">
               Tell us about some of the technical skills that you possess!
             </Typography>
@@ -244,7 +243,7 @@ function TechSkills(props) {
                 <Button
                   type="button"
                   fullWidth
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   className={classes.previousButton}
                   onClick={() => {
@@ -267,11 +266,11 @@ function TechSkills(props) {
                 </Button>
               </Grid>
             </form>
-          </div>
+          </Grid>
         </Grid>
       </Grid>
       <button onClick={() => nextPage()}>Next Page</button>
-    </div>
+    </Grid>
   );
 }
 

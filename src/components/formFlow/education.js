@@ -238,7 +238,7 @@ function Education(props) {
                 <Button
                   type="submit"
                   fullWidth
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   className={classes.previousButton}
                   onClick={() => {

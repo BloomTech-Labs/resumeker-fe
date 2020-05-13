@@ -142,14 +142,17 @@ function GeneralSkills(props) {
   const classes = useStyles();
 
   const nextPage = (event) => {
-    event.preventDefault();
-    props.addGeneralSkill(info);
+    if (info.skill.length > 0) {
+      props.addGeneralSkill(info);
+    }
     props.history.push("/form/languages");
   };
 
   const anotherSkill = (event) => {
     event.preventDefault();
-    props.addGeneralSkill(info);
+    if (info.skill.length > 0) {
+      props.addGeneralSkill(info);
+    }
     setInfo({
       id: Date.now(),
       skill: "",
@@ -191,7 +194,7 @@ function GeneralSkills(props) {
               (Time Management, Critical Thinking, Teamwork, Problem Solving,
               Comunication, etc)
             </Typography>
-            <form className={classes.form} onSubmit={nextPage}>
+            <form className={classes.form} onSubmit={anotherSkill}>
               <Grid className={classes.formContainer} fullWidth>
                 <TextField
                   variant="outlined"
@@ -275,9 +278,9 @@ function GeneralSkills(props) {
 
               <Grid className={classes.buttonContainer}>
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   className={classes.previousButton}
                   onClick={() => {
@@ -287,11 +290,14 @@ function GeneralSkills(props) {
                   Previous Form
                 </Button>
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.nextButton}
+                  onClick={() => {
+                    nextPage();
+                  }}
                 >
                   Next Form
                 </Button>

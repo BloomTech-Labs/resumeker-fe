@@ -62,6 +62,9 @@ export const resumeFormConstants = {
   FORM_UPDATE_LANGUAGE_DATA_REQUEST: "FORM_UPDATE_LANGUAGE_DATA_REQUEST",
   FORM_UPDATE_LANGUAGE_DATA_SUCCESS: "FORM_UPDATE_LANGUAGE_DATA_SUCCESS",
 
+  FORM_DELETE_LANGUAGE_DATA_REQUEST: "FORM_DELETE_LANGUAGE_DATA_REQUEST",
+  FORM_DELETE_LANGUAGE_DATA_SUCCESS: "FORM_DELETE_LANGUAGE_DATA_SUCCESS",
+
   FORM_UPDATE_HOBBY_DATA_REQUEST: "FORM_UPDATE_HOBBY_DATA_REQUEST",
   FORM_UPDATE_HOBBY_DATA_SUCCESS: "FORM_UPDATE_HOBBY_DATA_SUCCESS",
 };
@@ -229,6 +232,14 @@ export const updateLanguageData = (languageData) => (dispatch) => {
   dispatch({ type: resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_REQUEST });
   dispatch({
     type: resumeFormConstants.FORM_UPDATE_LANGUAGE_DATA_SUCCESS,
+    payload: languageData,
+  });
+};
+
+export const removeLanguageData = (languageData) => (dispatch) => {
+  dispatch({ type: resumeFormConstants.FORM_DELETE_LANGUAGE_DATA_REQUEST });
+  dispatch({
+    type: resumeFormConstants.FORM_DELETE_LANGUAGE_DATA_SUCCESS,
     payload: languageData,
   });
 };
