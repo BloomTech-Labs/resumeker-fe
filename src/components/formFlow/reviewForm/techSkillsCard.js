@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
 
@@ -8,17 +7,7 @@ import "../formStyles/reviewForm.css";
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
-import {
-  CardContent,
-  Card,
-  makeStyles,
-  TextField,
-  Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@material-ui/core";
+import { CardContent, makeStyles, TextField, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -78,25 +67,25 @@ function TechSkillsCard(props) {
     return (
       <CardContent>
         <form onSubmit={saveInfo}>
-            <TextField
+          <TextField
             variant="outlined"
             margin="normal"
-            className = {classes.skillTextField}
+            className={classes.skillTextField}
             required
             fullWidth
             name="skill"
             label="Tech Skill"
             id="skill"
             onChange={onChange}
-            value = {info.skill}
-            />
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
+            value={info.skill}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
             Save
           </Button>
         </form>

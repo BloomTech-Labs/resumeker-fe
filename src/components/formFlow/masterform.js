@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 //Components import
@@ -16,7 +16,7 @@ import Hobbies from "./Hobbies";
 // import
 
 function MasterForm() {
-  const { path, url } = useRouteMatch();
+  const { url } = useRouteMatch();
 
   return (
     <div>

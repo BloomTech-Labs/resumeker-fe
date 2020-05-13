@@ -13,14 +13,9 @@ import {
   Grid,
   Typography,
   makeStyles,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
 } from "@material-ui/core";
 
 import DescriptionIcon from "@material-ui/icons/Description";
-import { resetApolloContext } from "@apollo/react-hooks";
 // import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -82,18 +77,18 @@ const useStyles = makeStyles((theme) => ({
   },
   previousButton: {
     margin: theme.spacing(3, 0, 2),
-    width: "49%"
+    width: "49%",
   },
   nextButton: {
     margin: theme.spacing(3, 0, 2),
     width: "49%",
-    height: "3.5rem" 
+    height: "3.5rem",
   },
-  buttonContainer:{
+  buttonContainer: {
     width: "100%",
-    display:'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
 }));
 
@@ -227,7 +222,9 @@ function WorkHistory(props) {
                   variant="contained"
                   color="primary"
                   className={classes.previousButton}
-                  onClick={() => {props.history.push("/form/education")}}
+                  onClick={() => {
+                    props.history.push("/form/education");
+                  }}
                 >
                   Previous Form
                 </Button>

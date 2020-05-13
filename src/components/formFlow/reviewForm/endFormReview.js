@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
 
 import "../formStyles/reviewForm.css";
 
@@ -12,26 +11,9 @@ import ProjectsComponent from "./projectComponent";
 import TechSkillsComponent from "./techSkillsComponent";
 import GeneralSkillsComponent from "./generalSkillsComponent";
 import LanguageComponent from "./languageComponent";
-import HobbyComponent from "./hobbyComponent"
+import HobbyComponent from "./hobbyComponent";
 
-
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  Paper,
-  Grid,
-  Typography,
-  makeStyles,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Card,
-  CardContent,
-  CardActions,
-} from "@material-ui/core";
+import { Avatar, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
 
 import DescriptionIcon from "@material-ui/icons/Description";
 

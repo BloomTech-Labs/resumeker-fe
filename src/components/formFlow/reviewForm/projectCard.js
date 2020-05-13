@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
 
@@ -8,17 +7,7 @@ import "../formStyles/reviewForm.css";
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
-import {
-  CardContent,
-  Card,
-  makeStyles,
-  TextField,
-  Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@material-ui/core";
+import { CardContent, makeStyles, TextField, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -79,83 +68,83 @@ function ProjectCard(props) {
     return (
       <CardContent>
         <form onSubmit={saveInfo}>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="projectName"
-                label="Name of the Project"
-                id="projectName"
-                onChange={onChange}
-                value = {info.projectName}
-            />
-            <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="projectStartDate"
-                type="date"
-                label="Starting Date (Optional)"
-                id="projectStartDate"
-                InputLabelProps={{
-                shrink: true,
-                }}
-                onChange={onChange}
-                value = {info.projectStartDate}
-            />
-            <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                type= "date"
-                name="projectEndDate"
-                label="End Date (Optional)"
-                id="projectEndDate"
-                InputLabelProps={{
-                shrink: true,
-                }}
-                onChange={onChange}
-                value = {info.projectEndDate}
-            />
-            <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="role"
-                label="Role"
-                id="role"
-                onChange={onChange}
-                value = {info.role}
-            />
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="roleDescription"
-                label="Role Description"
-                id="roleDescription"
-                onChange={onChange}
-                value = {info.roleDescription}
-            />
-            <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="link"
-                label="Link to Project"
-                id="link"
-                onChange={onChange}
-                value = {info.link}
-            />
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="projectName"
+            label="Name of the Project"
+            id="projectName"
+            onChange={onChange}
+            value={info.projectName}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            name="projectStartDate"
+            type="date"
+            label="Starting Date (Optional)"
+            id="projectStartDate"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={onChange}
+            value={info.projectStartDate}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            type="date"
+            name="projectEndDate"
+            label="End Date (Optional)"
+            id="projectEndDate"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={onChange}
+            value={info.projectEndDate}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            name="role"
+            label="Role"
+            id="role"
+            onChange={onChange}
+            value={info.role}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="roleDescription"
+            label="Role Description"
+            id="roleDescription"
+            onChange={onChange}
+            value={info.roleDescription}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            name="link"
+            label="Link to Project"
+            id="link"
+            onChange={onChange}
+            value={info.link}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
             Save
           </Button>
         </form>
