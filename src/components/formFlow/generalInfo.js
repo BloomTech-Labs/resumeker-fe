@@ -4,13 +4,15 @@ import { connect } from "react-redux";
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
+// import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
+
 import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
   Paper,
   Grid,
+  TextField,
   Typography,
   makeStyles,
 } from "@material-ui/core";
@@ -101,6 +103,7 @@ function GeneralInfo(props) {
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
+              {/* <GeneralInfoFormTemplate fullWidth onChange={onChange} info={info} /> */}
               <TextField
                 className={classes.textField}
                 variant="outlined"
