@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addEducationData } from "../../actions/resumeFormActions.js";
+import { addEducationData, updateEducationData } from "../../actions/resumeFormActions.js";
+
+import EducationCard from "./reviewForm/educationCard"
 
 import {
   Avatar,
@@ -259,15 +261,13 @@ function Education(props) {
               </Grid>
             </form>
 
-            {/* !!!!!!! Change later for the component with education */}
             {props.resumeData.education.length ? (
               props.resumeData.education.map((education) => (
                 <div key={education.id}>
-                  <p>{education.type}</p>
-                  <p>{education.schoolName}</p>
-                  <p>{education.yearIn}</p>
-                  <p>{education.yearOut}</p>
-                  <p>{education.certificateName}</p>
+                  <EducationCard
+                    education={education}
+                    updateEducationData={props.updateEducationData}
+                  />
                 </div>
               ))
             ) : (
@@ -288,4 +288,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addEducationData })(Education);
+export default connect(mapStateToProps, { addEducationData, updateEducationData })(Education);
