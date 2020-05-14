@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addEducationData } from "../../actions/resumeFormActions.js";
+import { addEducationData, updateEducationData } from "../../actions/resumeFormActions.js";
+
+import EducationCard from "./reviewForm/educationCard"
+
+import EducationFormTemplate from "./formsTemplate/educationFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout" 
 
 import {
   Avatar,
@@ -137,93 +142,11 @@ function Education(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              <FormControl className={classes.selectorForm}>
-                <InputLabel
-                  data-testid="label"
-                  className={classes.selectorText}
-                  id="type"
-                >
-                  Education
-                </InputLabel>
-                <Select
-                  className={classes.textField}
-                  variant="outlined"
-                  fullWidth
-                  id="type"
-                  label="Education"
-                  name="type"
-                  autoFocus
-                  onChange={onChange}
-                  value={info.type}
-                >
-                  <MenuItem value={"College"}>College</MenuItem>
-                  <MenuItem value={"University"}>University</MenuItem>
-                  <MenuItem value={"Certification"}>Certification</MenuItem>
-                  <MenuItem value={"Course"}>Course</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="schoolName"
-                label="Name of the school"
-                id="schoolName"
-                onChange={onChange}
-                value={info.schoolName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="yearIn"
-                type="date"
-                label="School Starting Date"
-                id="yearIn"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.yearIn}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                type="date"
-                name="yearOut"
-                label="Finishing School"
-                id="yearOut"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.yearOut}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="certificateName"
-                label="Name of the certificate"
-                id="certificateName"
-                onChange={onChange}
-                value={info.certificateName}
-              />
+              <EducationFormTemplate info={info} onChange={onChange} />
               <Button
                 type="submit"
                 fullWidth
@@ -259,15 +182,13 @@ function Education(props) {
               </Grid>
             </form>
 
-            {/* !!!!!!! Change later for the component with education */}
             {props.resumeData.education.length ? (
               props.resumeData.education.map((education) => (
                 <div key={education.id}>
-                  <p>{education.type}</p>
-                  <p>{education.schoolName}</p>
-                  <p>{education.yearIn}</p>
-                  <p>{education.yearOut}</p>
-                  <p>{education.certificateName}</p>
+                  <EducationCard
+                    education={education}
+                    updateEducationData={props.updateEducationData}
+                  />
                 </div>
               ))
             ) : (
@@ -288,4 +209,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addEducationData })(Education);
+export default connect(mapStateToProps, { addEducationData, updateEducationData })(Education);

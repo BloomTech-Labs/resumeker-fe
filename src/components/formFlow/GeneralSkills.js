@@ -7,6 +7,9 @@ import {
   removeGeneralSkill,
 } from "../../actions/resumeFormActions.js";
 
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
+
 import {
   Avatar,
   Button,
@@ -173,48 +176,19 @@ function GeneralSkills(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               Tell us about some of your other skills that didn't quite make it
               into the technical section!
             </Typography>
-            <Typography color="grey" component="h5" variant="h7">
+            <Typography color="textSecondary" component="h5" variant="subtitle2">
               (Time Management, Critical Thinking, Teamwork, Problem Solving,
               Comunication, etc)
             </Typography>
             <form className={classes.form} onSubmit={anotherSkill}>
-              <Grid className={classes.formContainer} fullWidth>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  className={classes.skillTextField}
-                  fullWidth
-                  name="skill"
-                  label="General Skill"
-                  id="skill"
-                  onChange={onChange}
-                  value={info.skill}
-                />
-                <AddBoxIcon
-                  fullWidth
-                  className={classes.addIcon}
-                  color="primary"
-                  onClick={anotherSkill}
-                />
-              </Grid>
-
+            <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="General Skill" />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"
@@ -237,8 +211,8 @@ function GeneralSkills(props) {
                       </li>
                     );
                   })}
-                </Paper>
-              </Grid>
+                </Paper>                      
+              </Grid>   
 
               <Grid className={classes.buttonContainer}>
                 <Button

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addProjectData } from "../../actions/resumeFormActions.js";
+import { addProjectData, updateProjectData } from "../../actions/resumeFormActions.js";
+import ProjectCard from "./reviewForm/projectCard"
+import ProjectsFormTemplate from "./formsTemplate/projectsFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
 
 import {
   Avatar,
@@ -128,98 +131,17 @@ function PersonalProjects(props) {
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
-    console.log(info);
   };
 
   return (
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="projectName"
-                label="Name of the Project"
-                id="projectName"
-                onChange={onChange}
-                value={info.projectName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="projectStartDate"
-                type="date"
-                label="Starting Date (Optional)"
-                id="projectStartDate"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.projectStartDate}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                type="date"
-                name="projectEndDate"
-                label="End Date (Optional)"
-                id="projectEndDate"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.projectEndDate}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="role"
-                label="Role"
-                id="role"
-                onChange={onChange}
-                value={info.role}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="roleDescription"
-                label="Role Description"
-                id="roleDescription"
-                onChange={onChange}
-                value={info.roleDescription}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="link"
-                label="Link to Project"
-                id="link"
-                onChange={onChange}
-                value={info.link}
-              />
-
+              <ProjectsFormTemplate info={info} onChange={onChange} />
               <Button
                 type="submit"
                 fullWidth
@@ -254,6 +176,20 @@ function PersonalProjects(props) {
                 </Button>
               </Grid>
             </form>
+
+            {props.resumeData.projects.length ? (
+              props.resumeData.projects.map((project) => (
+                <div key={project.id}>
+                  <ProjectCard
+                    projects={project}
+                    updateProjectData={props.updateProjectData}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>Here you can see your added jobs</p>
+            )}
+
           </div>
         </Grid>
       </Grid>
@@ -269,4 +205,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addProjectData })(PersonalProjects);
+export default connect(mapStateToProps, { addProjectData, updateProjectData })(PersonalProjects);

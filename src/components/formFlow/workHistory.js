@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addWorkData } from "../../actions/resumeFormActions.js";
+import { addWorkData, updateWorkData } from "../../actions/resumeFormActions.js";
+
+import JobHistoryCard from "./reviewForm/jobHistoryCard"
+
+import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
 
 import {
   Avatar,
@@ -133,78 +138,11 @@ function WorkHistory(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form id="workForm" className={classes.form} onSubmit={nextPage}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="jobTitle"
-                label="Job Title"
-                id="jobTitle"
-                onChange={onChange}
-                value={info.jobTitle}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="companyName"
-                label="Name of the company"
-                id="companyName"
-                onChange={onChange}
-                value={info.companyName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                type="date"
-                name="startYear"
-                label="Starting Date"
-                id="startYear"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.startYear}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="endYear"
-                label="End Date"
-                type="date"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                id="endYear"
-                onChange={onChange}
-                value={info.endYear}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="jobDescription"
-                label="Job Description"
-                id="jobDescription"
-                onChange={onChange}
-                value={info.jobDescription}
-              />
+              <WorkHistoryFormTemplate info={info} onChange={onChange} />
               <Button
                 type="reset"
                 fullWidth
@@ -239,15 +177,11 @@ function WorkHistory(props) {
                 </Button>
               </Grid>
             </form>
-            {/* !!!!!!! Change later for the component with jobs */}
+
             {props.resumeData.jobs.length ? (
               props.resumeData.jobs.map((job) => (
                 <div key={job.id}>
-                  <p>{job.jobTitle}</p>
-                  <p>{job.companyName}</p>
-                  <p>{job.startYear}</p>
-                  <p>{job.endYear}</p>
-                  <p>{job.jobDescription}</p>
+                  <JobHistoryCard job={job} updateWorkData={props.updateWorkData} />
                 </div>
               ))
             ) : (
@@ -268,4 +202,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData })(WorkHistory);
+export default connect(mapStateToProps, { addWorkData, updateWorkData })(WorkHistory);

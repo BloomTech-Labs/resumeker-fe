@@ -7,6 +7,9 @@ import {
   removeLanguageData,
 } from "../../actions/resumeFormActions.js";
 
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
+
 import {
   Avatar,
   Button,
@@ -127,9 +130,6 @@ const useStyles = makeStyles((theme) => ({
   addIcon: {
     width: "auto",
     height: "75%",
-    // marginBottom: "2px",
-    // margin: "0",
-    // padding: "4px"
   },
 }));
 
@@ -173,42 +173,14 @@ function Languages(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               What Languages Do You Speak?
             </Typography>
             <form className={classes.form} onSubmit={anotherLanguage}>
-              <Grid className={classes.formContainer} fullWidth>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  className={classes.languageTextField}
-                  fullWidth
-                  name="language"
-                  label="Language"
-                  id="language"
-                  onChange={onChange}
-                  value={info.language}
-                />
-                <AddBoxIcon
-                  className={classes.addIcon}
-                  color="primary"
-                  onClick={anotherLanguage}
-                />
-              </Grid>
-
+            <SingleFieldFormTemplate onChange={onChange} info={info.language} anotherOne={anotherLanguage} name="language" label="Language" />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"

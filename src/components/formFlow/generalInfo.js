@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
+import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
+
 import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
   Paper,
   Grid,
   Typography,
@@ -81,62 +83,17 @@ function GeneralInfo(props) {
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
-    console.log(info);
   };
 
   return (
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              <TextField
-                className={classes.textField}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required={true}
-                id="firstName"
-                label="First Name"
-                name="firstName"
-                autoFocus
-                onChange={onChange}
-                value={info.firstName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required
-                name="lastName"
-                label="Last Name"
-                id="lastName"
-                onChange={onChange}
-                value={info.lastName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="email"
-                label="Email"
-                id="email"
-                onChange={onChange}
-                value={info.email}
-              />
+              <GeneralInfoFormTemplate  onChange={onChange} info={info} />
               <Button
                 type="submit"
                 fullWidth
