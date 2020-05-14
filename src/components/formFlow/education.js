@@ -7,6 +7,7 @@ import { addEducationData, updateEducationData } from "../../actions/resumeFormA
 import EducationCard from "./reviewForm/educationCard"
 
 import EducationFormTemplate from "./formsTemplate/educationFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout" 
 
 import {
   Avatar,
@@ -141,17 +142,7 @@ function Education(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>

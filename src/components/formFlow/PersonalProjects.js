@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { addProjectData, updateProjectData } from "../../actions/resumeFormActions.js";
 import ProjectCard from "./reviewForm/projectCard"
 import ProjectsFormTemplate from "./formsTemplate/projectsFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
 
 import {
   Avatar,
@@ -136,17 +137,7 @@ function PersonalProjects(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
