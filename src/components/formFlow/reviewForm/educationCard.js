@@ -10,40 +10,17 @@ import EducationFormTemplate from "../formsTemplate/educationFormTemplate"
 import {
   CardContent,
   makeStyles,
-  TextField,
   Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  textField: {
-    textAlign: "center",
-  },
-  selectorForm: {
-    width: "100%", // Fix IE 11 issue.
-    // marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  selectorText: {
-    display: "flex",
-    flexDirection: "column",
-    marginLeft: "1rem",
-    marginBottom: "100px",
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 

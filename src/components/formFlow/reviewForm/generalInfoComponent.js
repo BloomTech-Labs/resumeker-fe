@@ -15,23 +15,17 @@ import {
   CardContent,
   Card,
   makeStyles,
-  TextField,
   Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  textField: {
-    textAlign: "center",
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
