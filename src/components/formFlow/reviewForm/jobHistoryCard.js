@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "../formStyles/reviewForm.css";
 
-//Actions
+import WorkHistoryFormTemplate from "../formsTemplate/workHistoryFormTemplate"
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
@@ -67,64 +67,7 @@ function JobHistoryCard(props) {
     return (
       <CardContent>
         <form onSubmit={saveInfo}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="jobTitle"
-            label="Job Title"
-            id="jobTitle"
-            onChange={onChange}
-            value={info.jobTitle}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="companyName"
-            label="Name of the company"
-            id="companyName"
-            onChange={onChange}
-            value={info.companyName}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            type="date"
-            name="startYear"
-            label="Starting Date"
-            id="startYear"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={onChange}
-            value={info.startYear}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="endYear"
-            label="End Date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="endYear"
-            onChange={onChange}
-            value={info.endYear}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="jobDescription"
-            label="Job Description"
-            id="jobDescription"
-            onChange={onChange}
-            value={info.jobDescription}
-          />
+          <WorkHistoryFormTemplate info={info} onChange={onChange} />
           <Button
             type="submit"
             fullWidth

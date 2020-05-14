@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
 
+import GeneralInfoFormTemplate from "../formsTemplate/generalInfoFormTemplate"
+
 //Actions
 import { addData } from "../../../actions/resumeFormActions.js";
 
@@ -67,41 +69,7 @@ function GeneralInfoComponent(props) {
         </h1>
         <CardContent>
           <form onSubmit={saveInfo}>
-            <TextField
-              className={classes.textField}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required={true}
-              id="firstName"
-              label="First Name"
-              name="firstName"
-              autoFocus
-              onChange={onChange}
-              value={info.firstName}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required
-              name="lastName"
-              label="Last Name"
-              id="lastName"
-              onChange={onChange}
-              value={info.lastName}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="email"
-              label="Email"
-              id="email"
-              onChange={onChange}
-              value={info.email}
-            />
+            <GeneralInfoFormTemplate  onChange={onChange} info={info} />
             <Button
               type="submit"
               fullWidth

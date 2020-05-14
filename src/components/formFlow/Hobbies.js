@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 //Actions
 import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
 
 import {
   Avatar,
@@ -187,25 +188,7 @@ function Hobbies(props) {
               What Are Some Of Your Hobbies?
             </Typography>
             <form className={classes.form} onSubmit={anotherHobby}>
-              <Grid className={classes.formContainer} fullWidth>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  className={classes.hobbyTextField}
-                  fullWidth
-                  name="hobby"
-                  label="Your Hobbies"
-                  id="hobby"
-                  onChange={onChange}
-                  value={info.hobby}
-                />
-                <AddBoxIcon
-                  fullWidth
-                  className={classes.addIcon}
-                  color="primary"
-                  onClick={anotherHobby}
-                />
-              </Grid>
+            <SingleFieldFormTemplate onChange={onChange} info={info.hobby} anotherOne={anotherHobby} name="hobby" label="Your Hobbies" />
 
               <Grid className={classes.skillContainer}>
                 <Paper

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 //Actions
 import { addProjectData, updateProjectData } from "../../actions/resumeFormActions.js";
 import ProjectCard from "./reviewForm/projectCard"
+import ProjectsFormTemplate from "./formsTemplate/projectsFormTemplate"
 
 import {
   Avatar,
@@ -149,77 +150,7 @@ function PersonalProjects(props) {
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="projectName"
-                label="Name of the Project"
-                id="projectName"
-                onChange={onChange}
-                value={info.projectName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="projectStartDate"
-                type="date"
-                label="Starting Date (Optional)"
-                id="projectStartDate"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.projectStartDate}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                type="date"
-                name="projectEndDate"
-                label="End Date (Optional)"
-                id="projectEndDate"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.projectEndDate}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="role"
-                label="Role"
-                id="role"
-                onChange={onChange}
-                value={info.role}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="roleDescription"
-                label="Role Description"
-                id="roleDescription"
-                onChange={onChange}
-                value={info.roleDescription}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="link"
-                label="Link to Project"
-                id="link"
-                onChange={onChange}
-                value={info.link}
-              />
-
+              <ProjectsFormTemplate info={info} onChange={onChange} />
               <Button
                 type="submit"
                 fullWidth

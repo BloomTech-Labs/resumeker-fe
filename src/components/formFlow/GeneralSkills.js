@@ -7,6 +7,8 @@ import {
   removeGeneralSkill,
 } from "../../actions/resumeFormActions.js";
 
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
+
 import {
   Avatar,
   Button,
@@ -195,26 +197,7 @@ function GeneralSkills(props) {
               Comunication, etc)
             </Typography>
             <form className={classes.form} onSubmit={anotherSkill}>
-              <Grid className={classes.formContainer} fullWidth>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  className={classes.skillTextField}
-                  fullWidth
-                  name="skill"
-                  label="General Skill"
-                  id="skill"
-                  onChange={onChange}
-                  value={info.skill}
-                />
-                <AddBoxIcon
-                  fullWidth
-                  className={classes.addIcon}
-                  color="primary"
-                  onClick={anotherSkill}
-                />
-              </Grid>
-
+            <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="General Skill" />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"
@@ -237,21 +220,8 @@ function GeneralSkills(props) {
                       </li>
                     );
                   })}
-
-                        {props.resumeData.generalSkills.map((data) => {
-
-                            return (
-                            <li key={data.id}>
-                                <Chip
-                                label={data.skill}
-                                onDelete={handleDelete(data)}
-                                className={classes.chip}
-                                />
-                            </li>
-                            );
-                        })}
-                      </Paper>                      
-                    </Grid>   
+                </Paper>                      
+              </Grid>   
 
               <Grid className={classes.buttonContainer}>
                 <Button

@@ -7,6 +7,8 @@ import {
   removeLanguageData,
 } from "../../actions/resumeFormActions.js";
 
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
+
 import {
   Avatar,
   Button,
@@ -127,9 +129,6 @@ const useStyles = makeStyles((theme) => ({
   addIcon: {
     width: "auto",
     height: "75%",
-    // marginBottom: "2px",
-    // margin: "0",
-    // padding: "4px"
   },
 }));
 
@@ -190,25 +189,7 @@ function Languages(props) {
               What Languages Do You Speak?
             </Typography>
             <form className={classes.form} onSubmit={anotherLanguage}>
-              <Grid className={classes.formContainer} fullWidth>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  className={classes.languageTextField}
-                  fullWidth
-                  name="language"
-                  label="Language"
-                  id="language"
-                  onChange={onChange}
-                  value={info.language}
-                />
-                <AddBoxIcon
-                  className={classes.addIcon}
-                  color="primary"
-                  onClick={anotherLanguage}
-                />
-              </Grid>
-
+            <SingleFieldFormTemplate onChange={onChange} info={info.language} anotherOne={anotherLanguage} name="language" label="Language" />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"

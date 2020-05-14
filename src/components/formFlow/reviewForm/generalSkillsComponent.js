@@ -5,7 +5,7 @@ import "../formStyles/reviewForm.css";
 
 //Actions
 import { updateGeneralSkillsData, removeGeneralSkill, addGeneralSkill } from "../../../actions/resumeFormActions.js";
-
+import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
@@ -102,25 +102,7 @@ function GeneralSkillsComponent(props) {
       </h1>
 
       <form className={classes.form} onSubmit={saveInfo} >
-        <Grid className={classes.formContainer} fullWidth>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            className={classes.skillTextField}
-            fullWidth
-            name="skill"
-            label="General Skill"
-            id="skill"
-            onChange={onChange}
-            value={info.skill}
-          />
-          <AddBoxIcon
-            fullWidth
-            className={classes.addIcon}
-            color="primary"
-            onClick={anotherSkill}
-          />
-        </Grid>
+      <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="General Skill" />
 
       <CardContent className={classes.cardContent}>
         <Grid className={classes.skillContainer}>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
-// import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
+import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
 
 import {
   Avatar,
@@ -12,7 +12,6 @@ import {
   CssBaseline,
   Paper,
   Grid,
-  TextField,
   Typography,
   makeStyles,
 } from "@material-ui/core";
@@ -103,42 +102,7 @@ function GeneralInfo(props) {
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              {/* <GeneralInfoFormTemplate fullWidth onChange={onChange} info={info} /> */}
-              <TextField
-                className={classes.textField}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required={true}
-                id="firstName"
-                label="First Name"
-                name="firstName"
-                autoFocus
-                onChange={onChange}
-                value={info.firstName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required
-                name="lastName"
-                label="Last Name"
-                id="lastName"
-                onChange={onChange}
-                value={info.lastName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="email"
-                label="Email"
-                id="email"
-                onChange={onChange}
-                value={info.email}
-              />
+              <GeneralInfoFormTemplate  onChange={onChange} info={info} />
               <Button
                 type="submit"
                 fullWidth

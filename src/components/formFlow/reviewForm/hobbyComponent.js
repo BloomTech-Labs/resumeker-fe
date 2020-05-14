@@ -5,7 +5,7 @@ import "../formStyles/reviewForm.css";
 
 //Actions
 import { updateHobbyData, removeHobbyData, addHobby } from "../../../actions/resumeFormActions.js";
-
+import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
@@ -106,25 +106,7 @@ function HobbyComponent(props) {
       </h1>
 
       <form className={classes.form} onSubmit={saveInfo} >
-        <Grid className={classes.formContainer} fullWidth>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            className={classes.hobbyTextField}
-            fullWidth
-            name="hobby"
-            label="Hobby"
-            id="hobby"
-            onChange={onChange}
-            value={info.hobby}
-          />
-          <AddBoxIcon
-            fullWidth
-            className={classes.addIcon}
-            color="primary"
-            onClick={anotherHobby}
-          />
-        </Grid>
+      <SingleFieldFormTemplate onChange={onChange} info={info.hobby} anotherOne={anotherHobby} name="hobby" label="Your Hobbies" />
 
       <CardContent className={classes.cardContent}>
         <Grid className={classes.skillContainer}>

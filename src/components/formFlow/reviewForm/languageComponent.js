@@ -5,6 +5,7 @@ import "../formStyles/reviewForm.css";
 
 //Actions
 import { updateLanguageData, removeLanguageData, addLanguage } from "../../../actions/resumeFormActions.js";
+import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
 
 
 //Icon import
@@ -106,26 +107,7 @@ function LanguageComponent(props) {
       </h1>
 
       <form className={classes.form} onSubmit={saveInfo} >
-        <Grid className={classes.formContainer} fullWidth>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            className={classes.languageTextField}
-            fullWidth
-            name="language"
-            label="Language"
-            id="language"
-            onChange={onChange}
-            value={info.language}
-          />
-          <AddBoxIcon
-            fullWidth
-            className={classes.addIcon}
-            color="primary"
-            onClick={anotherLanguage}
-          />
-        </Grid>
-
+      <SingleFieldFormTemplate onChange={onChange} info={info.language} anotherOne={anotherLanguage} name="language" label="Language" />
       <CardContent className={classes.cardContent}>
         <Grid className={classes.skillContainer}>
                 <Paper

@@ -6,6 +6,8 @@ import { addEducationData, updateEducationData } from "../../actions/resumeFormA
 
 import EducationCard from "./reviewForm/educationCard"
 
+import EducationFormTemplate from "./formsTemplate/educationFormTemplate"
+
 import {
   Avatar,
   Button,
@@ -153,79 +155,7 @@ function Education(props) {
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              <FormControl className={classes.selectorForm}>
-                <InputLabel
-                  data-testid="label"
-                  className={classes.selectorText}
-                  id="type"
-                >
-                  Education
-                </InputLabel>
-                <Select
-                  className={classes.textField}
-                  variant="outlined"
-                  fullWidth
-                  id="type"
-                  label="Education"
-                  name="type"
-                  autoFocus
-                  onChange={onChange}
-                  value={info.type}
-                >
-                  <MenuItem value={"College"}>College</MenuItem>
-                  <MenuItem value={"University"}>University</MenuItem>
-                  <MenuItem value={"Certification"}>Certification</MenuItem>
-                  <MenuItem value={"Course"}>Course</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="schoolName"
-                label="Name of the school"
-                id="schoolName"
-                onChange={onChange}
-                value={info.schoolName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="yearIn"
-                type="date"
-                label="School Starting Date"
-                id="yearIn"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.yearIn}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                type="date"
-                name="yearOut"
-                label="Finishing School"
-                id="yearOut"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={onChange}
-                value={info.yearOut}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="certificateName"
-                label="Name of the certificate"
-                id="certificateName"
-                onChange={onChange}
-                value={info.certificateName}
-              />
+              <EducationFormTemplate info={info} onChange={onChange} />
               <Button
                 type="submit"
                 fullWidth
