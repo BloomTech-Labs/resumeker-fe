@@ -2,15 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import {
-  addWorkData,
-  updateWorkData,
-} from "../../actions/resumeFormActions.js";
-
-import JobHistoryCard from "./reviewForm/jobHistoryCard";
-
-import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate";
-import TipsLayout from "./formUtils/tipsLayout";
+import { addProjectData, updateProjectData } from "../../actions/resumeFormActions.js";
+import ProjectCard from "./reviewForm/projectCard"
+import ProjectsFormTemplate from "./formsTemplate/projectsFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
 
 import {
   Button,
@@ -56,13 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function WorkHistory(props) {
+function PersonalProjects(props) {
   const [info, setInfo] = useState({
-    jobTitle: "",
-    companyName: "",
-    startYear: "",
-    endYear: "",
-    jobDescription: "",
+    projectName: "",
+    projectStartDate: "",
+    projectEndDate: "",
+    role: "",
+    roleDescription: "",
+    link: "",
     id: Date.now(),
   });
 
@@ -70,24 +66,23 @@ function WorkHistory(props) {
 
   const nextPage = (event) => {
     event.preventDefault();
-    props.addWorkData(info);
-    props.history.push("/form/projects");
-    console.log("data from reducer", props.resumeData.jobs);
+    props.addProjectData(info);
+    props.history.push("/form/techskills");
   };
 
-  const anotherJob = (event) => {
+  const anotherProject = (event) => {
     event.preventDefault();
-    props.addWorkData(info);
+    props.addProjectData(info);
     setInfo({
-      jobTitle: "",
-      companyName: "",
-      startYear: "",
-      endYear: "",
-      jobDescription: "",
+      projectName: "",
+      projectStartDate: "",
+      projectEndDate: "",
+      role: "",
+      roleDescription: "",
+      link: "",
       id: Date.now(),
     });
   };
-
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
@@ -100,18 +95,17 @@ function WorkHistory(props) {
         <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-            <form id="workForm" className={classes.form} onSubmit={nextPage}>
-              <WorkHistoryFormTemplate info={info} onChange={onChange} />
+            <form className={classes.form} onSubmit={nextPage}>
+              <ProjectsFormTemplate info={info} onChange={onChange} />
               <Button
-                type="reset"
+                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                id="formButton"
                 className={classes.submit}
-                onClick={anotherJob}
+                onClick={anotherProject}
               >
-                Another Job?
+                Add Another
               </Button>
               <Grid className={classes.buttonContainer}>
                 <Button
@@ -119,10 +113,9 @@ function WorkHistory(props) {
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  id="formButton"
                   className={classes.previousButton}
                   onClick={() => {
-                    props.history.push("/form/education");
+                    props.history.push("/form/work");
                   }}
                 >
                   Previous Form
@@ -132,7 +125,6 @@ function WorkHistory(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  id="formButton"
                   className={classes.nextButton}
                 >
                   Next Form
@@ -140,18 +132,19 @@ function WorkHistory(props) {
               </Grid>
             </form>
 
-            {props.resumeData.jobs.length ? (
-              props.resumeData.jobs.map((job) => (
-                <div key={job.id}>
-                  <JobHistoryCard
-                    job={job}
-                    updateWorkData={props.updateWorkData}
+            {props.resumeData.projects.length ? (
+              props.resumeData.projects.map((project) => (
+                <div key={project.id}>
+                  <ProjectCard
+                    projects={project}
+                    updateProjectData={props.updateProjectData}
                   />
                 </div>
               ))
             ) : (
               <p>Here you can see your added jobs</p>
             )}
+
           </div>
         </Grid>
       </Grid>
@@ -167,6 +160,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData, updateWorkData })(
-  WorkHistory
-);
+export default connect(mapStateToProps, { addProjectData, updateProjectData })(PersonalProjects);

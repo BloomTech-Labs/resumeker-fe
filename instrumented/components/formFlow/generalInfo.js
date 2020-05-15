@@ -79,6 +79,7 @@ function GeneralInfo(props) {
           </div>
         </Grid>
       </Grid>
+      <button onClick={() => nextPage()}>Next Page</button>
     </div>
   );
 }

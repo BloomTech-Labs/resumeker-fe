@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import {
-  addWorkData,
-  updateWorkData,
-} from "../../actions/resumeFormActions.js";
+import { addWorkData, updateWorkData } from "../../actions/resumeFormActions.js";
 
-import JobHistoryCard from "./reviewForm/jobHistoryCard";
+import JobHistoryCard from "./reviewForm/jobHistoryCard"
 
-import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate";
-import TipsLayout from "./formUtils/tipsLayout";
+import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
 
 import {
   Button,
@@ -107,7 +104,6 @@ function WorkHistory(props) {
                 fullWidth
                 variant="contained"
                 color="primary"
-                id="formButton"
                 className={classes.submit}
                 onClick={anotherJob}
               >
@@ -119,7 +115,6 @@ function WorkHistory(props) {
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  id="formButton"
                   className={classes.previousButton}
                   onClick={() => {
                     props.history.push("/form/education");
@@ -132,7 +127,6 @@ function WorkHistory(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  id="formButton"
                   className={classes.nextButton}
                 >
                   Next Form
@@ -143,10 +137,7 @@ function WorkHistory(props) {
             {props.resumeData.jobs.length ? (
               props.resumeData.jobs.map((job) => (
                 <div key={job.id}>
-                  <JobHistoryCard
-                    job={job}
-                    updateWorkData={props.updateWorkData}
-                  />
+                  <JobHistoryCard job={job} updateWorkData={props.updateWorkData} />
                 </div>
               ))
             ) : (
@@ -167,6 +158,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData, updateWorkData })(
-  WorkHistory
-);
+export default connect(mapStateToProps, { addWorkData, updateWorkData })(WorkHistory);

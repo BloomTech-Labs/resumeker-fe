@@ -3,21 +3,21 @@ import { connect } from "react-redux";
 
 //Actions
 import {
-  addWorkData,
-  updateWorkData,
+  addLanguage,
+  removeLanguageData,
 } from "../../actions/resumeFormActions.js";
 
-import JobHistoryCard from "./reviewForm/jobHistoryCard";
-
-import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate";
-import TipsLayout from "./formUtils/tipsLayout";
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout"
 
 import {
   Button,
   CssBaseline,
   Paper,
   Grid,
+  Typography,
   makeStyles,
+  Chip,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
   },
   previousButton: {
     margin: theme.spacing(3, 0, 2),
@@ -48,6 +44,19 @@ const useStyles = makeStyles((theme) => ({
     width: "49%",
     height: "3.5rem",
   },
+  skillContainer: {
+    display: "flex",
+  },
+  chipContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+  },
+  chip: {
+    margin: theme.spacing(1.2),
+  },
   buttonContainer: {
     width: "100%",
     display: "flex",
@@ -56,41 +65,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function WorkHistory(props) {
+function Languages(props) {
   const [info, setInfo] = useState({
-    jobTitle: "",
-    companyName: "",
-    startYear: "",
-    endYear: "",
-    jobDescription: "",
     id: Date.now(),
+    language: "",
   });
 
   const classes = useStyles();
 
   const nextPage = (event) => {
-    event.preventDefault();
-    props.addWorkData(info);
-    props.history.push("/form/projects");
-    console.log("data from reducer", props.resumeData.jobs);
+    if (info.language.length > 0) {
+      props.addLanguage(info);
+    }
+    props.history.push("/form/hobbies");
   };
 
-  const anotherJob = (event) => {
+  const anotherLanguage = (event) => {
     event.preventDefault();
-    props.addWorkData(info);
+    if (info.language.length > 0) {
+      props.addLanguage(info);
+    }
     setInfo({
-      jobTitle: "",
-      companyName: "",
-      startYear: "",
-      endYear: "",
-      jobDescription: "",
       id: Date.now(),
+      language: "",
     });
   };
-
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
+  };
+
+  const handleDelete = (languageToDelete) => (event) => {
+    event.preventDefault();
+    props.removeLanguageData(languageToDelete);
+    setInfo({ ...info });
   };
 
   return (
@@ -100,58 +108,63 @@ function WorkHistory(props) {
         <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-            <form id="workForm" className={classes.form} onSubmit={nextPage}>
-              <WorkHistoryFormTemplate info={info} onChange={onChange} />
-              <Button
-                type="reset"
-                fullWidth
-                variant="contained"
-                color="primary"
-                id="formButton"
-                className={classes.submit}
-                onClick={anotherJob}
-              >
-                Another Job?
-              </Button>
+            <Typography component="h1" variant="h5">
+              What Languages Do You Speak?
+            </Typography>
+            <form className={classes.form} onSubmit={anotherLanguage}>
+            <SingleFieldFormTemplate onChange={onChange} info={info.language} anotherOne={anotherLanguage} name="language" label="Language" />
+              <Grid className={classes.skillContainer}>
+                <Paper
+                  component="ul"
+                  square="true"
+                  className={classes.chipContainer}
+                >
+                  <Chip
+                    label="Your Languages:"
+                    className={classes.chip}
+                    color="primary"
+                  />
+                  {props.resumeData.languages.map((data) => {
+                    return (
+                      <li key={data.id}>
+                        <Chip
+                          label={data.language}
+                          onDelete={handleDelete(data)}
+                          className={classes.chip}
+                        />
+                      </li>
+                    );
+                  })}
+                </Paper>
+              </Grid>
+
               <Grid className={classes.buttonContainer}>
                 <Button
-                  type="button"
                   fullWidth
+                  type="button"
                   variant="outlined"
                   color="primary"
-                  id="formButton"
                   className={classes.previousButton}
                   onClick={() => {
-                    props.history.push("/form/education");
+                    props.history.push("/form/generalskills");
                   }}
                 >
                   Previous Form
                 </Button>
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
                   variant="contained"
                   color="primary"
-                  id="formButton"
                   className={classes.nextButton}
+                  onClick={() => {
+                    nextPage();
+                  }}
                 >
                   Next Form
                 </Button>
               </Grid>
             </form>
-
-            {props.resumeData.jobs.length ? (
-              props.resumeData.jobs.map((job) => (
-                <div key={job.id}>
-                  <JobHistoryCard
-                    job={job}
-                    updateWorkData={props.updateWorkData}
-                  />
-                </div>
-              ))
-            ) : (
-              <p>Here you can see your added jobs</p>
-            )}
           </div>
         </Grid>
       </Grid>
@@ -167,6 +180,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData, updateWorkData })(
-  WorkHistory
+export default connect(mapStateToProps, { addLanguage, removeLanguageData })(
+  Languages
 );

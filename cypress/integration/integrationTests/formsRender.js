@@ -11,13 +11,41 @@ describe("First Test", function () {
 
   it("Visits General Info Form Page", function () {
     cy.visit("/form/generalInfo");
-
-    cy.get("input").should(($input) => {
-      expect($input).to.have.length(3);
-    });
   });
 
-  it("General Info Form Renders", function () {
+  it("Education Form Renders", function () {
     cy.visit("/form/education");
+  });
+
+  it("Education Form Renders", function () {
+    cy.visit("/form/education");
+  });
+
+  it("Work History Form Renders", function () {
+    cy.visit("/form/work");
+  });
+
+  it("Personal Projects Form Renders", function () {
+    cy.visit("/form/projects");
+  });
+
+  it("Technical Skills Form Renders", function () {
+    cy.visit("/form/techskills");
+  });
+
+  it("General Skills Form Renders", function () {
+    cy.visit("/form/generalskills");
+  });
+
+  it("Languages Form Renders", function () {
+    cy.visit("/form/language");
+  });
+
+  it("Hobbies Form Renders", function () {
+    cy.visit("/form/hobbies");
+  });
+
+  it("Review Form Renders", function () {
+    cy.visit("/form/review");
   });
 });

@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import {
-  addWorkData,
-  updateWorkData,
-} from "../../actions/resumeFormActions.js";
+import { addEducationData, updateEducationData } from "../../actions/resumeFormActions.js";
 
-import JobHistoryCard from "./reviewForm/jobHistoryCard";
+import EducationCard from "./reviewForm/educationCard"
 
-import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate";
-import TipsLayout from "./formUtils/tipsLayout";
+import EducationFormTemplate from "./formsTemplate/educationFormTemplate"
+import TipsLayout from "./formUtils/tipsLayout" 
 
 import {
   Button,
@@ -56,13 +53,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function WorkHistory(props) {
+function Education(props) {
   const [info, setInfo] = useState({
-    jobTitle: "",
-    companyName: "",
-    startYear: "",
-    endYear: "",
-    jobDescription: "",
+    type: "",
+    schoolName: "",
+    yearIn: "",
+    yearOut: "",
+    certificateName: "",
     id: Date.now(),
   });
 
@@ -70,20 +67,19 @@ function WorkHistory(props) {
 
   const nextPage = (event) => {
     event.preventDefault();
-    props.addWorkData(info);
-    props.history.push("/form/projects");
-    console.log("data from reducer", props.resumeData.jobs);
+    props.addEducationData(info);
+    props.history.push("/form/work");
   };
 
-  const anotherJob = (event) => {
+  const anotherEducation = (event) => {
     event.preventDefault();
-    props.addWorkData(info);
+    props.addEducationData(info);
     setInfo({
-      jobTitle: "",
-      companyName: "",
-      startYear: "",
-      endYear: "",
-      jobDescription: "",
+      type: "",
+      schoolName: "",
+      yearIn: "",
+      yearOut: "",
+      certificateName: "",
       id: Date.now(),
     });
   };
@@ -100,29 +96,27 @@ function WorkHistory(props) {
         <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-            <form id="workForm" className={classes.form} onSubmit={nextPage}>
-              <WorkHistoryFormTemplate info={info} onChange={onChange} />
+            <form className={classes.form} onSubmit={nextPage}>
+              <EducationFormTemplate info={info} onChange={onChange} />
               <Button
-                type="reset"
+                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                id="formButton"
                 className={classes.submit}
-                onClick={anotherJob}
+                onClick={anotherEducation}
               >
-                Another Job?
+                Add Another
               </Button>
               <Grid className={classes.buttonContainer}>
                 <Button
-                  type="button"
+                  type="submit"
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  id="formButton"
                   className={classes.previousButton}
                   onClick={() => {
-                    props.history.push("/form/education");
+                    props.history.push("/form/generalInfo");
                   }}
                 >
                   Previous Form
@@ -132,7 +126,6 @@ function WorkHistory(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  id="formButton"
                   className={classes.nextButton}
                 >
                   Next Form
@@ -140,17 +133,17 @@ function WorkHistory(props) {
               </Grid>
             </form>
 
-            {props.resumeData.jobs.length ? (
-              props.resumeData.jobs.map((job) => (
-                <div key={job.id}>
-                  <JobHistoryCard
-                    job={job}
-                    updateWorkData={props.updateWorkData}
+            {props.resumeData.education.length ? (
+              props.resumeData.education.map((education) => (
+                <div key={education.id}>
+                  <EducationCard
+                    education={education}
+                    updateEducationData={props.updateEducationData}
                   />
                 </div>
               ))
             ) : (
-              <p>Here you can see your added jobs</p>
+              <p>Here you can see your added education</p>
             )}
           </div>
         </Grid>
@@ -167,6 +160,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData, updateWorkData })(
-  WorkHistory
-);
+export default connect(mapStateToProps, { addEducationData, updateEducationData })(Education);
