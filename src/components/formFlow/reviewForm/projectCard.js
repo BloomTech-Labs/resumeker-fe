@@ -6,34 +6,13 @@ import ProjectsFormTemplate from "../formsTemplate/projectsFormTemplate"
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
-import { CardContent, makeStyles, TextField, Button } from "@material-ui/core";
+import { CardContent, makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-  },
-  textField: {
-    textAlign: "center",
-  },
-  selectorForm: {
-    width: "100%", // Fix IE 11 issue.
-    // marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  selectorText: {
-    display: "flex",
-    flexDirection: "column",
-    marginLeft: "1rem",
-    marginBottom: "100px",
   },
 }));
 

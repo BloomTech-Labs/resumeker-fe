@@ -12,9 +12,6 @@ import GeneralSkills from "./GeneralSkills.js";
 import Languages from "./Languages.js";
 import Hobbies from "./Hobbies";
 
-//State import
-// import
-
 function MasterForm() {
   const { url } = useRouteMatch();
 

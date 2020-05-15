@@ -11,10 +11,8 @@ import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
 import TipsLayout from "./formUtils/tipsLayout"
 
 import {
-  Avatar,
   Button,
   CssBaseline,
-  TextField,
   Paper,
   Grid,
   Typography,
@@ -22,31 +20,9 @@ import {
   Chip,
 } from "@material-ui/core";
 
-import AddBoxIcon from "@material-ui/icons/AddBox";
-
-import DescriptionIcon from "@material-ui/icons/Description";
-// import { blue } from '@material-ui/core/colors';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
-  },
-  image: {
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "rgba(9, 109, 217, 0.671)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  startText: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "1rem",
-  },
-  tips: {
-    backgroundColor: "white",
-    width: "70%",
-    height: "20rem",
-    marginLeft: "15%",
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -54,32 +30,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  textField: {
-    textAlign: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
-    //   marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
-  },
-  selectorForm: {
-    width: "100%", // Fix IE 11 issue.
-    // marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  selectorText: {
-    display: "flex",
-    flexDirection: "column",
-    marginLeft: "1rem",
-    marginBottom: "100px",
   },
   previousButton: {
     margin: theme.spacing(3, 0, 2),
@@ -90,17 +44,11 @@ const useStyles = makeStyles((theme) => ({
     width: "49%",
     height: "3.5rem",
   },
-  addButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "25%",
-  },
   skillContainer: {
     display: "flex",
-    // justifyContent: "flex-start"
   },
   chipContainer: {
     display: "flex",
-    // justifyContent: 'flex-start',
     flexWrap: "wrap",
     listStyle: "none",
     padding: theme.spacing(0.5),
@@ -114,22 +62,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
-  },
-  formContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-around",
-    flexDirection: "row",
-    alignItems: "center",
-    height: "6rem",
-  },
-  languageTextField: {
-    width: "90%",
-    height: "4rem",
-  },
-  addIcon: {
-    width: "auto",
-    height: "75%",
   },
 }));
 
