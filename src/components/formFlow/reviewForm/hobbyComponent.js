@@ -5,6 +5,7 @@ import "../formStyles/reviewForm.css";
 
 //Actions
 import { updateHobbyData, removeHobbyData, addHobby } from "../../../actions/resumeFormActions.js";
+
 import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
 
 //Icon import
@@ -17,32 +18,20 @@ import {
   Paper,
   Grid,
   Chip,
-  TextField,
   Button
 } from "@material-ui/core";
-import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  textField: {
-    textAlign: "center",
-  },
   skillContainer: {
     display: "flex",
-    // justifyContent: "flex-start"
   },
   chipContainer: {
     display: "flex",
-    // justifyContent: 'flex-start',
     flexWrap: "wrap",
     listStyle: "none",
     padding: theme.spacing(0.5),
@@ -50,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
   chip: {
     margin: theme.spacing(1.2),
-  },
-  hobbyTextField: {
-    width: "90%",
-    height: "4rem",
   },
 }));
 

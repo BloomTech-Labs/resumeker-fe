@@ -8,50 +8,22 @@ import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
 import TipsLayout from "./formUtils/tipsLayout"
 
 import {
-  Avatar,
   Button,
   CssBaseline,
   Paper,
   Grid,
-  Typography,
   makeStyles,
 } from "@material-ui/core";
-import DescriptionIcon from "@material-ui/icons/Description";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
-  },
-  image: {
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "rgba(9, 109, 217, 0.671)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  startText: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "1rem",
-  },
-  tips: {
-    backgroundColor: "white",
-    width: "70%",
-    height: "20rem",
-    marginLeft: "15%",
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  },
-  textField: {
-    textAlign: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
