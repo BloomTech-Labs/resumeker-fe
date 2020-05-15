@@ -4,6 +4,7 @@ describe("login", () => {
 
     cy.login()
       .then((res) => {
+        localStorage.setItem("token", "dummyToken");
         return res.body;
       })
       .then((body) => {
