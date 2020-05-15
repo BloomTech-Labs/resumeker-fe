@@ -11,6 +11,8 @@ describe("First Test", function () {
 
   it("Visits General Info Form Page", function () {
     cy.visit("/form/generalInfo");
+
+    cy.focused().should("have.id", "generalInfoForm");
   });
 
   it("General Info Form Renders", function () {

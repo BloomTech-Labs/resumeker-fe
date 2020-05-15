@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
-import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout"
+import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
   Button,
@@ -58,14 +58,14 @@ function GeneralInfo(props) {
   };
 
   return (
-    <div>
+    <div id="generalInfoForm">
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
         <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              <GeneralInfoFormTemplate  onChange={onChange} info={info} />
+              <GeneralInfoFormTemplate onChange={onChange} info={info} />
               <Button
                 type="submit"
                 fullWidth
