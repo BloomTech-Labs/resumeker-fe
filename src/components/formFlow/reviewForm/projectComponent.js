@@ -4,23 +4,23 @@ import { connect } from "react-redux";
 import "../formStyles/reviewForm.css";
 
 //Actions
-import { updateEducationData } from "../../../actions/resumeFormActions.js";
+import { updateProjectData } from "../../../actions/resumeFormActions.js";
 
 //Import Components
-import EducationCard from "./educationCard.js";
+import ProjectCard from "./projectCard";
 
 import { Card } from "@material-ui/core";
 
-function EducationComponent(props) {
+function ProjectsComponent(props) {
   return (
     <Card>
-      <h1>Education</h1>
-      {props.resumeData.education.map((education) => {
+      <h1>Projects</h1>
+      {props.resumeData.projects.map((project) => {
         return (
-          <div key={education.id}>
-            <EducationCard
-              education={education}
-              updateEducationData={props.updateEducationData}
+          <div key={project.id}>
+            <ProjectCard
+              projects={project}
+              updateProjectData={props.updateProjectData}
             />
           </div>
         );
@@ -37,6 +37,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { updateEducationData })(
-  EducationComponent
+export default connect(mapStateToProps, { updateProjectData })(
+  ProjectsComponent
 );

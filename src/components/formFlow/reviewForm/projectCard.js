@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import "../formStyles/reviewForm.css";
 
-//Actions
-
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -38,21 +36,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function JobHistoryCard(props) {
+function ProjectCard(props) {
   const [edit, setEdit] = useState(false);
 
   const [info, setInfo] = useState({
-    jobTitle: `${props.job.jobTitle}`,
-    companyName: `${props.job.companyName}`,
-    startYear: `${props.job.startYear}`,
-    endYear: `${props.job.endYear}`,
-    jobDescription: `${props.job.jobDescription}`,
-    id: props.job.id,
+    projectName: `${props.projects.projectName}`,
+    projectStartDate: `${props.projects.projectStartDate}`,
+    projectEndDate: `${props.projects.projectEndDate}`,
+    role: `${props.projects.role}`,
+    roleDescription: `${props.projects.roleDescription}`,
+    link: `${props.projects.link}`,
+    id: props.projects.id,
   });
 
   const saveInfo = (event) => {
     event.preventDefault();
-    props.updateWorkData(info);
+    props.updateProjectData(info);
     setEdit(false);
   };
 
@@ -70,60 +69,72 @@ function JobHistoryCard(props) {
           <TextField
             variant="outlined"
             margin="normal"
+            required
             fullWidth
-            name="jobTitle"
-            label="Job Title"
-            id="jobTitle"
+            name="projectName"
+            label="Name of the Project"
+            id="projectName"
             onChange={onChange}
-            value={info.jobTitle}
+            value={info.projectName}
           />
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
-            name="companyName"
-            label="Name of the company"
-            id="companyName"
+            name="projectStartDate"
+            type="date"
+            label="Starting Date (Optional)"
+            id="projectStartDate"
+            InputLabelProps={{
+              shrink: true,
+            }}
             onChange={onChange}
-            value={info.companyName}
+            value={info.projectStartDate}
           />
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
             type="date"
-            name="startYear"
-            label="Starting Date"
-            id="startYear"
+            name="projectEndDate"
+            label="End Date (Optional)"
+            id="projectEndDate"
             InputLabelProps={{
               shrink: true,
             }}
             onChange={onChange}
-            value={info.startYear}
+            value={info.projectEndDate}
           />
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
-            name="endYear"
-            label="End Date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="endYear"
+            name="role"
+            label="Role"
+            id="role"
             onChange={onChange}
-            value={info.endYear}
+            value={info.role}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="roleDescription"
+            label="Role Description"
+            id="roleDescription"
+            onChange={onChange}
+            value={info.roleDescription}
           />
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
-            name="jobDescription"
-            label="Job Description"
-            id="jobDescription"
+            name="link"
+            label="Link to Project"
+            id="link"
             onChange={onChange}
-            value={info.jobDescription}
+            value={info.link}
           />
           <Button
             type="submit"
@@ -141,18 +152,19 @@ function JobHistoryCard(props) {
     return (
       <CardContent className={classes.cardContent}>
         <p>
-          Job Title: {info.jobTitle}{" "}
+          Project Name: {info.projectName}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
           </EditIcon>
         </p>
-        <p>Company Name: {info.companyName}</p>
-        <p>Starting Date: {info.startYear}</p>
-        <p>End Date: {info.endYear}</p>
-        <p>Job Description: {info.jobDescription}</p>
+        <p>Project Start Date: {info.projectStartDate}</p>
+        <p>Project End Date: {info.projectEndDate}</p>
+        <p>Role: {info.role}</p>
+        <p>Role Description: {info.roleDescription}</p>
+        <p>Link to Project: {info.link}</p>
       </CardContent>
     );
   }
 }
 
-export default JobHistoryCard;
+export default ProjectCard;

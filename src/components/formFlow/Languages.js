@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 //Actions
 import {
-  addTechSkill,
-  removeTechSkill,
+  addLanguage,
+  removeLanguageData,
 } from "../../actions/resumeFormActions.js";
 
 import {
@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "6rem",
   },
-  skillTextField: {
+  languageTextField: {
     width: "90%",
     height: "4rem",
   },
@@ -133,29 +133,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TechSkills(props) {
+function Languages(props) {
   const [info, setInfo] = useState({
     id: Date.now(),
-    skill: "",
+    language: "",
   });
 
   const classes = useStyles();
 
   const nextPage = (event) => {
-    if (info.skill.length > 0) {
-      props.addTechSkill(info);
+    if (info.language.length > 0) {
+      props.addLanguage(info);
     }
-    props.history.push("/form/generalskills");
+    props.history.push("/form/hobbies");
   };
 
-  const anotherSkill = (event) => {
+  const anotherLanguage = (event) => {
     event.preventDefault();
-    if (info.skill.length > 0) {
-      props.addTechSkill(info);
+    if (info.language.length > 0) {
+      props.addLanguage(info);
     }
     setInfo({
       id: Date.now(),
-      skill: "",
+      language: "",
     });
   };
   const onChange = (event) => {
@@ -163,14 +163,14 @@ function TechSkills(props) {
     setInfo({ ...info, [event.target.name]: event.target.value });
   };
 
-  const handleDelete = (skillToDelete) => (event) => {
+  const handleDelete = (languageToDelete) => (event) => {
     event.preventDefault();
-    props.removeTechSkill(skillToDelete);
+    props.removeLanguageData(languageToDelete);
     setInfo({ ...info });
   };
 
   return (
-    <Grid>
+    <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={3} className={classes.image}>
@@ -185,32 +185,27 @@ function TechSkills(props) {
           <Grid item className={classes.tips}></Grid>
         </Grid>
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
-          <Grid className={classes.paper}>
+          <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Tell us about some of the technical skills that you possess!
+              What Languages Do You Speak?
             </Typography>
-            <Typography color="textSecondary" component="h5" variant="subtitle2">
-              (CSS, HTML, JS, React, Redux, JAVA, NodeJS, GraphQL, Express,
-              Postgres, SQLite, Knex,etc)
-            </Typography>
-            <form className={classes.form} onSubmit={anotherSkill}>
+            <form className={classes.form} onSubmit={anotherLanguage}>
               <Grid className={classes.formContainer} fullWidth>
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  className={classes.skillTextField}
+                  className={classes.languageTextField}
                   fullWidth
-                  name="skill"
-                  label="Tech Skill"
-                  id="skill"
+                  name="language"
+                  label="Language"
+                  id="language"
                   onChange={onChange}
-                  value={info.skill}
+                  value={info.language}
                 />
                 <AddBoxIcon
-                  fullWidth
                   className={classes.addIcon}
                   color="primary"
-                  onClick={anotherSkill}
+                  onClick={anotherLanguage}
                 />
               </Grid>
 
@@ -221,15 +216,15 @@ function TechSkills(props) {
                   className={classes.chipContainer}
                 >
                   <Chip
-                    label="Your Skills:"
+                    label="Your Languages:"
                     className={classes.chip}
                     color="primary"
                   />
-                  {props.resumeData.techSkills.map((data) => {
+                  {props.resumeData.languages.map((data) => {
                     return (
                       <li key={data.id}>
                         <Chip
-                          label={data.skill}
+                          label={data.language}
                           onDelete={handleDelete(data)}
                           className={classes.chip}
                         />
@@ -241,13 +236,13 @@ function TechSkills(props) {
 
               <Grid className={classes.buttonContainer}>
                 <Button
-                  type="button"
                   fullWidth
+                  type="button"
                   variant="outlined"
                   color="primary"
                   className={classes.previousButton}
                   onClick={() => {
-                    props.history.push("/form/work");
+                    props.history.push("/form/generalskills");
                   }}
                 >
                   Previous Form
@@ -266,11 +261,10 @@ function TechSkills(props) {
                 </Button>
               </Grid>
             </form>
-          </Grid>
+          </div>
         </Grid>
       </Grid>
-      <button onClick={() => nextPage()}>Next Page</button>
-    </Grid>
+    </div>
   );
 }
 
@@ -282,6 +276,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addTechSkill, removeTechSkill })(
-  TechSkills
+export default connect(mapStateToProps, { addLanguage, removeLanguageData })(
+  Languages
 );

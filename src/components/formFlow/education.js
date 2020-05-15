@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addEducationData } from "../../actions/resumeFormActions.js";
+import { addEducationData, updateEducationData } from "../../actions/resumeFormActions.js";
+
+import EducationCard from "./reviewForm/educationCard"
 
 import {
   Avatar,
@@ -80,6 +82,21 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  previousButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+  },
+  nextButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+    height: "3.5rem",
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
 }));
 
 function Education(props) {
@@ -137,7 +154,11 @@ function Education(props) {
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
               <FormControl className={classes.selectorForm}>
-                <InputLabel className={classes.selectorText} id="type">
+                <InputLabel
+                  data-testid="label"
+                  className={classes.selectorText}
+                  id="type"
+                >
                   Education
                 </InputLabel>
                 <Select
@@ -160,7 +181,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="schoolName"
                 label="Name of the school"
@@ -171,7 +191,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="yearIn"
                 type="date"
@@ -186,7 +205,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 type="date"
                 name="yearOut"
@@ -201,7 +219,6 @@ function Education(props) {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="certificateName"
                 label="Name of the certificate"
@@ -219,26 +236,38 @@ function Education(props) {
               >
                 Add Another
               </Button>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Next
-              </Button>
+              <Grid className={classes.buttonContainer}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.previousButton}
+                  onClick={() => {
+                    props.history.push("/form/generalInfo");
+                  }}
+                >
+                  Previous Form
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.nextButton}
+                >
+                  Next Form
+                </Button>
+              </Grid>
             </form>
 
-            {/* !!!!!!! Change later for the component with education */}
             {props.resumeData.education.length ? (
               props.resumeData.education.map((education) => (
                 <div key={education.id}>
-                  <p>{education.type}</p>
-                  <p>{education.schoolName}</p>
-                  <p>{education.yearIn}</p>
-                  <p>{education.yearOut}</p>
-                  <p>{education.certificateName}</p>
+                  <EducationCard
+                    education={education}
+                    updateEducationData={props.updateEducationData}
+                  />
                 </div>
               ))
             ) : (
@@ -259,4 +288,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addEducationData })(Education);
+export default connect(mapStateToProps, { addEducationData, updateEducationData })(Education);

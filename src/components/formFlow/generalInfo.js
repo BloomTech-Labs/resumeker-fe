@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
+// import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
+
 import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
   Paper,
-  Box,
   Grid,
+  TextField,
   Typography,
   makeStyles,
 } from "@material-ui/core";
 import DescriptionIcon from "@material-ui/icons/Description";
-import { blue } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,7 +83,6 @@ function GeneralInfo(props) {
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
-    console.log(info);
   };
 
   return (
@@ -104,6 +103,7 @@ function GeneralInfo(props) {
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
+              {/* <GeneralInfoFormTemplate fullWidth onChange={onChange} info={info} /> */}
               <TextField
                 className={classes.textField}
                 variant="outlined"
