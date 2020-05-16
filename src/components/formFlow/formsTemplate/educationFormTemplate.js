@@ -34,11 +34,11 @@ function EducationFormTemplate(props) {
 
     return(
         <div className={classes.textField}>
-            <FormControl className={classes.selectorForm}>
+            <FormControl className={classes.selectorForm} id="formSelector">
             <InputLabel
                 data-testid="label"
                 className={classes.selectorText}
-                id="type"
+                id="typeSelector"
             >
                 Education
             </InputLabel>
@@ -53,8 +53,8 @@ function EducationFormTemplate(props) {
                 onChange={props.onChange}
                 value={props.info.type}
             >
-                <MenuItem value={"College"}>College</MenuItem>
-                <MenuItem value={"University"}>University</MenuItem>
+                <MenuItem id="College" value={"College"}>College</MenuItem>
+                <MenuItem id="University" value={"University"}>University</MenuItem>
                 <MenuItem value={"Certification"}>Certification</MenuItem>
                 <MenuItem value={"Course"}>Course</MenuItem>
             </Select>
