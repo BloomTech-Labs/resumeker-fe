@@ -20,12 +20,12 @@ cypress.env.json
 .env.test.local
 .env.production.local
 
-coverage
+# coverage
 .nyc_output
 /cypress/screenshots
 /cypress/videos
 
-instrumented
+/instrumented
 
 npm-debug.log*
 yarn-debug.log*
