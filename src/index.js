@@ -48,3 +48,7 @@ ReactDOM.render(
     </ApolloProvider>,
     document.getElementById("root")
 );
+
+if (window.Cypress) {
+    window.store = configStore;
+}

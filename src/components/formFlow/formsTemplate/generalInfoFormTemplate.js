@@ -17,9 +17,8 @@ function GeneralInfoFormTemplate(props) {
     const classes = useStyles();
 
     return(
-        <div>
+        <div className={classes.textField}>
             <TextField
-                className={classes.textField}
                 variant="outlined"
                 margin="normal"
                 fullWidth
