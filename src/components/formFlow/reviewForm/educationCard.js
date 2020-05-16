@@ -68,7 +68,7 @@ function EducationCard(props) {
     );
   } else {
     return (
-      <CardContent className={classes.cardContent}>
+      <CardContent className={classes.cardContent} id={info.schoolName}>
         <p>
           Type of Education: {info.type}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>

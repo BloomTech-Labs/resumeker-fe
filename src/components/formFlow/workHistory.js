@@ -119,7 +119,7 @@ function WorkHistory(props) {
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  id="formButton"
+                  id="previous_education"
                   className={classes.previousButton}
                   onClick={() => {
                     props.history.push("/form/education");
