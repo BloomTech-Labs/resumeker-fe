@@ -9,6 +9,7 @@ import App from "./components/App";
 import "./index.css";
 import store, { history } from "./utils/store";
 import { Auth0Provider } from "./react-auth0-spa.js";
+
 const configStore = store();
 
 const onRedirectCallback = (appState) => {
@@ -48,3 +49,7 @@ ReactDOM.render(
     </ApolloProvider>,
     document.getElementById("root")
 );
+
+if (window.Cypress) {
+  window.store = configStore;
+}

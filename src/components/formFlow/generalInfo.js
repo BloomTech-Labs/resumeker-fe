@@ -4,54 +4,26 @@ import { connect } from "react-redux";
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
-// import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate"
+import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
-  Avatar,
   Button,
   CssBaseline,
   Paper,
   Grid,
-  TextField,
-  Typography,
   makeStyles,
 } from "@material-ui/core";
-import DescriptionIcon from "@material-ui/icons/Description";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
-  },
-  image: {
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "rgba(9, 109, 217, 0.671)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  startText: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "1rem",
-  },
-  tips: {
-    backgroundColor: "white",
-    width: "70%",
-    height: "20rem",
-    marginLeft: "15%",
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  },
-  textField: {
-    textAlign: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -86,59 +58,14 @@ function GeneralInfo(props) {
   };
 
   return (
-    <div>
+    <div id="generalInfoForm">
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={3} className={classes.image}>
-          <Grid item className={classes.startText}>
-            <Avatar className={classes.avatar}>
-              <DescriptionIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Start Making Your Resume
-            </Typography>
-          </Grid>
-          <Grid item className={classes.tips}></Grid>
-        </Grid>
+        <TipsLayout />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
-              {/* <GeneralInfoFormTemplate fullWidth onChange={onChange} info={info} /> */}
-              <TextField
-                className={classes.textField}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required={true}
-                id="firstName"
-                label="First Name"
-                name="firstName"
-                autoFocus
-                onChange={onChange}
-                value={info.firstName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required
-                name="lastName"
-                label="Last Name"
-                id="lastName"
-                onChange={onChange}
-                value={info.lastName}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="email"
-                label="Email"
-                id="email"
-                onChange={onChange}
-                value={info.email}
-              />
+              <GeneralInfoFormTemplate onChange={onChange} info={info} />
               <Button
                 type="submit"
                 fullWidth
@@ -152,7 +79,6 @@ function GeneralInfo(props) {
           </div>
         </Grid>
       </Grid>
-      <button onClick={() => nextPage()}>Next Page</button>
     </div>
   );
 }

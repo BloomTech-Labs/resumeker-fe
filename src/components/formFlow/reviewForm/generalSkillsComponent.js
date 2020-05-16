@@ -5,7 +5,7 @@ import "../formStyles/reviewForm.css";
 
 //Actions
 import { updateGeneralSkillsData, removeGeneralSkill, addGeneralSkill } from "../../../actions/resumeFormActions.js";
-
+import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
@@ -17,32 +17,20 @@ import {
   Paper,
   Grid,
   Chip,
-  TextField,
   Button
 } from "@material-ui/core";
-import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  textField: {
-    textAlign: "center",
-  },
   skillContainer: {
     display: "flex",
-    // justifyContent: "flex-start"
   },
   chipContainer: {
     display: "flex",
-    // justifyContent: 'flex-start',
     flexWrap: "wrap",
     listStyle: "none",
     padding: theme.spacing(0.5),
@@ -102,25 +90,7 @@ function GeneralSkillsComponent(props) {
       </h1>
 
       <form className={classes.form} onSubmit={saveInfo} >
-        <Grid className={classes.formContainer} fullWidth>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            className={classes.skillTextField}
-            fullWidth
-            name="skill"
-            label="General Skill"
-            id="skill"
-            onChange={onChange}
-            value={info.skill}
-          />
-          <AddBoxIcon
-            fullWidth
-            className={classes.addIcon}
-            color="primary"
-            onClick={anotherSkill}
-          />
-        </Grid>
+      <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="General Skill" />
 
       <CardContent className={classes.cardContent}>
         <Grid className={classes.skillContainer}>

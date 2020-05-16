@@ -1,38 +1,18 @@
 import React, { useState } from "react";
 
 import "../formStyles/reviewForm.css";
+import ProjectsFormTemplate from "../formsTemplate/projectsFormTemplate"
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
-import { CardContent, makeStyles, TextField, Button } from "@material-ui/core";
+import { CardContent, makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-    alignSelf: "center",
-  },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-  },
-  textField: {
-    textAlign: "center",
-  },
-  selectorForm: {
-    width: "100%", // Fix IE 11 issue.
-    // marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  selectorText: {
-    display: "flex",
-    flexDirection: "column",
-    marginLeft: "1rem",
-    marginBottom: "100px",
   },
 }));
 
@@ -66,76 +46,7 @@ function ProjectCard(props) {
     return (
       <CardContent>
         <form onSubmit={saveInfo}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="projectName"
-            label="Name of the Project"
-            id="projectName"
-            onChange={onChange}
-            value={info.projectName}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="projectStartDate"
-            type="date"
-            label="Starting Date (Optional)"
-            id="projectStartDate"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={onChange}
-            value={info.projectStartDate}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            type="date"
-            name="projectEndDate"
-            label="End Date (Optional)"
-            id="projectEndDate"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={onChange}
-            value={info.projectEndDate}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="role"
-            label="Role"
-            id="role"
-            onChange={onChange}
-            value={info.role}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="roleDescription"
-            label="Role Description"
-            id="roleDescription"
-            onChange={onChange}
-            value={info.roleDescription}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="link"
-            label="Link to Project"
-            id="link"
-            onChange={onChange}
-            value={info.link}
-          />
+        <ProjectsFormTemplate info={info} onChange={onChange} />
           <Button
             type="submit"
             fullWidth
