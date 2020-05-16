@@ -17,5 +17,6 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
           CI: true
         with:
-          coverageCommand: npm run coverage
+          coverageCommand: npm run cypress:coverage
+          coverageLocations: "./coverage/clover.xml:clover"
           debug: true

@@ -1,22 +1,21 @@
-import {useState, useEffect} from 'react';
-import {useAuth0} from "../react-auth0-spa.js";
-
+import { useState, useEffect } from "react";
+import { useAuth0 } from "../react-auth0-spa.js";
 
 export const useGetToken = () => {
     const [token, setToken] = useState(null);
-    const {isAuthenticated, getTokenSilently} = useAuth0();
+    const { isAuthenticated, getTokenSilently } = useAuth0();
 
-    useEffect(()=> {
+    useEffect(() => {
         if (isAuthenticated) {
             const fetchToken = async () => {
                 const result = await getTokenSilently();
-                setToken(result)
-            }
-            fetchToken()
+                setToken(result);
+            };
+            fetchToken();
         } else {
-            setToken(null)
+            setToken(null);
         }
-    }, [isAuthenticated])
+    }, [isAuthenticated, getTokenSilently]);
 
     return token;
-}
+};
