@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
-
-//Actions
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
 import {
   CardContent,
-  Card,
   makeStyles,
   TextField,
   Button,

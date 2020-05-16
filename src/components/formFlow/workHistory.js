@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addWorkData } from "../../actions/resumeFormActions.js";
+import { addWorkData, updateWorkData } from "../../actions/resumeFormActions.js";
+
+import JobHistoryCard from "./reviewForm/jobHistoryCard"
 
 import {
   Avatar,
@@ -13,14 +15,9 @@ import {
   Grid,
   Typography,
   makeStyles,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
 } from "@material-ui/core";
 
 import DescriptionIcon from "@material-ui/icons/Description";
-import { resetApolloContext } from "@apollo/react-hooks";
 // import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +77,21 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  previousButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+  },
+  nextButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+    height: "3.5rem",
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
 }));
 
 function WorkHistory(props) {
@@ -97,7 +109,7 @@ function WorkHistory(props) {
   const nextPage = (event) => {
     event.preventDefault();
     props.addWorkData(info);
-    props.history.push("/form/review");
+    props.history.push("/form/projects");
     console.log("data from reducer", props.resumeData.jobs);
   };
 
@@ -205,25 +217,35 @@ function WorkHistory(props) {
               >
                 Another Job?
               </Button>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Review
-              </Button>
+              <Grid className={classes.buttonContainer}>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.previousButton}
+                  onClick={() => {
+                    props.history.push("/form/education");
+                  }}
+                >
+                  Previous Form
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.nextButton}
+                >
+                  Next Form
+                </Button>
+              </Grid>
             </form>
-            {/* !!!!!!! Change later for the component with jobs */}
+
             {props.resumeData.jobs.length ? (
               props.resumeData.jobs.map((job) => (
                 <div key={job.id}>
-                  <p>{job.jobTitle}</p>
-                  <p>{job.companyName}</p>
-                  <p>{job.startYear}</p>
-                  <p>{job.endYear}</p>
-                  <p>{job.jobDescription}</p>
+                  <JobHistoryCard job={job} updateWorkData={props.updateWorkData} />
                 </div>
               ))
             ) : (
@@ -244,4 +266,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addWorkData })(WorkHistory);
+export default connect(mapStateToProps, { addWorkData, updateWorkData })(WorkHistory);
