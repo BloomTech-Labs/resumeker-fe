@@ -107,6 +107,7 @@ General Info Actions
 */
 
 export const addData = (resumeData) => (dispatch) => {
+  console.log(resumeData, "Running addData()");
   dispatch({ type: resumeFormConstants.FORM_ADD_DATA_REQUEST });
 
   dispatch({
