@@ -113,6 +113,7 @@ function PersonalProjects(props) {
                   fullWidth
                   variant="outlined"
                   color="primary"
+                  id="previous_work"
                   className={classes.previousButton}
                   onClick={() => {
                     props.history.push("/form/work");

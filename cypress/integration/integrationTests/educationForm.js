@@ -1,4 +1,4 @@
-describe("Education Form", function () {
+describe("Form Flow Test - Education Form", function () {
     it("Has all requires pages", function () {
       cy.visit("/form/education");
 

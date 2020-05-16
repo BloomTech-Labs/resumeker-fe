@@ -61,7 +61,7 @@ function JobHistoryCard(props) {
     );
   } else {
     return (
-      <CardContent className={classes.cardContent}>
+      <CardContent className={classes.cardContent} className="JobForTesting">
         <p>
           Job Title: {info.jobTitle}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
