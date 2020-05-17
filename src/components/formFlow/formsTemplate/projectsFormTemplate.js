@@ -85,6 +85,7 @@ function ProjectsFormTemplate(props) {
                 name="link"
                 label="Link to Project"
                 id="link"
+                type="url"
                 onChange={props.onChange}
                 value={props.info.link}
               />

@@ -33,7 +33,7 @@ function EducationFormTemplate(props) {
 
   return (
     <div className={classes.textField}>
-      <FormControl className={classes.selectorForm}>
+      <FormControl className={classes.selectorForm} id="formSelector">
         <InputLabel
           data-testid="label"
           className={classes.selectorText}

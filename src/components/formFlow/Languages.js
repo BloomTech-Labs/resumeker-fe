@@ -111,7 +111,7 @@ function Languages(props) {
             <Typography component="h1" variant="h5">
               What Languages Do You Speak?
             </Typography>
-            <form className={classes.form} onSubmit={anotherLanguage}>
+            <form className={classes.form} onSubmit={anotherLanguage} id="languagesForm">
             <SingleFieldFormTemplate onChange={onChange} info={info.language} anotherOne={anotherLanguage} name="language" label="Language" />
               <Grid className={classes.skillContainer}>
                 <Paper
@@ -126,7 +126,7 @@ function Languages(props) {
                   />
                   {props.resumeData.languages.map((data) => {
                     return (
-                      <li key={data.id}>
+                      <li key={data.id} className="listOfLanguages">
                         <Chip
                           label={data.language}
                           onDelete={handleDelete(data)}
@@ -144,7 +144,8 @@ function Languages(props) {
                   type="button"
                   variant="outlined"
                   color="primary"
-                  className={classes.previousButton}
+                  id="previous_generalSkills"
+                  className={`${classes.previousButton} singlePageButton`}
                   onClick={() => {
                     props.history.push("/form/generalskills");
                   }}
@@ -156,7 +157,8 @@ function Languages(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.nextButton}
+                  id="next_hobbies"
+                  className={`${classes.nextButton} singlePageButton`}
                   onClick={() => {
                     nextPage();
                   }}

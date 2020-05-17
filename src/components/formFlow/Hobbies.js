@@ -107,7 +107,7 @@ function Hobbies(props) {
             <Typography component="h1" variant="h5">
               What Are Some Of Your Hobbies?
             </Typography>
-            <form className={classes.form} onSubmit={anotherHobby}>
+            <form className={classes.form} onSubmit={anotherHobby} id="hobbiesForm">
             <SingleFieldFormTemplate onChange={onChange} info={info.hobby} anotherOne={anotherHobby} name="hobby" label="Your Hobbies" />
 
               <Grid className={classes.skillContainer}>
@@ -123,7 +123,7 @@ function Hobbies(props) {
                   />
                   {props.resumeData.hobbies.map((data) => {
                     return (
-                      <li key={data.id}>
+                      <li key={data.id} className="listOfHobbies">
                         <Chip
                           label={data.hobby}
                           onDelete={handleDelete(data)}
@@ -141,7 +141,8 @@ function Hobbies(props) {
                   type="button"
                   variant="outlined"
                   color="primary"
-                  className={classes.previousButton}
+                  id="previous_languages"
+                  className={`${classes.previousButton} singlePageButton`}
                   onClick={() => {
                     props.history.push("/form/languages");
                   }}
@@ -153,7 +154,8 @@ function Hobbies(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.nextButton}
+                  id="next_review"
+                  className={`${classes.nextButton} singlePageButton`}
                   onClick={() => {
                     nextPage();
                   }}
