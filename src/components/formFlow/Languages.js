@@ -144,6 +144,7 @@ function Languages(props) {
                   type="button"
                   variant="outlined"
                   color="primary"
+                  id="previous_generalSkills"
                   className={classes.previousButton}
                   onClick={() => {
                     props.history.push("/form/generalskills");

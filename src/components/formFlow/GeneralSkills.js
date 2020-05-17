@@ -116,7 +116,7 @@ function GeneralSkills(props) {
               (Time Management, Critical Thinking, Teamwork, Problem Solving,
               Comunication, etc)
             </Typography>
-            <form className={classes.form} onSubmit={anotherSkill}>
+            <form className={classes.form} onSubmit={anotherSkill} id="generalSkillsForm">
             <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="General Skill" />
               <Grid className={classes.skillContainer}>
                 <Paper
@@ -131,7 +131,7 @@ function GeneralSkills(props) {
                   />
                   {props.resumeData.generalSkills.map((data) => {
                     return (
-                      <li key={data.id}>
+                      <li key={data.id} className="listOfGeneralSkills">
                         <Chip
                           label={data.skill}
                           onDelete={handleDelete(data)}
@@ -150,7 +150,7 @@ function GeneralSkills(props) {
                   variant="outlined"
                   color="primary"
                   id="previous_techSkills"
-                  className={classes.previousButton}
+                  className={`${classes.previousButton} singlePageButton`}
                   onClick={() => {
                     props.history.push("/form/techskills");
                   }}
@@ -162,7 +162,8 @@ function GeneralSkills(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.nextButton}
+                  id="next_languages"
+                  className={`${classes.nextButton} singlePageButton`}
                   onClick={() => {
                     nextPage();
                   }}
