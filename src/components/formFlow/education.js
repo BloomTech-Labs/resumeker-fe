@@ -126,6 +126,7 @@ function Education(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
+                  id="next_work"
                   className={classes.nextButton}
                 >
                   Next Form
