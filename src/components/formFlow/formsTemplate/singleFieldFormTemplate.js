@@ -50,7 +50,8 @@ function SingleFieldFormTemplate(props) {
                   value={props.info}
                 />
                 <AddBoxIcon
-                  className={classes.addIcon}
+                  className={`${classes.addIcon} singlePageButton`}
+                  id="addButton"
                   color="primary"
                   onClick={props.anotherOne}
                 />

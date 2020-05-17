@@ -61,7 +61,7 @@ function ProjectCard(props) {
     );
   } else {
     return (
-      <CardContent className={classes.cardContent}>
+      <CardContent className={`${classes.cardContent} ProjectsTesting`}>
         <p>
           Project Name: {info.projectName}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>

@@ -115,7 +115,7 @@ function TechSkills(props) {
               (CSS, HTML, JS, React, Redux, JAVA, NodeJS, GraphQL, Express,
               Postgres, SQLite, Knex,etc)
             </Typography>
-            <form className={classes.form} onSubmit={anotherSkill}>
+            <form className={classes.form} onSubmit={anotherSkill} id="techSkillsForm">
               <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="Tech Skill" />
               <Grid className={classes.skillContainer}>
                 <Paper
@@ -130,11 +130,12 @@ function TechSkills(props) {
                   />
                   {props.resumeData.techSkills.map((data) => {
                     return (
-                      <li key={data.id}>
+                      <li key={data.id} className="listOfTechSkills" >
                         <Chip
                           label={data.skill}
                           onDelete={handleDelete(data)}
-                          className={classes.chip}
+                          className={`${classes.chip} TestingDelete`}
+                          id={data.skill}
                         />
                       </li>
                     );
@@ -148,9 +149,10 @@ function TechSkills(props) {
                   fullWidth
                   variant="outlined"
                   color="primary"
-                  className={classes.previousButton}
+                  id="previous_projects"
+                  className={`${classes.previousButton} singlePageButton`}
                   onClick={() => {
-                    props.history.push("/form/work");
+                    props.history.push("/form/projects");
                   }}
                 >
                   Previous Form
@@ -160,7 +162,8 @@ function TechSkills(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.nextButton}
+                  id="next_generalSkills"
+                  className={`${classes.nextButton} singlePageButton`}
                   onClick={() => {
                     nextPage();
                   }}
@@ -172,7 +175,6 @@ function TechSkills(props) {
           </Grid>
         </Grid>
       </Grid>
-      <button onClick={() => nextPage()}>Next Page</button>
     </Grid>
   );
 }

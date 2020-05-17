@@ -149,6 +149,7 @@ function GeneralSkills(props) {
                   fullWidth
                   variant="outlined"
                   color="primary"
+                  id="previous_techSkills"
                   className={classes.previousButton}
                   onClick={() => {
                     props.history.push("/form/techskills");

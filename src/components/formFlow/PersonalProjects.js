@@ -126,6 +126,7 @@ function PersonalProjects(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
+                  id="next_techSkills"
                   className={classes.nextButton}
                 >
                   Next Form
