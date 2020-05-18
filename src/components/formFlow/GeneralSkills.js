@@ -7,8 +7,8 @@ import {
   removeGeneralSkill,
 } from "../../actions/resumeFormActions.js";
 
-import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout"
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
   Button,
@@ -69,6 +69,7 @@ function GeneralSkills(props) {
   const [info, setInfo] = useState({
     id: Date.now(),
     skill: "",
+    ENUM: "QUALITATIVE",
   });
 
   const classes = useStyles();
@@ -88,6 +89,7 @@ function GeneralSkills(props) {
     setInfo({
       id: Date.now(),
       skill: "",
+      ENUM: "QUALITATIVE",
     });
   };
   const onChange = (event) => {
@@ -112,12 +114,26 @@ function GeneralSkills(props) {
               Tell us about some of your other skills that didn't quite make it
               into the technical section!
             </Typography>
-            <Typography color="textSecondary" component="h5" variant="subtitle2">
+            <Typography
+              color="textSecondary"
+              component="h5"
+              variant="subtitle2"
+            >
               (Time Management, Critical Thinking, Teamwork, Problem Solving,
               Comunication, etc)
             </Typography>
-            <form className={classes.form} onSubmit={anotherSkill} id="generalSkillsForm">
-            <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="General Skill" />
+            <form
+              className={classes.form}
+              onSubmit={anotherSkill}
+              id="generalSkillsForm"
+            >
+              <SingleFieldFormTemplate
+                onChange={onChange}
+                info={info.skill}
+                anotherOne={anotherSkill}
+                name="skill"
+                label="General Skill"
+              />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"
@@ -140,8 +156,8 @@ function GeneralSkills(props) {
                       </li>
                     );
                   })}
-                </Paper>                      
-              </Grid>   
+                </Paper>
+              </Grid>
 
               <Grid className={classes.buttonContainer}>
                 <Button

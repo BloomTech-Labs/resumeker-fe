@@ -7,8 +7,8 @@ import {
   removeTechSkill,
 } from "../../actions/resumeFormActions.js";
 
-import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout"
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
   Button,
@@ -69,6 +69,7 @@ function TechSkills(props) {
   const [info, setInfo] = useState({
     id: Date.now(),
     skill: "",
+    ENUM: "TECHNICAL",
   });
 
   const classes = useStyles();
@@ -88,6 +89,7 @@ function TechSkills(props) {
     setInfo({
       id: Date.now(),
       skill: "",
+      ENUM: "TECHNICAL",
     });
   };
   const onChange = (event) => {
@@ -111,12 +113,26 @@ function TechSkills(props) {
             <Typography component="h1" variant="h5">
               Tell us about some of the technical skills that you possess!
             </Typography>
-            <Typography color="textSecondary" component="h5" variant="subtitle2">
+            <Typography
+              color="textSecondary"
+              component="h5"
+              variant="subtitle2"
+            >
               (CSS, HTML, JS, React, Redux, JAVA, NodeJS, GraphQL, Express,
               Postgres, SQLite, Knex,etc)
             </Typography>
-            <form className={classes.form} onSubmit={anotherSkill} id="techSkillsForm">
-              <SingleFieldFormTemplate onChange={onChange} info={info.skill} anotherOne={anotherSkill} name="skill" label="Tech Skill" />
+            <form
+              className={classes.form}
+              onSubmit={anotherSkill}
+              id="techSkillsForm"
+            >
+              <SingleFieldFormTemplate
+                onChange={onChange}
+                info={info.skill}
+                anotherOne={anotherSkill}
+                name="skill"
+                label="Tech Skill"
+              />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"
@@ -130,7 +146,7 @@ function TechSkills(props) {
                   />
                   {props.resumeData.techSkills.map((data) => {
                     return (
-                      <li key={data.id} className="listOfTechSkills" >
+                      <li key={data.id} className="listOfTechSkills">
                         <Chip
                           label={data.skill}
                           onDelete={handleDelete(data)}
