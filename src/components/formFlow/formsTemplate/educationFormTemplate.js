@@ -52,10 +52,10 @@ function EducationFormTemplate(props) {
           onChange={props.onChange}
           value={props.info.type}
         >
-          <MenuItem value={"College"}>College</MenuItem>
-          <MenuItem value={"University"}>University</MenuItem>
-          <MenuItem value={"Certification"}>Certification</MenuItem>
-          <MenuItem value={"Course"}>Course</MenuItem>
+          <MenuItem value={"UNDERGRADUATE"}>College</MenuItem>
+          <MenuItem value={"GRADUATE"}>Graduate</MenuItem>
+          <MenuItem value={"CERTIFICATION"}>Certification</MenuItem>
+          <MenuItem value={"COURSE"}>Course</MenuItem>
         </Select>
       </FormControl>
       <TextField

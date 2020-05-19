@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+//Apollo useMutation Hook for API call
+import { useMutation } from "@apollo/react-hooks";
+//Importing GraphQL Query for useMutation API call
+import { addWorkMutation as ADD_WORK_MUTATION } from "../../queries/queries";
+
 //Actions
 import {
-  addWorkData,
-  updateWorkData,
+    addWorkData,
+    updateWorkData,
 } from "../../actions/resumeFormActions.js";
 
 import JobHistoryCard from "./reviewForm/jobHistoryCard";
@@ -13,160 +18,196 @@ import WorkHistoryFormTemplate from "./formsTemplate/workHistoryFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
 
 import {
-  Button,
-  CssBaseline,
-  Paper,
-  Grid,
-  makeStyles,
+    Button,
+    CssBaseline,
+    Paper,
+    Grid,
+    makeStyles,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  previousButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-  },
-  nextButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-    height: "3.5rem",
-  },
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
+    root: {
+        height: "100vh",
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+    previousButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+    },
+    nextButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+        height: "3.5rem",
+    },
+    buttonContainer: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "row",
+    },
 }));
 
 function WorkHistory(props) {
-  const [info, setInfo] = useState({
-    jobTitle: "",
-    companyName: "",
-    startYear: "",
-    endYear: "",
-    jobDescription: "",
-    id: Date.now(),
-  });
-
-  const classes = useStyles();
-
-  const nextPage = (event) => {
-    event.preventDefault();
-    props.addWorkData(info);
-    props.history.push("/form/projects");
-    console.log("data from reducer", props.resumeData.jobs);
-  };
-
-  const anotherJob = (event) => {
-    event.preventDefault();
-    props.addWorkData(info);
-    setInfo({
-      jobTitle: "",
-      companyName: "",
-      startYear: "",
-      endYear: "",
-      jobDescription: "",
-      id: Date.now(),
+    const [info, setInfo] = useState({
+        jobTitle: "",
+        companyName: "",
+        startYear: "",
+        endYear: "",
+        jobDescription: "",
+        userId: "google-oauth2|106346646323547324114",
     });
-  };
 
-  const onChange = (event) => {
-    event.preventDefault();
-    setInfo({ ...info, [event.target.name]: event.target.value });
-  };
+    //Instantiate useMutation Hook / Creates tuple with 1st var being actual
+    //call function, and 2nd destructured variable being return data and tracking
+    const [addWork, { loading, error }] = useMutation(ADD_WORK_MUTATION, {
+        onCompleted(data) {
+            // console.log(data, "\n Add Education Response");
+        },
+    });
 
-  return (
-    <div>
-      <Grid container componet="main" className={classes.root}>
-        <CssBaseline />
-        <TipsLayout />
-        <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <form id="workForm" className={classes.form} onSubmit={nextPage}>
-              <WorkHistoryFormTemplate info={info} onChange={onChange} />
-              <Button
-                type="reset"
-                fullWidth
-                variant="contained"
-                color="primary"
-                id="anotherJob"
-                className={classes.submit}
-                onClick={anotherJob}
-              >
-                Another Job?
-              </Button>
-              <Grid className={classes.buttonContainer}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="outlined"
-                  color="primary"
-                  id="previous_education"
-                  className={classes.previousButton}
-                  onClick={() => {
-                    props.history.push("/form/education");
-                  }}
+    const classes = useStyles();
+
+    const nextPage = (event) => {
+        event.preventDefault();
+        props.addWorkData(info);
+        props.history.push("/form/projects");
+        console.log("data from reducer", props.resumeData.jobs);
+    };
+
+    const anotherJob = (event) => {
+        event.preventDefault();
+        props.addWorkData(info);
+
+        //Apollo useMutation API call to send data to backend
+        addWork({
+            variables: {
+                userId: info.userId,
+                startDate: info.startYear,
+                endDate: info.endYear,
+                title: info.jobTitle,
+                description: info.jobDescription,
+                company: info.companyName,
+            },
+        });
+
+        setInfo({
+            ...info,
+            jobTitle: "",
+            companyName: "",
+            startYear: "",
+            endYear: "",
+            jobDescription: "",
+        });
+    };
+
+    const onChange = (event) => {
+        event.preventDefault();
+        setInfo({ ...info, [event.target.name]: event.target.value });
+    };
+
+    return (
+        <div>
+            <Grid container componet="main" className={classes.root}>
+                <CssBaseline />
+                <TipsLayout />
+                <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    md={9}
+                    component={Paper}
+                    elevation={6}
+                    square
                 >
-                  Previous Form
-                </Button>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  id="next_projects"
-                  className={classes.nextButton}
-                >
-                  Next Form
-                </Button>
-              </Grid>
-            </form>
+                    <div className={classes.paper}>
+                        <form
+                            id="workForm"
+                            className={classes.form}
+                            onSubmit={nextPage}
+                        >
+                            <WorkHistoryFormTemplate
+                                info={info}
+                                onChange={onChange}
+                            />
+                            <Button
+                                type="reset"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                id="anotherJob"
+                                className={classes.submit}
+                                onClick={anotherJob}
+                            >
+                                Another Job?
+                            </Button>
+                            <Grid className={classes.buttonContainer}>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="outlined"
+                                    color="primary"
+                                    id="previous_education"
+                                    className={classes.previousButton}
+                                    onClick={() => {
+                                        props.history.push("/form/education");
+                                    }}
+                                >
+                                    Previous Form
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    id="next_projects"
+                                    className={classes.nextButton}
+                                >
+                                    Next Form
+                                </Button>
+                            </Grid>
+                        </form>
 
-            {props.resumeData.jobs.length ? (
-              props.resumeData.jobs.map((job) => (
-                <div key={job.id}>
-                  <JobHistoryCard
-                    job={job}
-                    updateWorkData={props.updateWorkData}
-                  />
-                </div>
-              ))
-            ) : (
-              <p>Here you can see your added jobs</p>
-            )}
-          </div>
-        </Grid>
-      </Grid>
-    </div>
-  );
+                        {props.resumeData.jobs.length ? (
+                            props.resumeData.jobs.map((job) => (
+                                <div key={job.id}>
+                                    <JobHistoryCard
+                                        job={job}
+                                        updateWorkData={props.updateWorkData}
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <p>Here you can see your added jobs</p>
+                        )}
+                    </div>
+                </Grid>
+            </Grid>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
+    return {
+        resumeData: state.resumeFormReducer.resumeData,
+        resumeError: state.resumeFormReducer.error,
+        resumeLoading: state.resumeFormReducer.loading,
+    };
 };
 
 export default connect(mapStateToProps, { addWorkData, updateWorkData })(
-  WorkHistory
+    WorkHistory
 );
