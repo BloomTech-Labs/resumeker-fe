@@ -20,6 +20,11 @@ const onRedirectCallback = (appState) => {
     );
 };
 
+console.log(
+    process.env[`REACT_APP_${process.env.REACT_APP_ENV}_API`],
+    "/n Shoulda coulda woulda"
+);
+
 export const client = new ApolloClient({
     uri: process.env[`REACT_APP_${process.env.REACT_APP_ENV}_API`],
     request: (operation) => {
@@ -51,5 +56,5 @@ ReactDOM.render(
 );
 
 if (window.Cypress) {
-  window.store = configStore;
+    window.store = configStore;
 }
