@@ -25,6 +25,8 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
+import MobileStepper from '@material-ui/core/MobileStepper';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "100vh",
@@ -68,6 +70,12 @@ const useStyles = makeStyles((theme) => ({
     bold: {
       fontWeight: "900",
     },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 function WorkHistory(props) {
@@ -79,6 +87,8 @@ function WorkHistory(props) {
         jobDescription: "",
         userId: "google-oauth2|106346646323547324114",
     });
+
+    const [activeStep, setActiveStep] = useState(3);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -99,8 +109,8 @@ function WorkHistory(props) {
         ) {
           props.addWorkData(info);
         }
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/projects");
-        console.log("data from reducer", props.resumeData.jobs);
     };
 
     const anotherJob = (event) => {
@@ -108,16 +118,16 @@ function WorkHistory(props) {
         props.addWorkData(info);
 
         //Apollo useMutation API call to send data to backend
-        addWork({
-            variables: {
-                userId: info.userId,
-                startDate: info.startYear,
-                endDate: info.endYear,
-                title: info.jobTitle,
-                description: info.jobDescription,
-                company: info.companyName,
-            },
-        });
+        // addWork({
+        //     variables: {
+        //         userId: info.userId,
+        //         startDate: info.startYear,
+        //         endDate: info.endYear,
+        //         title: info.jobTitle,
+        //         description: info.jobDescription,
+        //         company: info.companyName,
+        //     },
+        // });
 
         setInfo({
             ...info,
@@ -148,6 +158,13 @@ function WorkHistory(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={activeStep}
+                    className={classes.progress}
+                    />
                     <div className={classes.paper}>
                         <form
                             id="workForm"
@@ -178,6 +195,7 @@ function WorkHistory(props) {
                                     id="previous_education"
                                     className={classes.previousButton}
                                     onClick={() => {
+                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/education");
                                     }}
                                 >

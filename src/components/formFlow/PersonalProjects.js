@@ -23,6 +23,8 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
+import MobileStepper from '@material-ui/core/MobileStepper';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "100vh",
@@ -66,6 +68,12 @@ const useStyles = makeStyles((theme) => ({
     bold: {
       fontWeight: "900",
     },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 function PersonalProjects(props) {
@@ -78,6 +86,8 @@ function PersonalProjects(props) {
         link: "",
         userId:"google-oauth2|106346646323547324114"
     });
+
+    const [activeStep, setActiveStep] = useState(4);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -98,6 +108,7 @@ function PersonalProjects(props) {
         ) {
           props.addProjectData(info);
         }
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/techskills");
     };
 
@@ -106,17 +117,17 @@ function PersonalProjects(props) {
         props.addProjectData(info);
 
         //Apollo useMutation API call to send data to backend
-        addProject({
-            variables: {
-                title: info.projectName,
-                role: info.role,
-                projectUrl: info.link,
-                description: info.roleDescription,
-                startDate: info.projectStartDate,
-                endDate: info.projectEndDate,
-                userId: info.userId
-            },
-        });
+        // addProject({
+        //     variables: {
+        //         title: info.projectName,
+        //         role: info.role,
+        //         projectUrl: info.link,
+        //         description: info.roleDescription,
+        //         startDate: info.projectStartDate,
+        //         endDate: info.projectEndDate,
+        //         userId: info.userId
+        //     },
+        // });
 
         setInfo({
             ...info,
@@ -149,6 +160,13 @@ function PersonalProjects(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={activeStep}
+                    className={classes.progress}
+                    />
                     <div className={classes.paper}>
                         <form className={classes.form} onSubmit={nextPage}>
                             <ProjectsFormTemplate
@@ -174,6 +192,7 @@ function PersonalProjects(props) {
                                     id="previous_work"
                                     className={classes.previousButton}
                                     onClick={() => {
+                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/work");
                                     }}
                                 >

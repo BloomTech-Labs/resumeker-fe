@@ -20,6 +20,8 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
+import MobileStepper from '@material-ui/core/MobileStepper';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "100vh",
@@ -49,6 +51,12 @@ const useStyles = makeStyles((theme) => ({
     bold: {
         fontWeight: "900",
     },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    }
 }));
 
 function GeneralInfo(props) {
@@ -57,6 +65,8 @@ function GeneralInfo(props) {
         firstName: `${props.resumeData.firstName}`,
         lastName: `${props.resumeData.lastName}`,
     });
+
+    const [activeStep, setActiveStep] = useState(1);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -76,20 +86,22 @@ function GeneralInfo(props) {
         const name = info.firstName + " " + info.lastName;
 
         //Apollo useMutation API call to send data to backend
-        const response = await addDraft({
-            variables: {
-                email: info.email,
-                name: name,
-            },
-        });
+        // const response = await addDraft({
+        //     variables: {
+        //         email: info.email,
+        //         name: name,
+        //     },
+        // });
 
-        console.log(response, "\n Add Draft Response");
-
+        // console.log(response, "\n Add Draft Response");
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        
         props.history.push("/form/education");
     };
 
     const onChange = (event) => {
         event.preventDefault();
+        console.log(activeStep, "active step")
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 
@@ -107,7 +119,17 @@ function GeneralInfo(props) {
                     elevation={6}
                     square
                 >
+                        <MobileStepper
+                        variant="progress"
+                        steps={8}
+                        position="static"
+                        activeStep={activeStep}
+                        className={classes.progress}
+                        />
                     <div className={classes.paper}>
+
+
+
                         <form className={classes.form} onSubmit={nextPage}>
                             <GeneralInfoFormTemplate
                                 onChange={onChange}
