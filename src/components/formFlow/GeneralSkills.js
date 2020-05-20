@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+//Apollo useMutation Hook for API call
+import { useMutation } from "@apollo/react-hooks";
+//Importing GraphQL Query for useMutation API call
+import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/queries";
+
 //Actions
 import {
-  addGeneralSkill,
-  removeGeneralSkill,
+    addGeneralSkill,
+    removeGeneralSkill,
 } from "../../actions/resumeFormActions.js";
 
 import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
 
 import {
-  Button,
-  CssBaseline,
-  Paper,
-  Grid,
-  Typography,
-  makeStyles,
-  Chip,
+    Button,
+    CssBaseline,
+    Paper,
+    Grid,
+    Typography,
+    makeStyles,
+    Chip,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -73,134 +78,165 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GeneralSkills(props) {
-  const [info, setInfo] = useState({
-    id: Date.now(),
-    skill: "",
-    ENUM: "QUALITATIVE",
-  });
-
-  const classes = useStyles();
-
-  const nextPage = (event) => {
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-    }
-    props.history.push("/form/languages");
-  };
-
-  const anotherSkill = (event) => {
-    event.preventDefault();
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-    }
-    setInfo({
-      id: Date.now(),
-      skill: "",
-      ENUM: "QUALITATIVE",
+    const [info, setInfo] = useState({
+        userId: "google-oauth2|106346646323547324114",
+        skill: "",
     });
-  };
-  const onChange = (event) => {
-    event.preventDefault();
-    setInfo({ ...info, [event.target.name]: event.target.value });
-  };
 
-  const handleDelete = (skillToDelete) => (event) => {
-    event.preventDefault();
-    props.removeGeneralSkill(skillToDelete);
-    setInfo({ ...info });
-  };
+    //Instantiate useMutation Hook / Creates tuple with 1st var being actual
+    //call function, and 2nd destructured variable being return data and tracking
+    const [addSkill, { loading, error }] = useMutation(ADD_SKILL_MUTATION, {
+        onCompleted(data) {
+            // console.log(data, "\n Add Education Response");
+        },
+    });
 
-  return (
-    <div>
-      <Grid container componet="main" className={classes.root}>
-        <CssBaseline />
-        <TipsLayout tips={Tip()} />
-        <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Tell us about some of your other skills that didn't quite make it
-              into the technical section!
-            </Typography>
-            <Typography
-              color="textSecondary"
-              component="h5"
-              variant="subtitle2"
-            >
-              (Time Management, Teamwork, Problem Solving, Communication,
-              Collabortion, etc)
-            </Typography>
-            <form
-              className={classes.form}
-              onSubmit={anotherSkill}
-              id="generalSkillsForm"
-            >
-              <SingleFieldFormTemplate
-                onChange={onChange}
-                info={info.skill}
-                anotherOne={anotherSkill}
-                name="skill"
-                label="General Skill"
-              />
-              <Grid className={classes.skillContainer}>
-                <Paper
-                  component="ul"
-                  square="true"
-                  className={classes.chipContainer}
-                >
-                  <Chip
-                    label="Your Skills:"
-                    className={classes.chip}
-                    color="primary"
-                  />
-                  {props.resumeData.generalSkills.map((data) => {
-                    return (
-                      <li key={data.id} className="listOfGeneralSkills">
-                        <Chip
-                          label={data.skill}
-                          onDelete={handleDelete(data)}
-                          className={classes.chip}
-                        />
-                      </li>
-                    );
-                  })}
-                </Paper>
-              </Grid>
+    const classes = useStyles();
 
-              <Grid className={classes.buttonContainer}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="outlined"
-                  color="primary"
-                  id="previous_techSkills"
-                  className={`${classes.previousButton} singlePageButton`}
-                  onClick={() => {
-                    props.history.push("/form/techskills");
-                  }}
+    const nextPage = (event) => {
+        if (info.skill.length > 0) {
+            props.addGeneralSkill(info);
+        }
+        props.history.push("/form/languages");
+    };
+
+    const anotherSkill = (event) => {
+        event.preventDefault();
+        if (info.skill.length > 0) {
+            props.addGeneralSkill(info);
+
+            //Apollo useMutation API call to send data to backend
+            addSkill({
+                variables: {
+                    userId: info.userId,
+                    skillType: "QUALITATIVE",
+                    name: info.skill,
+                },
+            });
+        }
+
+        setInfo({
+            ...info,
+            skill: "",
+        });
+    };
+    const onChange = (event) => {
+        event.preventDefault();
+        setInfo({ ...info, [event.target.name]: event.target.value });
+    };
+
+    const handleDelete = (skillToDelete) => (event) => {
+        event.preventDefault();
+        props.removeGeneralSkill(skillToDelete);
+        setInfo({ ...info });
+    };
+
+    return (
+        <div>
+            <Grid container componet="main" className={classes.root}>
+                <CssBaseline />
+                <TipsLayout tips={Tip()} />
+                <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    md={9}
+                    component={Paper}
+                    elevation={6}
+                    square
                 >
-                  Previous Form
-                </Button>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  id="next_languages"
-                  className={`${classes.nextButton} singlePageButton`}
-                  onClick={() => {
-                    nextPage();
-                  }}
-                >
-                  Next Form
-                </Button>
-              </Grid>
-            </form>
-          </div>
-        </Grid>
-      </Grid>
-      <button onClick={() => nextPage()}>Next Page</button>
-    </div>
-  );
+                    <div className={classes.paper}>
+                        <Typography component="h1" variant="h5">
+                            Tell us about some of your other skills that didn't
+                            quite make it into the technical section!
+                        </Typography>
+                        <Typography
+                            color="textSecondary"
+                            component="h5"
+                            variant="subtitle2"
+                        >
+                            (Time Management, Critical Thinking, Teamwork,
+                            Problem Solving, Comunication, etc)
+                        </Typography>
+                        <form
+                            className={classes.form}
+                            onSubmit={anotherSkill}
+                            id="generalSkillsForm"
+                        >
+                            <SingleFieldFormTemplate
+                                onChange={onChange}
+                                info={info.skill}
+                                anotherOne={anotherSkill}
+                                name="skill"
+                                label="General Skill"
+                            />
+                            <Grid className={classes.skillContainer}>
+                                <Paper
+                                    component="ul"
+                                    square="true"
+                                    className={classes.chipContainer}
+                                >
+                                    <Chip
+                                        label="Your Skills:"
+                                        className={classes.chip}
+                                        color="primary"
+                                    />
+                                    {props.resumeData.generalSkills.map(
+                                        (data) => {
+                                            return (
+                                                <li
+                                                    key={data.id}
+                                                    className="listOfGeneralSkills"
+                                                >
+                                                    <Chip
+                                                        label={data.skill}
+                                                        onDelete={handleDelete(
+                                                            data
+                                                        )}
+                                                        className={classes.chip}
+                                                    />
+                                                </li>
+                                            );
+                                        }
+                                    )}
+                                </Paper>
+                            </Grid>
+
+                            <Grid className={classes.buttonContainer}>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="outlined"
+                                    color="primary"
+                                    id="previous_techSkills"
+                                    className={`${classes.previousButton} singlePageButton`}
+                                    onClick={() => {
+                                        props.history.push("/form/techskills");
+                                    }}
+                                >
+                                    Previous Form
+                                </Button>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    id="next_languages"
+                                    className={`${classes.nextButton} singlePageButton`}
+                                    onClick={() => {
+                                        nextPage();
+                                    }}
+                                >
+                                    Next Form
+                                </Button>
+                            </Grid>
+                        </form>
+                    </div>
+                </Grid>
+            </Grid>
+            <button onClick={() => nextPage()}>Next Page</button>
+        </div>
+    );
 }
 
 function Tip() {
@@ -221,14 +257,14 @@ function Tip() {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
+    return {
+        resumeData: state.resumeFormReducer.resumeData,
+        resumeError: state.resumeFormReducer.error,
+        resumeLoading: state.resumeFormReducer.loading,
+    };
 };
 
 export default connect(mapStateToProps, {
-  addGeneralSkill,
-  removeGeneralSkill,
+    addGeneralSkill,
+    removeGeneralSkill,
 })(GeneralSkills);

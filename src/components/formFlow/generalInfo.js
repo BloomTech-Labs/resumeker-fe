@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
 
@@ -8,11 +9,11 @@ import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
 
 import {
-  Button,
-  CssBaseline,
-  Paper,
-  Grid,
-  makeStyles,
+    Button,
+    CssBaseline,
+    Paper,
+    Grid,
+    makeStyles,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,24 +48,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GeneralInfo(props) {
-  const [info, setInfo] = useState({
-    email: `${props.resumeData.email}`,
-    firstName: `${props.resumeData.firstName}`,
-    lastName: `${props.resumeData.lastName}`,
-  });
+    const [info, setInfo] = useState({
+        email: `${props.resumeData.email}`,
+        firstName: `${props.resumeData.firstName}`,
+        lastName: `${props.resumeData.lastName}`,
+    });
 
-  const classes = useStyles();
+    const classes = useStyles();
 
-  const nextPage = (event) => {
-    event.preventDefault();
-    props.addData(info);
-    props.history.push("/form/education");
-  };
+    const nextPage = (event) => {
+        event.preventDefault();
+        props.addData(info);
+        props.history.push("/form/education");
+    };
 
-  const onChange = (event) => {
-    event.preventDefault();
-    setInfo({ ...info, [event.target.name]: event.target.value });
-  };
+    const onChange = (event) => {
+        event.preventDefault();
+        setInfo({ ...info, [event.target.name]: event.target.value });
+    };
 
   return (
     <div id="generalInfoForm">
@@ -114,11 +115,11 @@ function Tip() {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
+    return {
+        resumeData: state.resumeFormReducer.resumeData,
+        resumeError: state.resumeFormReducer.error,
+        resumeLoading: state.resumeFormReducer.loading,
+    };
 };
 
 export default connect(mapStateToProps, { addData })(GeneralInfo);

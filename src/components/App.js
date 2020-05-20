@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
+import { useAuth0 } from "../react-auth0-spa";
 
 // styles
 import "./App.css";
@@ -21,6 +22,8 @@ import { getUser, updateUser } from "../actions/actions.js";
 
 function App(props) {
   const { getUser } = props;
+
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const token = useGetToken();
 
