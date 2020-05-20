@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Resume from '../Resume';
+import Resume from '../formFlow/Resume';
 
 function ResumeCard() {
     return (

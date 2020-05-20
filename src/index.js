@@ -9,7 +9,6 @@ import App from "./components/App";
 import "./index.css";
 import store, { history } from "./utils/store";
 import { Auth0Provider } from "./react-auth0-spa.js";
-
 const configStore = store();
 
 const onRedirectCallback = (appState) => {
@@ -20,10 +19,7 @@ const onRedirectCallback = (appState) => {
     );
 };
 
-console.log(
-    process.env[`REACT_APP_${process.env.REACT_APP_ENV}_API`],
-    "/n Shoulda coulda woulda"
-);
+
 
 export const client = new ApolloClient({
     uri: process.env[`REACT_APP_${process.env.REACT_APP_ENV}_API`],

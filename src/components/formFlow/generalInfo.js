@@ -40,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    tipTextLarge: {
+        fontSize: "1.1rem",
+    },
+    tipTextSmall: {
+        fontSize: "0.8rem",
+    },
+    bold: {
+        fontWeight: "900",
+    },
 }));
 
 function GeneralInfo(props) {
@@ -88,7 +97,7 @@ function GeneralInfo(props) {
         <div id="generalInfoForm">
             <Grid container componet="main" className={classes.root}>
                 <CssBaseline />
-                <TipsLayout />
+                <TipsLayout tips={Tip()} />
                 <Grid
                     item
                     xs={12}
@@ -117,6 +126,30 @@ function GeneralInfo(props) {
                     </div>
                 </Grid>
             </Grid>
+        </div>
+    );
+}
+
+//tips="Hey, welcome to Resumeker forms! These forms will help you create a beautiful
+//resume to impress your potential employers!"
+
+function Tip() {
+    const classes = useStyles();
+
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Hey, Welcome to Resumeker Forms!
+            </p>
+            <p className={classes.tipTextLarge}>
+                This Form Flow process will help you create a beautiful and
+                effective resume for potential employers.
+            </p>
+            <p className={classes.tipTextSmall}>
+                Keep an eye out for these{" "}
+                <span className={classes.bold}>tips</span> as they will help you
+                along the way!
+            </p>
         </div>
     );
 }

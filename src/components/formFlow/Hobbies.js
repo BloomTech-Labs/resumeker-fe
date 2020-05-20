@@ -22,48 +22,55 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        height: "100vh",
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        display: "flex",
-        flexDirection: "column",
-    },
-    previousButton: {
-        margin: theme.spacing(3, 0, 2),
-        width: "49%",
-    },
-    nextButton: {
-        margin: theme.spacing(3, 0, 2),
-        width: "49%",
-        height: "3.5rem",
-    },
-    skillContainer: {
-        display: "flex",
-    },
-    chipContainer: {
-        display: "flex",
-        flexWrap: "wrap",
-        listStyle: "none",
-        padding: theme.spacing(0.5),
-        margin: 0,
-    },
-    chip: {
-        margin: theme.spacing(1.2),
-    },
-    buttonContainer: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "row",
-    },
+  root: {
+    height: "100vh",
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    display: "flex",
+    flexDirection: "column",
+  },
+  previousButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+  },
+  nextButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+    height: "3.5rem",
+  },
+  skillContainer: {
+    display: "flex",
+  },
+  chipContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+    boxShadow: "none",
+  },
+  chip: {
+    margin: theme.spacing(1.2),
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
+  },
 }));
 
 function Hobbies(props) {
@@ -122,7 +129,7 @@ function Hobbies(props) {
         <div>
             <Grid container componet="main" className={classes.root}>
                 <CssBaseline />
-                <TipsLayout />
+                <TipsLayout tips={Tip()} />
                 <Grid
                     item
                     xs={12}
@@ -213,6 +220,27 @@ function Hobbies(props) {
             </Grid>
         </div>
     );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        Employers like to know who the person they're hiring is outside of the
+        work place!
+      </p>
+      <p className={classes.tipTextLarge}>
+        Add a few hobbies that demonstrate and support some of the skills you
+        may have added earlier!
+      </p>
+      <p className={classes.tipTextSmall}>
+        Just make sure these are relevant, as an extensive knowledge of Marvel
+        probably won't help you write Lambda Functions...
+      </p>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

@@ -5,20 +5,16 @@ import { userConstants } from "./types.js";
 export const getUser = () => (dispatch) => {
     //Defining call information
     const options = {
-        url: process.env[`REACT_APP_${process.env.REACT_APP_ENV}_API`],
-        method: "post",
-        //GraphQL query structure
-        data: {
-            query: `
-                query {    
-                    getUser {
-                        userInfo
-                    }
-                }
-            `,
-        },
+        url: process.env.REACT_APP_AUTH0_DOMAIN + "/api/v2/userinfo",
+        method: "GET",
+
         //Building token from localStorage token.
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "content-type": "application/json",
+        },
+        json: true,
+        jar: "JAR",
     };
 
     dispatch({ type: userConstants.GET_USER_REQUEST });
@@ -26,6 +22,8 @@ export const getUser = () => (dispatch) => {
     // Making a call to the backend for user information
     axios(options)
         .then((res) => {
+            console.log(res, "Get User REsponse Redux");
+
             const userObj = JSON.parse(res.data.data.getUser.userInfo);
             dispatch({
                 type: userConstants.GET_USER_SUCCESS,
