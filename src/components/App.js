@@ -56,8 +56,8 @@ function App(props) {
         {!isAuthenticated &&
           <div>
             <h3>You have to login to be able to see this page</h3>
-          </div>
-        }
+          </div> 
+        } 
         {/* <Route exact path="/" component={Home} />
         <Route
           path="/profile"
