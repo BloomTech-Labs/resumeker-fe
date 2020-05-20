@@ -11,6 +11,7 @@ import Home from "./Home";
 import Profile from "./user/Profile";
 import FormEdit from "./FormEdit";
 import MasterForm from "./formFlow/masterform.js";
+import ProtectedRoute from "./ProtectedRoute.js";
 
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js";
@@ -38,9 +39,15 @@ function App(props) {
       <Switch>
         <Route path="/register" render={(props) => <Profile />} />
         <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
+        <Route
+          path="/profile"
+          component={() => <ProtectedRoute Component={Profile} />}
+        />
         <Route path="/edit" component={FormEdit} />
-        <Route path="/form" component={MasterForm} />
+        <Route
+          path="/form"
+          component={() => <ProtectedRoute Component={MasterForm} />}
+        />
       </Switch>
     </div>
   );
