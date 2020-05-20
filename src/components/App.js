@@ -42,32 +42,16 @@ function App(props) {
       <Switch>
         <Route path="/register" render={(props) => <Profile />} />
         
-        {isAuthenticated &&
-        <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/profile" component={Profile} />
-            <Route path="/edit" component={FormEdit} />
-            <Route path="/form" component={MasterForm} />
-            {/* <Route path="/resume" component={ResumeComponent} /> */}
-
-        </div>
-        }
-
-        {!isAuthenticated &&
-          <div>
-            <h3>You have to login to be able to see this page</h3>
-          </div> 
-        } 
-        {/* <Route exact path="/" component={Home} />
+      <Route exact path="/" component={Home} />
         <Route
           path="/profile"
           component={() => <ProtectedRoute Component={Profile} />}
         />
-        <Route path="/edit" component={FormEdit} />
         <Route
           path="/form"
           component={() => <ProtectedRoute Component={MasterForm} />}
-        /> */}
+        />
+        <Route path="/edit" component={FormEdit} />
       </Switch>
     </div>
   );
