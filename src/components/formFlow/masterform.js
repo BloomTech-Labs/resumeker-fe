@@ -12,6 +12,8 @@ import GeneralSkills from "./GeneralSkills.js";
 import Languages from "./Languages.js";
 import Hobbies from "./Hobbies";
 
+import ProtectedRoute from "../ProtectedRoute"
+
 function MasterForm() {
   const { url } = useRouteMatch();
 
@@ -19,7 +21,7 @@ function MasterForm() {
     <div>
       <h1>Resume Form</h1>
       <Switch>
-        <Route path={`${url}/generalInfo`} component={GeneralInfo} />
+        <ProtectedRoute path={`${url}/generalInfo`} component={GeneralInfo} />
         <Route path={`${url}/education`} component={Education} />
         <Route path={`${url}/work`} component={WorkHistory} />
         <Route path={`${url}/review`} component={EndFormReview} />

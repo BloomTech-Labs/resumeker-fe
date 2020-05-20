@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useAuth0 } from "../react-auth0-spa";
 
@@ -21,28 +21,40 @@ import { getUser, updateUser } from "../actions/actions.js";
 //Statemanagement actions
 
 function App(props) {
-  const { getUser } = props;
+  // const { getUser } = props;
 
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+  const { isAuthenticated } = useAuth0();
 
   const token = useGetToken();
 
   localStorage.setItem("token", token);
+  // console.log(isAuthenticated, "isAuth insdide of App.js")
 
-  useEffect(() => {
-    if (token) {
-      getUser();
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     getUser();
+  //   }
+  // }, [token]);
 
   return (
     <div className="App">
       <Navbar />
       <h1>Resumeker</h1>
       <Switch>
-        <Route path="/register" render={(props) => <Profile />} />
-        
-      <Route exact path="/" component={Home} />
+        <Route path="/register" render={(props) => <Profile />} /> 
+
+        {isAuthenticated &&
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/edit" component={FormEdit} />
+          <Route path="/form" component={MasterForm} />
+        </div>
+        }
+
+      {/* <ProtectedRoute path="/form" component={MasterForm} /> */}
+      {/* <Route exact path="/" component={Home} />
         <Route
           path="/profile"
           component={() => <ProtectedRoute Component={Profile} />}
@@ -51,7 +63,7 @@ function App(props) {
           path="/form"
           component={() => <ProtectedRoute Component={MasterForm} />}
         />
-        <Route path="/edit" component={FormEdit} />
+        <Route path="/edit" component={FormEdit} /> */}
       </Switch>
     </div>
   );
