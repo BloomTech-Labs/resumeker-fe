@@ -214,7 +214,7 @@ function Tip() {
       </p>
       <p className={classes.tipTextLarge}>
         One way to help your resume pass these, is to make sure you include
-        technical skills you posse that appear on the job posting!
+        technical skills you posses that appear on the job posting!
       </p>
     </div>
   );

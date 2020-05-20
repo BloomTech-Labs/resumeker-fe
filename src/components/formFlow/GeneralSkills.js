@@ -126,8 +126,8 @@ function GeneralSkills(props) {
               component="h5"
               variant="subtitle2"
             >
-              (Time Management, Critical Thinking, Teamwork, Problem Solving,
-              Comunication, Collabortion, etc)
+              (Time Management, Teamwork, Problem Solving, Communication,
+              Collabortion, etc)
             </Typography>
             <form
               className={classes.form}
@@ -213,7 +213,8 @@ function Tip() {
         productive, collaborative, and healthy work environment!
       </p>
       <p className={classes.tipTextSmall}>
-        (Ex. Communication, Interpersonal Skills, Time Management, Adaptability)
+        Do your best to insure these skills are action skills! (Ex. Organized,
+        Communicated, Negotiated, Adapted)
       </p>
     </div>
   );
