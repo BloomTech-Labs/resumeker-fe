@@ -22,14 +22,14 @@ function MasterForm() {
       <h1>Resume Form</h1>
       <Switch>
         <ProtectedRoute path={`${url}/generalInfo`} component={GeneralInfo} />
-        <Route path={`${url}/education`} component={Education} />
-        <Route path={`${url}/work`} component={WorkHistory} />
-        <Route path={`${url}/review`} component={EndFormReview} />
-        <Route path={`${url}/projects`} component={PersonalProjects} />
-        <Route path={`${url}/techskills`} component={TechSkills} />
-        <Route path={`${url}/generalskills`} component={GeneralSkills} />
-        <Route path={`${url}/languages`} component={Languages} />
-        <Route path={`${url}/hobbies`} component={Hobbies} />
+        <ProtectedRoute path={`${url}/education`} component={Education} />
+        <ProtectedRoute path={`${url}/work`} component={WorkHistory} />
+        <ProtectedRoute path={`${url}/review`} component={EndFormReview} />
+        <ProtectedRoute path={`${url}/projects`} component={PersonalProjects} />
+        <ProtectedRoute path={`${url}/techskills`} component={TechSkills} />
+        <ProtectedRoute path={`${url}/generalskills`} component={GeneralSkills} />
+        <ProtectedRoute path={`${url}/languages`} component={Languages} />
+        <ProtectedRoute path={`${url}/hobbies`} component={Hobbies} />
       </Switch>
     </div>
   );
