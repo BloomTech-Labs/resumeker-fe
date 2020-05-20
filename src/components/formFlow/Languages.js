@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addLanguageMutation as ADD_LANGUAGE_MUTATION } from "../../queries/queries";
+import { addLanguageMutation as ADD_LANGUAGE_MUTATION } from "../../queries/languages";
 
 //Actions
 import {

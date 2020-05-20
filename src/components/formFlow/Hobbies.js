@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addHobbyMutation as ADD_HOBBY_MUTATION } from "../../queries/queries";
+import { addHobbyMutation as ADD_HOBBY_MUTATION } from "../../queries/hobbies";
 
 //Actions
 import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
