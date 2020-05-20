@@ -7,8 +7,8 @@ import {
   removeLanguageData,
 } from "../../actions/resumeFormActions.js";
 
-import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout"
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
   Button,
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     listStyle: "none",
     padding: theme.spacing(0.5),
     margin: 0,
+    boxShadow: "none",
   },
   chip: {
     margin: theme.spacing(1.2),
@@ -62,6 +63,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
   },
 }));
 
@@ -105,14 +112,24 @@ function Languages(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <TipsLayout />
+        <TipsLayout tips={Tip()} />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               What Languages Do You Speak?
             </Typography>
-            <form className={classes.form} onSubmit={anotherLanguage} id="languagesForm">
-            <SingleFieldFormTemplate onChange={onChange} info={info.language} anotherOne={anotherLanguage} name="language" label="Language" />
+            <form
+              className={classes.form}
+              onSubmit={anotherLanguage}
+              id="languagesForm"
+            >
+              <SingleFieldFormTemplate
+                onChange={onChange}
+                info={info.language}
+                anotherOne={anotherLanguage}
+                name="language"
+                label="Language"
+              />
               <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"
@@ -170,6 +187,25 @@ function Languages(props) {
           </div>
         </Grid>
       </Grid>
+    </div>
+  );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        Did you know being Bilingual can improve your competitiveness in the job
+        market?
+      </p>
+      <p className={classes.tipTextLarge}>
+        If you speak multiple languages make sure to include them!
+      </p>
+      <p className={classes.tipTextSmall}>
+        Make sure you're ready to demonstrate your multilingualism, however!
+      </p>
     </div>
   );
 }

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 //Actions
 import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
-import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout"
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
   Button,
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     listStyle: "none",
     padding: theme.spacing(0.5),
     margin: 0,
+    boxShadow: "none",
   },
   chip: {
     margin: theme.spacing(1.2),
@@ -58,6 +59,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
   },
 }));
 
@@ -101,14 +108,24 @@ function Hobbies(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <TipsLayout />
+        <TipsLayout tips={Tip()} />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               What Are Some Of Your Hobbies?
             </Typography>
-            <form className={classes.form} onSubmit={anotherHobby} id="hobbiesForm">
-            <SingleFieldFormTemplate onChange={onChange} info={info.hobby} anotherOne={anotherHobby} name="hobby" label="Your Hobbies" />
+            <form
+              className={classes.form}
+              onSubmit={anotherHobby}
+              id="hobbiesForm"
+            >
+              <SingleFieldFormTemplate
+                onChange={onChange}
+                info={info.hobby}
+                anotherOne={anotherHobby}
+                name="hobby"
+                label="Your Hobbies"
+              />
 
               <Grid className={classes.skillContainer}>
                 <Paper
@@ -167,6 +184,27 @@ function Hobbies(props) {
           </div>
         </Grid>
       </Grid>
+    </div>
+  );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        Employers like to know who the person they're hiring is outside of the
+        work place!
+      </p>
+      <p className={classes.tipTextLarge}>
+        Add a few hobbies that demonstrate and support some of the skills you
+        may have added earlier!
+      </p>
+      <p className={classes.tipTextSmall}>
+        Just make sure these are relevant, as an extensive knowledge of Marvel
+        probably won't help you write Lambda Functions...
+      </p>
     </div>
   );
 }

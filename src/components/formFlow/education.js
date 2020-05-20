@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Actions
-import { addEducationData, updateEducationData } from "../../actions/resumeFormActions.js";
+import {
+  addEducationData,
+  updateEducationData,
+} from "../../actions/resumeFormActions.js";
 
-import EducationCard from "./reviewForm/educationCard"
+import EducationCard from "./reviewForm/educationCard";
 
-import EducationFormTemplate from "./formsTemplate/educationFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout" 
+import EducationFormTemplate from "./formsTemplate/educationFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
   Button,
@@ -51,6 +54,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     flexDirection: "row",
   },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
+  },
+  bold: {
+    fontWeight: "900",
+  },
 }));
 
 function Education(props) {
@@ -67,7 +79,9 @@ function Education(props) {
 
   const nextPage = (event) => {
     event.preventDefault();
-    props.addEducationData(info);
+    if (info.type.length !== 0 && info.schoolName.length !== 0) {
+      props.addEducationData(info);
+    }
     props.history.push("/form/work");
   };
 
@@ -93,7 +107,7 @@ function Education(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <TipsLayout />
+        <TipsLayout tips={Tip()} />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form className={classes.form} onSubmit={nextPage}>
@@ -153,6 +167,19 @@ function Education(props) {
   );
 }
 
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        If you have any classes or certifications that directly apply to the
+        job, it may be a good idea to include them!
+      </p>
+    </div>
+  );
+}
+
 const mapStateToProps = (state) => {
   return {
     resumeData: state.resumeFormReducer.resumeData,
@@ -161,4 +188,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addEducationData, updateEducationData })(Education);
+export default connect(mapStateToProps, {
+  addEducationData,
+  updateEducationData,
+})(Education);

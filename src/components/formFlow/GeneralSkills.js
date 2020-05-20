@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     listStyle: "none",
     padding: theme.spacing(0.5),
     margin: 0,
+    boxShadow: "none",
   },
   chip: {
     margin: theme.spacing(1.2),
@@ -62,6 +63,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
   },
 }));
 
@@ -107,7 +114,7 @@ function GeneralSkills(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <TipsLayout />
+        <TipsLayout tips={Tip()} />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
@@ -120,7 +127,7 @@ function GeneralSkills(props) {
               variant="subtitle2"
             >
               (Time Management, Critical Thinking, Teamwork, Problem Solving,
-              Comunication, etc)
+              Comunication, Collabortion, etc)
             </Typography>
             <form
               className={classes.form}
@@ -192,6 +199,22 @@ function GeneralSkills(props) {
         </Grid>
       </Grid>
       <button onClick={() => nextPage()}>Next Page</button>
+    </div>
+  );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        Employers look for a variety of strong soft skills as it helps ensure a
+        productive, collaborative, and healthy work environment!
+      </p>
+      <p className={classes.tipTextSmall}>
+        (Ex. Communication, Interpersonal Skills, Time Management, Adaptability)
+      </p>
     </div>
   );
 }

@@ -54,6 +54,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     flexDirection: "row",
   },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
+  },
+  bold: {
+    fontWeight: "900",
+  },
 }));
 
 function WorkHistory(props) {
@@ -70,7 +79,13 @@ function WorkHistory(props) {
 
   const nextPage = (event) => {
     event.preventDefault();
-    props.addWorkData(info);
+    if (
+      info.jobTitle.length !== 0 &&
+      info.companyName.length !== 0 &&
+      info.jobDescription.length !== 0
+    ) {
+      props.addWorkData(info);
+    }
     props.history.push("/form/projects");
     console.log("data from reducer", props.resumeData.jobs);
   };
@@ -97,7 +112,7 @@ function WorkHistory(props) {
     <div>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <TipsLayout />
+        <TipsLayout tips={Tip()} />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <form id="workForm" className={classes.form} onSubmit={nextPage}>
@@ -155,6 +170,25 @@ function WorkHistory(props) {
           </div>
         </Grid>
       </Grid>
+    </div>
+  );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        When adding your work experience, you want to have a strong job
+        description. The description should emphasize how you created an{" "}
+        <span className={classes.bold}>impact</span> at your previous or current
+        job!
+      </p>
+      <p className={classes.tipTextSmall}>
+        Make sure to use action words in your description! (Ex. Created,
+        Developed, Saved, Optimized, Built)
+      </p>
     </div>
   );
 }

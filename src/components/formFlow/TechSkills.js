@@ -53,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
     listStyle: "none",
     padding: theme.spacing(0.5),
     margin: 0,
+    border: "none",
+    boxShadow: "none",
   },
   chip: {
     margin: theme.spacing(1.2),
@@ -62,6 +64,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
   },
 }));
 
@@ -107,7 +115,7 @@ function TechSkills(props) {
     <Grid>
       <Grid container componet="main" className={classes.root}>
         <CssBaseline />
-        <TipsLayout />
+        <TipsLayout tips={Tip()} />
         <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
           <Grid className={classes.paper}>
             <Typography component="h1" variant="h5">
@@ -192,6 +200,23 @@ function TechSkills(props) {
         </Grid>
       </Grid>
     </Grid>
+  );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        Nowadays, there's a good chance that an employer is using an automated
+        review process.
+      </p>
+      <p className={classes.tipTextLarge}>
+        One way to help your resume pass these, is to make sure you include
+        technical skills you posse that appear on the job posting!
+      </p>
+    </div>
   );
 }
 
