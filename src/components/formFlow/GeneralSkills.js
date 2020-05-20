@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GeneralSkills(props) {
-<<<<<<< HEAD
     const [info, setInfo] = useState({
         userId: "google-oauth2|106346646323547324114",
         skill: "",
@@ -138,125 +137,6 @@ function GeneralSkills(props) {
                     component={Paper}
                     elevation={6}
                     square
-=======
-  const [info, setInfo] = useState({
-    id: Date.now(),
-    skill: "",
-    ENUM: "QUALITATIVE",
-  });
-
-  const classes = useStyles();
-
-  const nextPage = (event) => {
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-    }
-    props.history.push("/form/languages");
-  };
-
-  const anotherSkill = (event) => {
-    event.preventDefault();
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-    }
-    setInfo({
-      id: Date.now(),
-      skill: "",
-      ENUM: "QUALITATIVE",
-    });
-  };
-  const onChange = (event) => {
-    event.preventDefault();
-    setInfo({ ...info, [event.target.name]: event.target.value });
-  };
-
-  const handleDelete = (skillToDelete) => (event) => {
-    event.preventDefault();
-    props.removeGeneralSkill(skillToDelete);
-    setInfo({ ...info });
-  };
-
-  return (
-    <div>
-      <Grid container componet="main" className={classes.root}>
-        <CssBaseline />
-        <TipsLayout />
-        <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Tell us about some of your other skills that didn't quite make it
-              into the technical section!
-            </Typography>
-            <Typography
-              color="textSecondary"
-              component="h5"
-              variant="subtitle2"
-            >
-              (Time Management, Critical Thinking, Teamwork, Problem Solving,
-              Comunication, etc)
-            </Typography>
-            <form
-              className={classes.form}
-              onSubmit={anotherSkill}
-              id="generalSkillsForm"
-            >
-              <SingleFieldFormTemplate
-                onChange={onChange}
-                info={info.skill}
-                anotherOne={anotherSkill}
-                name="skill"
-                label="General Skill"
-              />
-              <Grid className={classes.skillContainer}>
-                <Paper
-                  component="ul"
-                  square="true"
-                  className={classes.chipContainer}
-                >
-                  <Chip
-                    label="Your Skills:"
-                    className={classes.chip}
-                    color="primary"
-                  />
-                  {props.resumeData.generalSkills.map((data) => {
-                    return (
-                      <li key={data.id} className="listOfGeneralSkills">
-                        <Chip
-                          label={data.skill}
-                          onDelete={handleDelete(data)}
-                          className={classes.chip}
-                        />
-                      </li>
-                    );
-                  })}
-                </Paper>
-              </Grid>
-
-              <Grid className={classes.buttonContainer}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="outlined"
-                  color="primary"
-                  id="previous_techSkills"
-                  className={`${classes.previousButton} singlePageButton`}
-                  onClick={() => {
-                    props.history.push("/form/techskills");
-                  }}
-                >
-                  Previous Form
-                </Button>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  id="next_languages"
-                  className={`${classes.nextButton} singlePageButton`}
-                  onClick={() => {
-                    nextPage();
-                  }}
->>>>>>> 4e9ec9e2e3f07baf4bf4b7c18d7542297f314939
                 >
                     <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
@@ -361,11 +241,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-<<<<<<< HEAD
     addGeneralSkill,
     removeGeneralSkill,
-=======
-  addGeneralSkill,
-  removeGeneralSkill,
->>>>>>> 4e9ec9e2e3f07baf4bf4b7c18d7542297f314939
 })(GeneralSkills);

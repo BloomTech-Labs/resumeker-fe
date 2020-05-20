@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
+import { useAuth0 } from "../react-auth0-spa";
 
 // styles
 import "./App.css";
@@ -22,6 +23,8 @@ import { getUser, updateUser } from "../actions/actions.js";
 function App(props) {
   const { getUser } = props;
 
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   const token = useGetToken();
 
   localStorage.setItem("token", token);
@@ -38,11 +41,23 @@ function App(props) {
       <h1>Resumeker</h1>
       <Switch>
         <Route path="/register" render={(props) => <Profile />} />
-        <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/edit" component={FormEdit} />
-        <Route path="/form" component={MasterForm} />
-        <Route path="/resume" component={ResumeComponent} />
+        
+        {isAuthenticated &&
+          <div>
+            <Route exact path="/" component={Home} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/edit" component={FormEdit} />
+            <Route path="/form" component={MasterForm} />
+            <Route path="/resume" component={ResumeComponent} />
+          </div>
+        }
+
+        {!isAuthenticated &&
+          <div>
+            <h3>You have to login to be able to see this page</h3>
+          </div>
+        }
+        
       </Switch>
     </div>
   );
