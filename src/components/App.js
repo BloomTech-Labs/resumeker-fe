@@ -46,11 +46,11 @@ function App(props) {
           path="/profile"
           component={() => <ProtectedRoute Component={Profile} />}
         />
-        <Route path="/edit" component={FormEdit} />
         <Route
           path="/form"
           component={() => <ProtectedRoute Component={MasterForm} />}
         />
+        <Route path="/edit" component={FormEdit} />
       </Switch>
     </div>
   );
