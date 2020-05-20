@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/queries";
+import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/skills";
 
 //Actions
 import {

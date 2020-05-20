@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+//Apollo useMutation Hook for API call
+import { useMutation } from "@apollo/react-hooks";
+//Importing GraphQL Query for useMutation API call
+import { addDraftMutation as ADD_DRAFT_MUTATION } from "../../queries/draft";
 
 //Actions
 import { addData } from "../../actions/resumeFormActions.js";
@@ -45,11 +49,33 @@ function GeneralInfo(props) {
         lastName: `${props.resumeData.lastName}`,
     });
 
+    //Instantiate useMutation Hook / Creates tuple with 1st var being actual
+    //call function, and 2nd destructured variable being return data and tracking
+    const [addDraft, { loading, error }] = useMutation(ADD_DRAFT_MUTATION, {
+        onCompleted(data) {
+            // console.log(data, "\n Add Education Response");
+        },
+    });
+
     const classes = useStyles();
 
-    const nextPage = (event) => {
+    const nextPage = async (event) => {
         event.preventDefault();
         props.addData(info);
+
+        //Hold Name value for addDraft Mutation
+        const name = info.firstName + " " + info.lastName;
+
+        //Apollo useMutation API call to send data to backend
+        const response = await addDraft({
+            variables: {
+                email: info.email,
+                name: name,
+            },
+        });
+
+        console.log(response, "\n Add Draft Response");
+
         props.history.push("/form/education");
     };
 
@@ -58,7 +84,6 @@ function GeneralInfo(props) {
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 
-    
     return (
         <div id="generalInfoForm">
             <Grid container componet="main" className={classes.root}>
