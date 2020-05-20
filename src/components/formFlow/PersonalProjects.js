@@ -57,6 +57,15 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         flexDirection: "row",
     },
+    tipTextLarge: {
+      fontSize: "1.1rem",
+    },
+    tipTextSmall: {
+      fontSize: "0.8rem",
+    },
+    bold: {
+      fontWeight: "900",
+    },
 }));
 
 function PersonalProjects(props) {
@@ -82,7 +91,13 @@ function PersonalProjects(props) {
 
     const nextPage = (event) => {
         event.preventDefault();
-        props.addProjectData(info);
+        if (
+          info.projectName.length !== 0 &&
+          info.role.length !== 0 &&
+          info.roleDescription !== 0
+        ) {
+          props.addProjectData(info);
+        }
         props.history.push("/form/techskills");
     };
 
@@ -124,7 +139,7 @@ function PersonalProjects(props) {
         <div>
             <Grid container componet="main" className={classes.root}>
                 <CssBaseline />
-                <TipsLayout />
+                <TipsLayout tips={Tip()} />
                 <Grid
                     item
                     xs={12}
@@ -196,6 +211,28 @@ function PersonalProjects(props) {
             </Grid>
         </div>
     );
+}
+
+function Tip() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <p className={classes.tipTextLarge}>
+        Did you know, that the average time a recuiter spends on a resume is
+        only <span className={classes.bold}>six</span> seconds?
+      </p>
+      <p className={classes.tipTextLarge}>
+        You need to catch their eye, and there's no better way to get them to
+        continue reading your resume, than with a personal project!
+      </p>
+      <p className={classes.tipTextSmall}>
+        Be thorough and describe the technologies and your role in the project.
+        If you have a project that use's the same technologies as the job,
+        definitely include it!
+      </p>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
