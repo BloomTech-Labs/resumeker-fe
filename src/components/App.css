@@ -114,13 +114,13 @@ textarea {
 .profile {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
 .info-container {
   background: var(--blue-three);
   width: 20%;
   align-self: flex-start;
-  margin-right: 2.8rem;
 }
 
 .resume-container {
@@ -128,11 +128,12 @@ textarea {
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 75%;
+  width: 100%;
 }
 
 .resume-card {
-  background: #C4C4C4C4;
+  background: white;
+  border: 3px solid #3f51b5;
   width: 14rem;
   height: 16rem;
   padding: 1rem 1rem;
