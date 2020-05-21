@@ -108,7 +108,7 @@ function PersonalProjects(props) {
         ) {
           props.addProjectData(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/techskills");
     };
 
@@ -164,7 +164,7 @@ function PersonalProjects(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
@@ -192,7 +192,7 @@ function PersonalProjects(props) {
                                     id="previous_work"
                                     className={classes.previousButton}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/work");
                                     }}
                                 >

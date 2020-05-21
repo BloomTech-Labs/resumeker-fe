@@ -110,7 +110,7 @@ function Languages(props) {
         if (info.language.length > 0) {
             props.addLanguage(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/hobbies");
     };
 
@@ -162,7 +162,7 @@ function Languages(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
@@ -220,7 +220,7 @@ function Languages(props) {
                                     id="previous_generalSkills"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push(
                                             "/form/generalskills"
                                         );

@@ -88,8 +88,6 @@ function WorkHistory(props) {
         userId: "google-oauth2|106346646323547324114",
     });
 
-    const [activeStep, setActiveStep] = useState(3);
-
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
     const [addWork, { loading, error }] = useMutation(ADD_WORK_MUTATION, {
@@ -109,7 +107,7 @@ function WorkHistory(props) {
         ) {
           props.addWorkData(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/projects");
     };
 
@@ -162,7 +160,7 @@ function WorkHistory(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
@@ -195,7 +193,7 @@ function WorkHistory(props) {
                                     id="previous_education"
                                     className={classes.previousButton}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/education");
                                     }}
                                 >

@@ -103,7 +103,7 @@ function Hobbies(props) {
         if (info.hobby.length > 0) {
             props.addHobby(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/review");
     };
 
@@ -154,7 +154,7 @@ function Hobbies(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
@@ -213,7 +213,7 @@ function Hobbies(props) {
                                     id="previous_languages"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/languages");
                                     }}
                                 >

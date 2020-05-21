@@ -12,7 +12,7 @@ import Home from "./Home";
 import Profile from "./user/Profile";
 import FormEdit from "./FormEdit";
 import MasterForm from "./formFlow/masterform.js";
-// import ProtectedRoute from "./ProtectedRoute.js";
+import ProtectedRoute from "./ProtectedRoute.js";
 
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js";
@@ -21,7 +21,7 @@ import { getUser, updateUser } from "../actions/actions.js";
 
 function App(props) {
 
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    // const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     const token = useGetToken();
 
@@ -33,6 +33,19 @@ function App(props) {
     <h1>Resumeker</h1>
     <Switch>
         <Route path="/register" render={(props) => <Profile />} />
+        <Route exact path="/" component={Home} />
+        <Route
+          path="/profile"
+          component={() => <ProtectedRoute Component={Profile} />}
+        />
+        <Route
+          path="/form"
+          component={() => <ProtectedRoute Component={MasterForm} />}
+        />
+        <Route path="/edit" component={FormEdit} />
+      </Switch>
+    {/* <Switch>
+        <Route path="/register" render={(props) => <Profile />} />
 
         {isAuthenticated &&
         <div>
@@ -42,7 +55,7 @@ function App(props) {
             <Route path="/form" component={MasterForm} />
         </div>
         }
-    </Switch>
+    </Switch> */}
     </div>
     )
 }

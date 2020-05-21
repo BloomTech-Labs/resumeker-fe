@@ -108,7 +108,7 @@ function TechSkills(props) {
         if (info.skill.length > 0) {
             props.addTechSkill(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/generalskills");
     };
 
@@ -161,7 +161,7 @@ function TechSkills(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <Grid className={classes.paper}>
@@ -229,7 +229,7 @@ function TechSkills(props) {
                                     id="previous_projects"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/projects");
                                     }}
                                 >

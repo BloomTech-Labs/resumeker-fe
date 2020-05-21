@@ -32,6 +32,16 @@ function Profile(props) {
           <ResumeCard />
           <ResumeCard />
         </div>
+        {/* <Button
+          variant="contained"
+          color="primary"
+          className={classes.addResume}
+          onClick={() => {
+            props.history.push("/form/generalInfo");
+          }}
+        >
+          Add a New Resume
+        </Button> */}
         <NavLink to="/form/generalInfo">
           <Button
             variant="contained"

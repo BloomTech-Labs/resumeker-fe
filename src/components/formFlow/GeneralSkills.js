@@ -107,7 +107,7 @@ function GeneralSkills(props) {
         if (info.skill.length > 0) {
             props.addGeneralSkill(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/languages");
     };
 
@@ -160,7 +160,7 @@ function GeneralSkills(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
@@ -229,7 +229,7 @@ function GeneralSkills(props) {
                                     id="previous_techSkills"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/techskills");
                                     }}
                                 >

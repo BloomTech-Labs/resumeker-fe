@@ -88,8 +88,6 @@ function Education(props) {
         userId: "google-oauth2|106346646323547324114",
     });
 
-    const [activeStep, setActiveStep] = useState(2);
-
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
     const [addEducation, { loading, error }] = useMutation(
@@ -108,7 +106,7 @@ function Education(props) {
         if (info.type.length !== 0 && info.schoolName.length !== 0) {
           props.addEducationData(info);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/work");
     };
 
@@ -161,7 +159,7 @@ function Education(props) {
                     variant="progress"
                     steps={8}
                     position="static"
-                    activeStep={activeStep}
+                    activeStep={props.activeStep}
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
@@ -188,7 +186,7 @@ function Education(props) {
                                     color="primary"
                                     className={classes.previousButton}
                                     onClick={() => {
-                                        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/generalInfo");
                                     }}
                                 >

@@ -66,8 +66,6 @@ function GeneralInfo(props) {
         lastName: `${props.resumeData.lastName}`,
     });
 
-    const [activeStep, setActiveStep] = useState(1);
-
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
     const [addDraft, { loading, error }] = useMutation(ADD_DRAFT_MUTATION, {
@@ -94,14 +92,14 @@ function GeneralInfo(props) {
         // });
 
         // console.log(response, "\n Add Draft Response");
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         
         props.history.push("/form/education");
     };
 
     const onChange = (event) => {
         event.preventDefault();
-        console.log(activeStep, "active step")
+        // console.log(activeStep, "active step")
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 
@@ -123,7 +121,7 @@ function GeneralInfo(props) {
                         variant="progress"
                         steps={8}
                         position="static"
-                        activeStep={activeStep}
+                        activeStep={props.activeStep}
                         className={classes.progress}
                         />
                     <div className={classes.paper}>
