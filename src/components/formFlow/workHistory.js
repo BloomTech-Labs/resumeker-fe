@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addWorkMutation as ADD_WORK_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import {
@@ -71,13 +73,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function WorkHistory(props) {
+
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
         jobTitle: "",
         companyName: "",
         startYear: "",
         endYear: "",
         jobDescription: "",
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
     });
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
@@ -110,7 +115,7 @@ function WorkHistory(props) {
         //Apollo useMutation API call to send data to backend
         addWork({
             variables: {
-                userId: info.userId,
+                draftID: data.draftID,
                 startDate: info.startYear,
                 endDate: info.endYear,
                 title: info.jobTitle,

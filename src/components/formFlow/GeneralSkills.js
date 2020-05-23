@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import {
@@ -26,60 +28,62 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    display: "flex",
-    flexDirection: "column",
-  },
-  previousButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-  },
-  nextButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-    height: "3.5rem",
-  },
-  skillContainer: {
-    display: "flex",
-  },
-  chipContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: theme.spacing(0.5),
-    margin: 0,
-    boxShadow: "none",
-  },
-  chip: {
-    margin: theme.spacing(1.2),
-  },
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
-  tipTextLarge: {
-    fontSize: "1.1rem",
-  },
-  tipTextSmall: {
-    fontSize: "0.8rem",
-  },
+    root: {
+        height: "100vh",
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        display: "flex",
+        flexDirection: "column",
+    },
+    previousButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+    },
+    nextButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+        height: "3.5rem",
+    },
+    skillContainer: {
+        display: "flex",
+    },
+    chipContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: theme.spacing(0.5),
+        margin: 0,
+        boxShadow: "none",
+    },
+    chip: {
+        margin: theme.spacing(1.2),
+    },
+    buttonContainer: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "row",
+    },
+    tipTextLarge: {
+        fontSize: "1.1rem",
+    },
+    tipTextSmall: {
+        fontSize: "0.8rem",
+    },
 }));
 
 function GeneralSkills(props) {
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
         skill: "",
     });
 
@@ -108,7 +112,7 @@ function GeneralSkills(props) {
             //Apollo useMutation API call to send data to backend
             addSkill({
                 variables: {
-                    userId: info.userId,
+                    draftID: data.draftID,
                     skillType: "QUALITATIVE",
                     name: info.skill,
                 },
@@ -240,20 +244,21 @@ function GeneralSkills(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Employers look for a variety of strong soft skills as it helps ensure a
-        productive, collaborative, and healthy work environment!
-      </p>
-      <p className={classes.tipTextSmall}>
-        Do your best to insure these skills are action skills! (Ex. Organized,
-        Communicated, Negotiated, Adapted)
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Employers look for a variety of strong soft skills as it helps
+                ensure a productive, collaborative, and healthy work
+                environment!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Do your best to insure these skills are action skills! (Ex.
+                Organized, Communicated, Negotiated, Adapted)
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

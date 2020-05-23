@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addHobbyMutation as ADD_HOBBY_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
@@ -22,58 +24,60 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    display: "flex",
-    flexDirection: "column",
-  },
-  previousButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-  },
-  nextButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-    height: "3.5rem",
-  },
-  skillContainer: {
-    display: "flex",
-  },
-  chipContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: theme.spacing(0.5),
-    margin: 0,
-    boxShadow: "none",
-  },
-  chip: {
-    margin: theme.spacing(1.2),
-  },
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
-  tipTextLarge: {
-    fontSize: "1.1rem",
-  },
-  tipTextSmall: {
-    fontSize: "0.8rem",
-  },
+    root: {
+        height: "100vh",
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        display: "flex",
+        flexDirection: "column",
+    },
+    previousButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+    },
+    nextButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+        height: "3.5rem",
+    },
+    skillContainer: {
+        display: "flex",
+    },
+    chipContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: theme.spacing(0.5),
+        margin: 0,
+        boxShadow: "none",
+    },
+    chip: {
+        margin: theme.spacing(1.2),
+    },
+    buttonContainer: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "row",
+    },
+    tipTextLarge: {
+        fontSize: "1.1rem",
+    },
+    tipTextSmall: {
+        fontSize: "0.8rem",
+    },
 }));
 
 function Hobbies(props) {
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
         userId: "google-oauth2|106346646323547324114",
         hobby: "",
@@ -104,7 +108,7 @@ function Hobbies(props) {
             //Apollo useMutation API call to send data to backend
             addHobby({
                 variables: {
-                    userId: info.userId,
+                    draftID: data.draftID,
                     name: info.hobby,
                 },
             });
@@ -223,24 +227,24 @@ function Hobbies(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Employers like to know who the person they're hiring is outside of the
-        work place!
-      </p>
-      <p className={classes.tipTextLarge}>
-        Add a few hobbies that demonstrate and support some of the skills you
-        may have added earlier!
-      </p>
-      <p className={classes.tipTextSmall}>
-        Just make sure these are relevant, as an extensive knowledge of Marvel
-        probably won't help you write Lambda Functions...
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Employers like to know who the person they're hiring is outside
+                of the work place!
+            </p>
+            <p className={classes.tipTextLarge}>
+                Add a few hobbies that demonstrate and support some of the
+                skills you may have added earlier!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Just make sure these are relevant, as an extensive knowledge of
+                Marvel probably won't help you write Lambda Functions...
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
