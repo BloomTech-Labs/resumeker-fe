@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/skills";
+import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import {
@@ -86,8 +88,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GeneralSkills(props) {
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
         skill: "",
     });
 
@@ -119,7 +123,7 @@ function GeneralSkills(props) {
             //Apollo useMutation API call to send data to backend
             addSkill({
                 variables: {
-                    userId: info.userId,
+                    draftID: data.draftID,
                     skillType: "QUALITATIVE",
                     name: info.skill,
                 },
@@ -259,20 +263,21 @@ function GeneralSkills(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Employers look for a variety of strong soft skills as it helps ensure a
-        productive, collaborative, and healthy work environment!
-      </p>
-      <p className={classes.tipTextSmall}>
-        Do your best to insure these skills are action skills! (Ex. Organized,
-        Communicated, Negotiated, Adapted)
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Employers look for a variety of strong soft skills as it helps
+                ensure a productive, collaborative, and healthy work
+                environment!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Do your best to insure these skills are action skills! (Ex.
+                Organized, Communicated, Negotiated, Adapted)
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

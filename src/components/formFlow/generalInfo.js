@@ -70,7 +70,9 @@ function GeneralInfo(props) {
     //call function, and 2nd destructured variable being return data and tracking
     const [addDraft, { loading, error }] = useMutation(ADD_DRAFT_MUTATION, {
         onCompleted(data) {
-            // console.log(data, "\n Add Education Response");
+            console.log(data, "\n Add Education Response");
+
+            localStorage.setItem("draftID", data.addDraft);
         },
     });
 
@@ -80,20 +82,34 @@ function GeneralInfo(props) {
         event.preventDefault();
         props.addData(info);
 
-        //Hold Name value for addDraft Mutation
         const name = info.firstName + " " + info.lastName;
 
-        //Apollo useMutation API call to send data to backend
-        // const response = await addDraft({
-        //     variables: {
-        //         email: info.email,
-        //         name: name,
-        //     },
-        // });
+        //Calls addDraft Mutation only if component state
+        //is NOT empty
+        if (
+            info.firstName.length > 0 &&
+            info.lastName.length > 0 &&
+            info.email.length > 0
+        ) {
+            //Apollo useMutation API call to send data to backend
+            addDraft({
+                variables: {
+                    input: {
+                        name: name,
+                        email: info.email,
+                    },
+                },
+            });
+        }
 
-        // console.log(response, "\n Add Draft Response");
+        //Resets Component State to ''
+        setInfo({
+            email: "",
+            firstName: "",
+            lastName: "",
+        });
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
-        
+
         props.history.push("/form/education");
     };
 

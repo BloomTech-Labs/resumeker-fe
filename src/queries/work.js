@@ -1,6 +1,4 @@
 import { gql } from "apollo-boost";
-
-
 const addWorkMutation = gql`
     mutation(
         $draftID: ID!
@@ -9,9 +7,7 @@ const addWorkMutation = gql`
         addWorkHistory(
             draftID: $draftID
             input: $input
-
         )
     }
 `;
-
 export { addWorkMutation };

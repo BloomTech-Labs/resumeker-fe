@@ -1,13 +1,12 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
-import  { userReducer } from './user.js'
-import { resumeFormReducer } from './resumeForm.js'
+
+import { resumeFormReducer } from "./resumeForm.js";
 
 const createRootReducer = (history) =>
-  combineReducers({
-    router: connectRouter(history),
-    userReducer,
-    resumeFormReducer
-});
+    combineReducers({
+        router: connectRouter(history),
+        resumeFormReducer,
+    });
 
-export default createRootReducer
+export default createRootReducer;

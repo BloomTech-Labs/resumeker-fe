@@ -11,9 +11,10 @@ import TechSkills from "./TechSkills.js";
 import GeneralSkills from "./GeneralSkills.js";
 import Languages from "./Languages.js";
 import Hobbies from "./Hobbies";
+import Resume from "./Resume";
 
 function MasterForm() {
-  const { url } = useRouteMatch();
+    const { url } = useRouteMatch();
 
   const [activeStep, setActiveStep] = useState(0);
 

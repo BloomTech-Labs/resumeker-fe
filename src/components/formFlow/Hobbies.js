@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addHobbyMutation as ADD_HOBBY_MUTATION } from "../../queries/hobbies";
+import { addHobbyMutation as ADD_HOBBY_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
@@ -82,6 +84,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Hobbies(props) {
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
         userId: "google-oauth2|106346646323547324114",
         hobby: "",
@@ -115,7 +119,7 @@ function Hobbies(props) {
             //Apollo useMutation API call to send data to backend
             addHobby({
                 variables: {
-                    userId: info.userId,
+                    draftID: data.draftID,
                     name: info.hobby,
                 },
             });
@@ -242,24 +246,24 @@ function Hobbies(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Employers like to know who the person they're hiring is outside of the
-        work place!
-      </p>
-      <p className={classes.tipTextLarge}>
-        Add a few hobbies that demonstrate and support some of the skills you
-        may have added earlier!
-      </p>
-      <p className={classes.tipTextSmall}>
-        Just make sure these are relevant, as an extensive knowledge of Marvel
-        probably won't help you write Lambda Functions...
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Employers like to know who the person they're hiring is outside
+                of the work place!
+            </p>
+            <p className={classes.tipTextLarge}>
+                Add a few hobbies that demonstrate and support some of the
+                skills you may have added earlier!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Just make sure these are relevant, as an extensive knowledge of
+                Marvel probably won't help you write Lambda Functions...
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

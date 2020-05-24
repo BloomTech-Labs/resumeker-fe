@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/skills";
+import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import {
@@ -87,8 +89,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TechSkills(props) {
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
         skill: "",
     });
 
@@ -120,7 +124,7 @@ function TechSkills(props) {
             //Apollo useMutation API call to send data to backend
             addSkill({
                 variables: {
-                    userId: info.userId,
+                    draftID: data.draftID,
                     skillType: "TECHNICAL",
                     name: info.skill,
                 },
@@ -258,20 +262,21 @@ function TechSkills(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Nowadays, there's a good chance that an employer is using an automated
-        review process.
-      </p>
-      <p className={classes.tipTextLarge}>
-        One way to help your resume pass these, is to make sure you include
-        technical skills you posses that appear on the job posting!
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Nowadays, there's a good chance that an employer is using an
+                automated review process.
+            </p>
+            <p className={classes.tipTextLarge}>
+                One way to help your resume pass these, is to make sure you
+                include technical skills you posses that appear on the job
+                posting!
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

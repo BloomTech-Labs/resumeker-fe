@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addLanguageMutation as ADD_LANGUAGE_MUTATION } from "../../queries/languages";
+import { addLanguageMutation as ADD_LANGUAGE_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import {
@@ -86,6 +88,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Languages(props) {
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
         userId: "google-oauth2|106346646323547324114",
         language: "",
@@ -122,7 +126,7 @@ function Languages(props) {
             //Apollo useMutation API call to send data to backend
             addLanguage({
                 variables: {
-                    userId: info.userId,
+                    draftID: data.draftID,
                     language: info.language,
                 },
             });
@@ -251,22 +255,23 @@ function Languages(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Did you know being Bilingual can improve your competitiveness in the job
-        market?
-      </p>
-      <p className={classes.tipTextLarge}>
-        If you speak multiple languages make sure to include them!
-      </p>
-      <p className={classes.tipTextSmall}>
-        Make sure you're ready to demonstrate your multilingualism, however!
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Did you know being Bilingual can improve your competitiveness in
+                the job market?
+            </p>
+            <p className={classes.tipTextLarge}>
+                If you speak multiple languages make sure to include them!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Make sure you're ready to demonstrate your multilingualism,
+                however!
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

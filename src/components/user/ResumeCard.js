@@ -1,15 +1,14 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Resume from '../formFlow/Resume';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-function ResumeCard() {
+function ResumeCard(props) {
     return (
-        <NavLink to={Resume}>
+        <NavLink to={`/form/resume/${props.id}`}>
             <div className="resume-card">
-                <h1>EXAMPLE RESUME</h1>
+                <h1>Resume Draft ID # {props.id}</h1>
             </div>
         </NavLink>
-    )
+    );
 }
 
-export default ResumeCard
+export default ResumeCard;

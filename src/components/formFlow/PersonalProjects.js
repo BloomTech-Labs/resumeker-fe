@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addProjectMutation as ADD_PROJECT_MUTATION } from "../../queries/projects";
+import { addProjectMutation as ADD_PROJECT_MUTATION } from "../../queries/queries";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
 import {
@@ -60,13 +62,13 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
     },
     tipTextLarge: {
-      fontSize: "1.1rem",
+        fontSize: "1.1rem",
     },
     tipTextSmall: {
-      fontSize: "0.8rem",
+        fontSize: "0.8rem",
     },
     bold: {
-      fontWeight: "900",
+        fontWeight: "900",
     },
     progress: {
         width: "100%",
@@ -77,6 +79,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PersonalProjects(props) {
+
+    const { data } = useQuery(DRAFT_ID);
+
     const [info, setInfo] = useState({
         projectName: "",
         projectStartDate: "",
@@ -84,7 +89,7 @@ function PersonalProjects(props) {
         role: "",
         roleDescription: "",
         link: "",
-        userId:"google-oauth2|106346646323547324114"
+        draftID: "",
     });
 
     const [activeStep, setActiveStep] = useState(4);
@@ -102,11 +107,11 @@ function PersonalProjects(props) {
     const nextPage = (event) => {
         event.preventDefault();
         if (
-          info.projectName.length !== 0 &&
-          info.role.length !== 0 &&
-          info.roleDescription !== 0
+            info.projectName.length !== 0 &&
+            info.role.length !== 0 &&
+            info.roleDescription !== 0
         ) {
-          props.addProjectData(info);
+            props.addProjectData(info);
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/techskills");
@@ -117,17 +122,17 @@ function PersonalProjects(props) {
         props.addProjectData(info);
 
         //Apollo useMutation API call to send data to backend
-        // addProject({
-        //     variables: {
-        //         title: info.projectName,
-        //         role: info.role,
-        //         projectUrl: info.link,
-        //         description: info.roleDescription,
-        //         startDate: info.projectStartDate,
-        //         endDate: info.projectEndDate,
-        //         userId: info.userId
-        //     },
-        // });
+        addProject({
+            variables: {
+                title: info.projectName,
+                role: info.role,
+                projectUrl: info.link,
+                description: info.roleDescription,
+                startDate: info.projectStartDate,
+                endDate: info.projectEndDate,
+                draftID: data.draftId,
+            },
+        });
 
         setInfo({
             ...info,
@@ -137,7 +142,6 @@ function PersonalProjects(props) {
             role: "",
             roleDescription: "",
             link: "",
-
         });
     };
 
@@ -233,25 +237,27 @@ function PersonalProjects(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        Did you know, that the average time a recuiter spends on a resume is
-        only <span className={classes.bold}>six</span> seconds?
-      </p>
-      <p className={classes.tipTextLarge}>
-        You need to catch their eye, and there's no better way to get them to
-        continue reading your resume, than with a personal project!
-      </p>
-      <p className={classes.tipTextSmall}>
-        Be thorough and describe the technologies and your role in the project.
-        If you have a project that use's the same technologies as the job,
-        definitely include it!
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Did you know, that the average time a recuiter spends on a
+                resume is only <span className={classes.bold}>six</span>{" "}
+                seconds?
+            </p>
+            <p className={classes.tipTextLarge}>
+                You need to catch their eye, and there's no better way to get
+                them to continue reading your resume, than with a personal
+                project!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Be thorough and describe the technologies and your role in the
+                project. If you have a project that use's the same technologies
+                as the job, definitely include it!
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

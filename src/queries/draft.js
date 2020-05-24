@@ -1,12 +1,36 @@
 import { gql } from "apollo-boost";
 
-//Education
-const addDraftMutation = gql`
-    mutation($name: String!, $email: String!) {
-        addDraft(name: $name, email: $email)
+const getDraftsQuery = gql`
+    query {
+        getDrafts {
+            id
+            userID
+            email
+            name
+        }
     }
 `;
 
-export { addDraftMutation };
+const getDraftQuery = gql`
+    query($draftID: ID!) {
+        getDraft(draftID: $draftID) {
+            id
+            userID
+            email
+            name
+            #role
+            #project
+            #work
+            #education
+            #skill
+            #hobbies
+        }
+    }
+`;
 
-
+const addDraftMutation = gql`
+    mutation($input: DraftInput!) {
+        addDraft(input: $input)
+    }
+`;
+export { addDraftMutation, getDraftsQuery, getDraftQuery };

@@ -62,13 +62,13 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
     },
     tipTextLarge: {
-      fontSize: "1.1rem",
+        fontSize: "1.1rem",
     },
     tipTextSmall: {
-      fontSize: "0.8rem",
+        fontSize: "0.8rem",
     },
     bold: {
-      fontWeight: "900",
+        fontWeight: "900",
     },
     progress: {
         width: "100%",
@@ -79,13 +79,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Education(props) {
+    console.log(localStorage.getItem("draftID"));
+
     const [info, setInfo] = useState({
         type: "",
         schoolName: "",
         yearIn: "",
         yearOut: "",
         certificateName: "",
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
     });
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
@@ -94,7 +96,7 @@ function Education(props) {
         ADD_EDUCATION_MUTATION,
         {
             onCompleted(data) {
-                // console.log(data, "\n Add Education Response");
+                console.log(data, "\n Rannnnnnnn Add Education");
             },
         }
     );
@@ -104,7 +106,7 @@ function Education(props) {
     const nextPage = (event) => {
         event.preventDefault();
         if (info.type.length !== 0 && info.schoolName.length !== 0) {
-          props.addEducationData(info);
+            props.addEducationData(info);
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/work");
@@ -117,17 +119,19 @@ function Education(props) {
         //Apollo useMutation API call to send data to backend
         addEducation({
             variables: {
-                userId: info.userId,
-                schoolType: info.type,
-                schoolName: info.schoolName,
-                startDate: info.yearIn,
-                endDate: info.yearOut,
-                certName: info.certificateName,
+                input: {
+                    draftID: localStorage.getItem("draftID"),
+                    schoolType: info.type,
+                    schoolName: info.schoolName,
+                    startDate: info.yearIn,
+                    endDate: info.yearOut,
+                    certName: info.certificateName,
+                },
             },
         });
 
         setInfo({
-            ...info,
+            draftID: "",
             type: "",
             schoolName: "",
             yearIn: "",
@@ -227,16 +231,16 @@ function Education(props) {
 }
 
 function Tip() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <p className={classes.tipTextLarge}>
-        If you have any classes or certifications that directly apply to the
-        job, it may be a good idea to include them!
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                If you have any classes or certifications that directly apply to
+                the job, it may be a good idea to include them!
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
