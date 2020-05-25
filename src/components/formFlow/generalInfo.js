@@ -83,7 +83,7 @@ function GeneralInfo(props) {
     const nextPage = (event) => {
         event.preventDefault();
         // props.addData(info);
-        console.log("NextPage inside of GeneralInfo")
+        // console.log("NextPage inside of GeneralInfo")
         const name = info.firstName + " " + info.lastName;
 
         //Calls addDraft Mutation only if component state
@@ -116,7 +116,6 @@ function GeneralInfo(props) {
     };
 
     const onChange = (event) => {
-        console.log(event.target.name, "onChange")
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 

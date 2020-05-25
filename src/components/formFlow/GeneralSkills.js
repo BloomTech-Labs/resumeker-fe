@@ -101,7 +101,7 @@ function GeneralSkills(props) {
     //call function, and 2nd destructured variable being return data and tracking
     const [addSkill, { loading, error }] = useMutation(ADD_SKILL_MUTATION, {
         onCompleted(data) {
-            // console.log(data, "\n Add Education Response");
+            console.log(data, "\n Add General Skill Response");
         },
     });
 
@@ -110,6 +110,17 @@ function GeneralSkills(props) {
     const nextPage = (event) => {
         if (info.skill.length > 0) {
             props.addGeneralSkill(info);
+
+            //Apollo useMutation API call to send data to backend
+            addSkill({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        skillType: "Qualitative",
+                        name: info.skill,
+                    }
+                },
+            });
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/languages");
@@ -123,9 +134,11 @@ function GeneralSkills(props) {
             //Apollo useMutation API call to send data to backend
             addSkill({
                 variables: {
-                    draftID: data.draftID,
-                    skillType: "QUALITATIVE",
-                    name: info.skill,
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        skillType: "Qualitative",
+                        name: info.skill,
+                    }
                 },
             });
         }

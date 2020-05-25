@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addWorkMutation as ADD_WORK_MUTATION } from "../../queries/work";
-//Import Draft_Id query for memory cache query
+//Import Draft_Id query for memory cache query => do we need it? 
 import { DRAFT_ID } from "../../queries/draftID";
 
 //Actions
@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
 
 function WorkHistory(props) {
 
+    // Do we need it? 
     const { data } = useQuery(DRAFT_ID);
 
     const [info, setInfo] = useState({
@@ -97,7 +98,7 @@ function WorkHistory(props) {
     //call function, and 2nd destructured variable being return data and tracking
     const [addWork, { loading, error }] = useMutation(ADD_WORK_MUTATION, {
         onCompleted(data) {
-            // console.log(data, "\n Add Education Response");
+            console.log(data, "\n Add Work Response");
         },
     });
 
@@ -111,26 +112,50 @@ function WorkHistory(props) {
           info.jobDescription.length !== 0
         ) {
           props.addWorkData(info);
-        }
+
+            //Apollo useMutation API call to send data to backend
+            addWork({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        startDate: info.startYear,
+                        endDate: info.endYear,
+                        title: info.jobTitle,
+                        description: info.jobDescription,
+                        company: info.companyName,
+                    }
+                },
+            });
+            }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/projects");
     };
 
     const anotherJob = (event) => {
         event.preventDefault();
-        props.addWorkData(info);
 
-        //Apollo useMutation API call to send data to backend
-        addWork({
-            variables: {
-                draftID: data.draftID,
-                startDate: info.startYear,
-                endDate: info.endYear,
-                title: info.jobTitle,
-                description: info.jobDescription,
-                company: info.companyName,
-            },
-        });
+        if (
+            info.jobTitle.length !== 0 &&
+            info.companyName.length !== 0 &&
+            info.jobDescription.length !== 0
+          ) {
+            props.addWorkData(info);
+
+            //Apollo useMutation API call to send data to backend
+            addWork({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        startDate: info.startYear,
+                        endDate: info.endYear,
+                        title: info.jobTitle,
+                        description: info.jobDescription,
+                        company: info.companyName,
+                    }
+
+                },
+            });
+        }
 
         setInfo({
             ...info,

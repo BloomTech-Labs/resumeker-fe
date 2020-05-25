@@ -1,13 +1,14 @@
 import { gql } from "apollo-boost";
 const addWorkMutation = gql`
-    mutation(
-        $draftID: ID!
-        $input: WorkHistoryInput!
-    ) {
-        addWorkHistory(
-            draftID: $draftID
-            input: $input
-        )
+    mutation($input: WorkHistoryInput!) {
+        addWorkHistory(input: $input){
+            draftID
+            startDate
+            endDate
+            title
+            description
+            company
+        }
     }
 `;
 export { addWorkMutation };
