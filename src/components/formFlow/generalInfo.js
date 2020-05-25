@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addDraftMutation as ADD_DRAFT_MUTATION } from "../../queries/draft";
-
-//Actions
-import { addData } from "../../actions/resumeFormActions.js";
 
 import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
@@ -51,28 +47,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function GeneralInfo(props) {
+export default function GeneralInfo(props) {
     const [info, setInfo] = useState({
-        email: `${props.resumeData.email}`,
-        firstName: `${props.resumeData.firstName}`,
-        lastName: `${props.resumeData.lastName}`,
+        email: "",
+        firstName: "",
+        lastName: "",
     });
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
-    const [addDraft, { loading, error }] = useMutation(ADD_DRAFT_MUTATION, {
-        onCompleted(data) {
-            console.log(data, "\n Add Education Response");
+    const [addDraft, { loading, error, data }] = useMutation(
+        ADD_DRAFT_MUTATION,
+        {
+            onCompleted(data) {
+                // write data to the Apollo store here
+                // https://www.apollographql.com/docs/react/data/local-state/
+                console.log(data, "\n Add Education Response");
 
-            localStorage.setItem("draftID", data.addDraft);
-        },
-    });
+                localStorage.setItem("draftID", data.addDraft);
+            },
+        }
+    );
 
     const classes = useStyles();
 
     const nextPage = (event) => {
         event.preventDefault();
-        props.addData(info);
+        // props.addData(info);
 
         const name = info.firstName + " " + info.lastName;
 
@@ -106,8 +107,15 @@ function GeneralInfo(props) {
 
     const onChange = (event) => {
         event.preventDefault();
+
+        console.log("==================================/n", data);
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
+
+    if (loading) return <div>loading : {loading}</div>;
+    if (error) return <div>{error}</div>;
+
+    console.log("outside of onChange", data);
 
     return (
         <div id="generalInfoForm">
@@ -169,13 +177,3 @@ function Tip() {
         </div>
     );
 }
-
-const mapStateToProps = (state) => {
-    return {
-        resumeData: state.resumeFormReducer.resumeData,
-        resumeError: state.resumeFormReducer.error,
-        resumeLoading: state.resumeFormReducer.loading,
-    };
-};
-
-export default connect(mapStateToProps, { addData })(GeneralInfo);
