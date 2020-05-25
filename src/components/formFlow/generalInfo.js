@@ -60,10 +60,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GeneralInfo(props) {
+
+    console.log("Inside of GeneralInfo")
     const [info, setInfo] = useState({
-        email: `${props.resumeData.email}`,
-        firstName: `${props.resumeData.firstName}`,
-        lastName: `${props.resumeData.lastName}`,
+        email: "",
+        firstName: "",
+        lastName: "",
     });
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
@@ -78,10 +80,10 @@ function GeneralInfo(props) {
 
     const classes = useStyles();
 
-    const nextPage = async (event) => {
+    const nextPage = (event) => {
         event.preventDefault();
-        props.addData(info);
-
+        // props.addData(info);
+        console.log("NextPage inside of GeneralInfo")
         const name = info.firstName + " " + info.lastName;
 
         //Calls addDraft Mutation only if component state
@@ -103,19 +105,18 @@ function GeneralInfo(props) {
         }
 
         //Resets Component State to ''
-        setInfo({
-            email: "",
-            firstName: "",
-            lastName: "",
-        });
+        // setInfo({
+        //     email: "",
+        //     firstName: "",
+        //     lastName: "",
+        // });
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
 
         props.history.push("/form/education");
     };
 
     const onChange = (event) => {
-        event.preventDefault();
-        // console.log(activeStep, "active step")
+        console.log(event.target.name, "onChange")
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 
@@ -144,7 +145,7 @@ function GeneralInfo(props) {
 
 
 
-                        <form className={classes.form} onSubmit={nextPage}>
+                        <form className={classes.form} >
                             <GeneralInfoFormTemplate
                                 onChange={onChange}
                                 info={info}
@@ -154,6 +155,7 @@ function GeneralInfo(props) {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                onClick={(e)=>nextPage(e)}
                                 className={classes.submit}
                             >
                                 Next

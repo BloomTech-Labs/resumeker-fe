@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 
 import { graphql } from "react-apollo";
 
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 import UserData from "./userData.js";
 import ResumeCard from "./ResumeCard";
@@ -30,18 +29,22 @@ const useStyles = makeStyles((theme) => ({
 function Profile(props) {
     const classes = useStyles();
 
-    console.log(props.data, "profile query response");
+    console.log("We are in the profile");
 
     const displayDrafts = () => {
         const { getDrafts } = props.data;
-
+        console.log(props.data)
+        console.log("Drafts received")
         if (getDrafts) {
             if (getDrafts.length > 0) {
-                return getDrafts.map((draft, index) => <ResumeCard key={index} id={draft.id} />);
+                console.log("Drafts #2")
+                return getDrafts.map((draft) => <ResumeCard key={draft.id} id={draft.id} />);
             } else {
+                console.log("No drafts")
                 return <div>No Drafts</div>;
             }
         } else {
+            console.log("It's loading")
             return <div>Loading...</div>;
         }
     };
@@ -66,11 +69,18 @@ function Profile(props) {
           color="primary"
           className={classes.addResume}
           onClick={() => {
-            props.history.push("/form/generalInfo");
+              <Redirect to="/form/generalInfo" />
+            // props.history.push("/form/generalInfo");
           }}
         >
           Add a New Resume
         </Button> */}
+
+
+            </div>
+
+            <div className={classes.infoContainer}>
+                <UserData />
                 <NavLink to="/form/generalInfo">
                     <Button
                         variant="contained"
@@ -81,16 +91,8 @@ function Profile(props) {
                     </Button>
                 </NavLink>
             </div>
-
-            <div className={classes.infoContainer}>
-                <UserData />
-            </div>
         </div>
     );
 }
 
-<<<<<<< HEAD
-export default Profile;
-=======
 export default graphql(GET_DRAFTS_QUERY)(Profile);
->>>>>>> 3c3977858da57d35e759ff2f01becbe2e3240e08
