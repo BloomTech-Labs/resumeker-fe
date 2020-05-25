@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addProjectMutation as ADD_PROJECT_MUTATION } from "../../queries/queries";
+import { addProjectMutation as ADD_PROJECT_MUTATION } from "../../queries/projects";
 //Import Draft_Id query for memory cache query
 import { DRAFT_ID } from "../../queries/draftID";
 
@@ -24,6 +24,8 @@ import {
     Grid,
     makeStyles,
 } from "@material-ui/core";
+
+import MobileStepper from '@material-ui/core/MobileStepper';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,6 +70,12 @@ const useStyles = makeStyles((theme) => ({
     bold: {
         fontWeight: "900",
     },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 function PersonalProjects(props) {
@@ -83,6 +91,8 @@ function PersonalProjects(props) {
         link: "",
         draftID: "",
     });
+
+    const [activeStep, setActiveStep] = useState(4);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -103,6 +113,7 @@ function PersonalProjects(props) {
         ) {
             props.addProjectData(info);
         }
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/techskills");
     };
 
@@ -153,6 +164,13 @@ function PersonalProjects(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={props.activeStep}
+                    className={classes.progress}
+                    />
                     <div className={classes.paper}>
                         <form className={classes.form} onSubmit={nextPage}>
                             <ProjectsFormTemplate
@@ -178,6 +196,7 @@ function PersonalProjects(props) {
                                     id="previous_work"
                                     className={classes.previousButton}
                                     onClick={() => {
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/work");
                                     }}
                                 >

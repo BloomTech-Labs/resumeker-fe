@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addWorkMutation as ADD_WORK_MUTATION } from "../../queries/queries";
+import { addWorkMutation as ADD_WORK_MUTATION } from "../../queries/work";
 //Import Draft_Id query for memory cache query
 import { DRAFT_ID } from "../../queries/draftID";
 
@@ -26,6 +26,8 @@ import {
     Grid,
     makeStyles,
 } from "@material-ui/core";
+
+import MobileStepper from '@material-ui/core/MobileStepper';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,6 +72,12 @@ const useStyles = makeStyles((theme) => ({
     bold: {
       fontWeight: "900",
     },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 function WorkHistory(props) {
@@ -104,8 +112,8 @@ function WorkHistory(props) {
         ) {
           props.addWorkData(info);
         }
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/projects");
-        console.log("data from reducer", props.resumeData.jobs);
     };
 
     const anotherJob = (event) => {
@@ -153,6 +161,13 @@ function WorkHistory(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={props.activeStep}
+                    className={classes.progress}
+                    />
                     <div className={classes.paper}>
                         <form
                             id="workForm"
@@ -183,6 +198,7 @@ function WorkHistory(props) {
                                     id="previous_education"
                                     className={classes.previousButton}
                                     onClick={() => {
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/education");
                                     }}
                                 >

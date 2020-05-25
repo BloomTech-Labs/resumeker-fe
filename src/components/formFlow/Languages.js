@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addLanguageMutation as ADD_LANGUAGE_MUTATION } from "../../queries/queries";
+import { addLanguageMutation as ADD_LANGUAGE_MUTATION } from "../../queries/languages";
 //Import Draft_Id query for memory cache query
 import { DRAFT_ID } from "../../queries/draftID";
 
@@ -27,56 +27,64 @@ import {
     Chip,
 } from "@material-ui/core";
 
+import MobileStepper from '@material-ui/core/MobileStepper';
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-        height: "100vh",
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        display: "flex",
-        flexDirection: "column",
-    },
-    previousButton: {
-        margin: theme.spacing(3, 0, 2),
-        width: "49%",
-    },
-    nextButton: {
-        margin: theme.spacing(3, 0, 2),
-        width: "49%",
-        height: "3.5rem",
-    },
-    skillContainer: {
-        display: "flex",
-    },
-    chipContainer: {
-        display: "flex",
-        flexWrap: "wrap",
-        listStyle: "none",
-        padding: theme.spacing(0.5),
-        margin: 0,
-        boxShadow: "none",
-    },
-    chip: {
-        margin: theme.spacing(1.2),
-    },
-    buttonContainer: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "row",
-    },
-    tipTextLarge: {
-        fontSize: "1.1rem",
-    },
-    tipTextSmall: {
-        fontSize: "0.8rem",
-    },
+  root: {
+    height: "100vh",
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    display: "flex",
+    flexDirection: "column",
+  },
+  previousButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+  },
+  nextButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+    height: "3.5rem",
+  },
+  skillContainer: {
+    display: "flex",
+  },
+  chipContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+    boxShadow: "none",
+  },
+  chip: {
+    margin: theme.spacing(1.2),
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
+  },
+  progress: {
+    width: "100%",
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+},
 }));
 
 function Languages(props) {
@@ -86,6 +94,8 @@ function Languages(props) {
         userId: "google-oauth2|106346646323547324114",
         language: "",
     });
+
+    const [activeStep, setActiveStep] = useState(7);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -104,6 +114,7 @@ function Languages(props) {
         if (info.language.length > 0) {
             props.addLanguage(info);
         }
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/hobbies");
     };
 
@@ -151,6 +162,13 @@ function Languages(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={props.activeStep}
+                    className={classes.progress}
+                    />
                     <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
                             What Languages Do You Speak?
@@ -206,6 +224,7 @@ function Languages(props) {
                                     id="previous_generalSkills"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push(
                                             "/form/generalskills"
                                         );

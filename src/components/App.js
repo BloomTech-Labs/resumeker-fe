@@ -16,7 +16,6 @@ import ProtectedRoute from "./ProtectedRoute.js";
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js";
 
-//Statemanagement actions
 
 function App(props) {
     const { user } = useAuth0();

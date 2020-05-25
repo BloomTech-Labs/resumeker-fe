@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 //Apollo useMutation Hook for API call
 import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/queries";
+import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/skills";
 //Import Draft_Id query for memory cache query
 import { DRAFT_ID } from "../../queries/draftID";
 
@@ -27,57 +27,65 @@ import {
     Chip,
 } from "@material-ui/core";
 
+import MobileStepper from '@material-ui/core/MobileStepper';
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-        height: "100vh",
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        display: "flex",
-        flexDirection: "column",
-    },
-    previousButton: {
-        margin: theme.spacing(3, 0, 2),
-        width: "49%",
-    },
-    nextButton: {
-        margin: theme.spacing(3, 0, 2),
-        width: "49%",
-        height: "3.5rem",
-    },
-    skillContainer: {
-        display: "flex",
-    },
-    chipContainer: {
-        display: "flex",
-        flexWrap: "wrap",
-        listStyle: "none",
-        padding: theme.spacing(0.5),
-        margin: 0,
-        border: "none",
-        boxShadow: "none",
-    },
-    chip: {
-        margin: theme.spacing(1.2),
-    },
-    buttonContainer: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "row",
-    },
-    tipTextLarge: {
-        fontSize: "1.1rem",
-    },
-    tipTextSmall: {
-        fontSize: "0.8rem",
-    },
+  root: {
+    height: "100vh",
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    display: "flex",
+    flexDirection: "column",
+  },
+  previousButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+  },
+  nextButton: {
+    margin: theme.spacing(3, 0, 2),
+    width: "49%",
+    height: "3.5rem",
+  },
+  skillContainer: {
+    display: "flex",
+  },
+  chipContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+    border: "none",
+    boxShadow: "none",
+  },
+  chip: {
+    margin: theme.spacing(1.2),
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
+  },
+  progress: {
+    width: "100%",
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+},
 }));
 
 function TechSkills(props) {
@@ -87,6 +95,8 @@ function TechSkills(props) {
         draftID: "",
         skill: "",
     });
+
+    const [activeStep, setActiveStep] = useState(5);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -102,6 +112,7 @@ function TechSkills(props) {
         if (info.skill.length > 0) {
             props.addTechSkill(info);
         }
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/generalskills");
     };
 
@@ -150,6 +161,13 @@ function TechSkills(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={props.activeStep}
+                    className={classes.progress}
+                    />
                     <Grid className={classes.paper}>
                         <Typography component="h1" variant="h5">
                             Tell us about some of the technical skills that you
@@ -215,6 +233,7 @@ function TechSkills(props) {
                                     id="previous_projects"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
                                         props.history.push("/form/projects");
                                     }}
                                 >

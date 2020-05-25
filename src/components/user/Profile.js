@@ -3,8 +3,7 @@ import React, { useEffect } from "react";
 import { graphql } from "react-apollo";
 import { useQuery } from "@apollo/react-hooks";
 
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 import UserData from "./userData.js";
 import ResumeCard from "./ResumeCard";
@@ -58,11 +57,16 @@ export default function Profile(props) {
           color="primary"
           className={classes.addResume}
           onClick={() => {
-            props.history.push("/form/generalInfo");
+              <Redirect to="/form/generalInfo" />
+            // props.history.push("/form/generalInfo");
           }}
         >
           Add a New Resume
         </Button> */}
+            </div>
+
+            <div className={classes.infoContainer}>
+                <UserData />
                 <NavLink to="/form/generalInfo">
                     <Button
                         variant="contained"
@@ -72,10 +76,6 @@ export default function Profile(props) {
                         Add a New Resume
                     </Button>
                 </NavLink>
-            </div>
-
-            <div className={classes.infoContainer}>
-                <UserData />
             </div>
         </div>
     );

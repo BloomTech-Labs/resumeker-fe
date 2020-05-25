@@ -16,6 +16,8 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
+import MobileStepper from "@material-ui/core/MobileStepper";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "100vh",
@@ -44,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
     },
     bold: {
         fontWeight: "900",
+    },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
     },
 }));
 
@@ -74,7 +82,7 @@ export default function GeneralInfo(props) {
     const nextPage = (event) => {
         event.preventDefault();
         // props.addData(info);
-
+        console.log("NextPage inside of GeneralInfo");
         const name = info.firstName + " " + info.lastName;
 
         //Calls addDraft Mutation only if component state
@@ -96,19 +104,18 @@ export default function GeneralInfo(props) {
         }
 
         //Resets Component State to ''
-        setInfo({
-            email: "",
-            firstName: "",
-            lastName: "",
-        });
+        // setInfo({
+        //     email: "",
+        //     firstName: "",
+        //     lastName: "",
+        // });
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
         props.history.push("/form/education");
     };
 
     const onChange = (event) => {
-        event.preventDefault();
-
-        console.log("==================================/n", data);
+        console.log(event.target.name, "onChange");
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 
@@ -131,8 +138,15 @@ export default function GeneralInfo(props) {
                     elevation={6}
                     square
                 >
+                    <MobileStepper
+                        variant="progress"
+                        steps={8}
+                        position="static"
+                        activeStep={props.activeStep}
+                        className={classes.progress}
+                    />
                     <div className={classes.paper}>
-                        <form className={classes.form} onSubmit={nextPage}>
+                        <form className={classes.form}>
                             <GeneralInfoFormTemplate
                                 onChange={onChange}
                                 info={info}
@@ -142,6 +156,7 @@ export default function GeneralInfo(props) {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                onClick={(e) => nextPage(e)}
                                 className={classes.submit}
                             >
                                 Next
