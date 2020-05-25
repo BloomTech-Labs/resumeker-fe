@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 function ResumeCard(props) {
     return (
-        <NavLink to={`/form/resume/${props.id}`}>
+        <NavLink to={`/form/resume/${props.draftID}`}>
             <div className="resume-card">
-                <h1>Resume Draft ID # {props.id}</h1>
+                <h1>Resume Draft ID # {props.draftID}</h1>
             </div>
         </NavLink>
     );

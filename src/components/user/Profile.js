@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import { graphql } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -27,26 +28,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Profile(props) {
+export default function Profile(props) {
+    const { loading, error, data } = useQuery(GET_DRAFTS_QUERY);
     const classes = useStyles();
 
-    console.log(props.data, "profile query response");
+    if (loading) return <div>Loading</div>;
+    if (error) return <div>{error}</div>;
+    const { getDrafts } = data;
+    console.log(getDrafts, "profile query response");
 
-    const displayDrafts = () => {
-        const { getDrafts } = props.data;
-
-        if (getDrafts) {
-            if (getDrafts.length > 0) {
-                return getDrafts.map((draft, index) => <ResumeCard key={index} id={draft.id} />);
-            } else {
-                return <div>No Drafts</div>;
-            }
-        } else {
-            return <div>Loading...</div>;
-        }
-    };
-
-    
     return (
         <div className="profile">
             <div className={classes.container}>
@@ -58,7 +48,9 @@ function Profile(props) {
                         alignItems: "center",
                     }}
                 >
-                    {displayDrafts()}
+                    {getDrafts.map((draft) => (
+                        <ResumeCard key={draft.id} draftID={draft.id} />
+                    ))}
                 </div>
 
                 {/* <Button
@@ -89,4 +81,6 @@ function Profile(props) {
     );
 }
 
-export default graphql(GET_DRAFTS_QUERY)(Profile);
+// * just add a draft query every single time the profile component mounts, and it'll always update with the latest information
+
+// * o
