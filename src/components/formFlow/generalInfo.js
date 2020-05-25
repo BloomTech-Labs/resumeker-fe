@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 function GeneralInfo(props) {
 
-    console.log("Inside of GeneralInfo")
+    console.log(props, "props Inside of GeneralInfo")
     const [info, setInfo] = useState({
         email: "",
         firstName: "",

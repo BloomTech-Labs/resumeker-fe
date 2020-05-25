@@ -109,6 +109,7 @@ function TechSkills(props) {
     const classes = useStyles();
 
     const nextPage = (event) => {
+        event.preventDefault()
         if (info.skill.length > 0) {
             props.addTechSkill(info);
 
@@ -202,7 +203,7 @@ function TechSkills(props) {
                             <SingleFieldFormTemplate
                                 onChange={onChange}
                                 info={info.skill}
-                                anotherOne={anotherSkill}
+                                anotherOne={(e) => anotherSkill(e)}
                                 name="skill"
                                 label="Tech Skill"
                             />
@@ -259,9 +260,7 @@ function TechSkills(props) {
                                     color="primary"
                                     id="next_generalSkills"
                                     className={`${classes.nextButton} singlePageButton`}
-                                    onClick={() => {
-                                        nextPage();
-                                    }}
+                                    onClick={(e)=>nextPage(e)}
                                 >
                                     Next Form
                                 </Button>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import { graphql } from "react-apollo";
+import { useQuery } from '@apollo/react-hooks';
 
 import { NavLink, Redirect } from "react-router-dom";
 
@@ -30,20 +31,41 @@ function Profile(props) {
     const classes = useStyles();
 
     console.log("We are in the profile");
+    const {loading, error, data} = useQuery(GET_DRAFTS_QUERY)
+
 
     const displayDrafts = () => {
-        const { getDrafts } = props.data;
-        console.log(props.data)
+    //     const { getDrafts } = props.data;
+    //     // console.log(props.data)
         console.log("Drafts received")
-        if (getDrafts) {
-            if (getDrafts.length > 0) {
+    //     if (getDrafts) {
+    //         if (getDrafts.length > 0) {
+    //             console.log("Drafts #2")
+    //             return getDrafts.map((draft) => <ResumeCard key={draft.id} id={draft.id} />);
+    //         } else {
+    //             console.log("No drafts")
+    //             return <div>No Drafts</div>;
+    //         }
+    //     } else {
+    //         console.log("It's loading")
+    //         return <div>Loading...</div>;
+    //     }
+
+
+
+
+        // console.log(data, "get Drafts")
+        // const { getDrafts } = props.data;
+        // console.log(props.data)
+        if (data) {
+            if (data.getDrafts.length) {
                 console.log("Drafts #2")
-                return getDrafts.map((draft) => <ResumeCard key={draft.id} id={draft.id} />);
+                return data.getDrafts.map((draft) => <ResumeCard key={draft.id} id={draft.id} />);
             } else {
                 console.log("No drafts")
                 return <div>No Drafts</div>;
             }
-        } else {
+        } else if(loading){
             console.log("It's loading")
             return <div>Loading...</div>;
         }
@@ -95,4 +117,5 @@ function Profile(props) {
     );
 }
 
-export default graphql(GET_DRAFTS_QUERY)(Profile);
+// export default graphql(GET_DRAFTS_QUERY)(Profile);
+export default Profile

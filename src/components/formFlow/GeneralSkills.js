@@ -108,6 +108,7 @@ function GeneralSkills(props) {
     const classes = useStyles();
 
     const nextPage = (event) => {
+        event.preventDefault()
         if (info.skill.length > 0) {
             props.addGeneralSkill(info);
 
@@ -201,7 +202,7 @@ function GeneralSkills(props) {
                             <SingleFieldFormTemplate
                                 onChange={onChange}
                                 info={info.skill}
-                                anotherOne={anotherSkill}
+                                anotherOne={(e) => anotherSkill(e)}
                                 name="skill"
                                 label="General Skill"
                             />
@@ -259,9 +260,7 @@ function GeneralSkills(props) {
                                     color="primary"
                                     id="next_languages"
                                     className={`${classes.nextButton} singlePageButton`}
-                                    onClick={() => {
-                                        nextPage();
-                                    }}
+                                    onClick={(e)=>nextPage(e)}
                                 >
                                     Next Form
                                 </Button>

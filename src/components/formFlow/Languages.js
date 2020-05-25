@@ -111,6 +111,7 @@ function Languages(props) {
     const classes = useStyles();
 
     const nextPage = (event) => {
+        event.preventDefault()
         if (info.language.length > 0) {
             props.addLanguage(info);
             
@@ -195,7 +196,7 @@ function Languages(props) {
                             <SingleFieldFormTemplate
                                 onChange={onChange}
                                 info={info.language}
-                                anotherOne={anotherLanguage}
+                                anotherOne={(e) => anotherLanguage(e)}
                                 name="language"
                                 label="Language"
                             />
@@ -253,9 +254,7 @@ function Languages(props) {
                                     color="primary"
                                     id="next_hobbies"
                                     className={`${classes.nextButton} singlePageButton`}
-                                    onClick={() => {
-                                        nextPage();
-                                    }}
+                                    onClick={(e)=>nextPage(e)}
                                 >
                                     Next Form
                                 </Button>

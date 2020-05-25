@@ -4,8 +4,9 @@ import "../formStyles/reviewForm.css";
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
-
+import { useMutation } from "@apollo/react-hooks";
 import EducationFormTemplate from "../formsTemplate/educationFormTemplate"
+import { updateEducationHistory as UPDATE_EDUCATION_HISTORY } from "../../../queries/education"
 
 import {
   CardContent,
@@ -28,24 +29,47 @@ function EducationCard(props) {
   const [edit, setEdit] = useState(false);
 
   const [info, setInfo] = useState({
-    type: `${props.education.type}`,
-    schoolName: `${props.education.schoolName}`,
-    yearIn: `${props.education.yearIn}`,
-    yearOut: `${props.education.yearOut}`,
-    certificateName: `${props.education.certificateName}`,
     id: props.education.id,
-  });
+    type: props.education.schoolType,
+    schoolName: props.education.schoolName,
+    yearIn: props.education.startDate.toString(),
+    yearOut: props.education.endDate.toString(),
+    certificateName: props.education.certName,
+    draftID: props.education.draftID,
+});
+
+  const [updateEducation, { loading, error }] = useMutation(
+    UPDATE_EDUCATION_HISTORY,
+    {
+        onCompleted(data) {
+            console.log(data, "\n Rannnnnnnn UPdate Education");
+        },
+    }
+);
 
   const classes = useStyles();
 
   const saveInfo = (event) => {
     event.preventDefault();
-    props.updateEducationData(info);
+    // props.updateEducationData(info);
+    updateEducation({
+      variables: {
+        id: props.education.id,
+        input: {
+            draftID: props.education.draftID,
+            schoolType: props.education.schoolType,
+            schoolName: props.education.schoolName,
+            startDate: props.education.startDate.toString(),
+            endDate: props.education.endDate.toString(),
+            certName: props.education.certName,
+        },
+    },
+    })
     setEdit(false);
   };
 
   const onChange = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
   };
 
@@ -68,17 +92,17 @@ function EducationCard(props) {
     );
   } else {
     return (
-      <CardContent className={classes.cardContent} id={info.schoolName}>
+      <CardContent className={classes.cardContent} id={props.education.id}>
         <p>
-          Type of Education: {info.type}{" "}
+          Type of Education: {props.education.schoolType}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
           </EditIcon>
         </p>
-        <p>Name of School: {info.schoolName}</p>
-        <p>Starting Date: {info.yearIn}</p>
-        <p>End Date: {info.yearOut}</p>
-        <p>Type of Certificate: {info.certificateName}</p>
+        <p>Name of School: {props.education.schoolName}</p>
+        <p>Starting Date: {props.education.startDate}</p>
+        <p>End Date: {props.education.endDate}</p>
+        <p>Type of Certificate: {props.education.certName}</p>
       </CardContent>
     );
   }

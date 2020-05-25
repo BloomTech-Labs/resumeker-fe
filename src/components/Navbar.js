@@ -39,11 +39,11 @@ const Navbar = (props) => {
           </button>
         )}
 
-        {isAuthenticated && (
+        {/* {isAuthenticated && ( */}
           <NavLink to="/profile">
             <button className="styled-button">Profile</button>
           </NavLink>
-        )}
+        {/* )} */}
 
         {isAuthenticated && (
           <button className="styled-button" onClick={() => logout()}>

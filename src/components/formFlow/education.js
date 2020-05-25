@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
+import { useQuery } from '@apollo/react-hooks';
 //Importing GraphQL Query for useMutation API call
-import { addEducationMutation as ADD_EDUCATION_MUTATION } from "../../queries/education";
+import { addEducationMutation as ADD_EDUCATION_MUTATION, 
+    getEducationByDraft as GET_EDUCATION_BY_DRAFT } from "../../queries/education";
 
 //Actions
 import {
@@ -79,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Education(props) {
-    console.log(localStorage.getItem("draftID"));
+    console.log(props, "props inside of education");
 
     const [info, setInfo] = useState({
         type: "",
@@ -100,6 +102,33 @@ function Education(props) {
             },
         }
     );
+
+    const {data} = useQuery(GET_EDUCATION_BY_DRAFT, {variables: {draftID: localStorage.getItem("draftID")}})
+    console.log(data)
+
+    const DisplayEducationByDraft = () => {
+        if (data) {
+            if (data.getEducationByDraft.length) {
+                console.log(data.getEducationByDraft, "get Education by Draft")
+                return data.getEducationByDraft.map((education) => 
+                    <div key={education.id}>
+                        <EducationCard
+                            // setInfo={setInfo}
+                            education={education}
+                            // updateEducationData={
+                            //     props.updateEducationData
+                            // }
+                        />
+                        </div>);
+            } else {
+                console.log("No drafts")
+                return <div>No Drafts</div>;
+            }
+        } else if(loading){
+            console.log("It's loading")
+            return <div>Loading...</div>;
+        }
+    }
 
     const classes = useStyles();
 
@@ -184,7 +213,7 @@ function Education(props) {
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
-                        <form className={classes.form} onSubmit={nextPage}>
+                        <form className={classes.form}>
                             <EducationFormTemplate
                                 info={info}
                                 onChange={onChange}
@@ -195,7 +224,7 @@ function Education(props) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={anotherEducation}
+                                onClick={(e) => anotherEducation(e)}
                             >
                                 Add Another
                             </Button>
@@ -219,14 +248,30 @@ function Education(props) {
                                     variant="contained"
                                     color="primary"
                                     id="next_work"
+                                    onClick={(e)=>nextPage(e)}
                                     className={classes.nextButton}
                                 >
                                     Next Form
                                 </Button>
                             </Grid>
                         </form>
+                        {DisplayEducationByDraft()}
+                        {/* {data.getEducationByDraft.length ? (
+                            data.getEducationByDraft.map((education) => (
+                                <div key={education.id}>
+                                    <EducationCard
+                                        education={education}
+                                        updateEducationData={
+                                            props.updateEducationData
+                                        }
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <p>Here you can see your added education</p>
+                        )} */}
 
-                        {props.resumeData.education.length ? (
+                        {/* {props.resumeData.education.length ? (
                             props.resumeData.education.map((education) => (
                                 <div key={education.id}>
                                     <EducationCard
@@ -239,7 +284,7 @@ function Education(props) {
                             ))
                         ) : (
                             <p>Here you can see your added education</p>
-                        )}
+                        )} */}
                     </div>
                 </Grid>
             </Grid>

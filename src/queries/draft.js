@@ -9,8 +9,8 @@ const getDraftsQuery = gql`
 `;
 
 const getDraftQuery = gql`
-    query($draftID: ID!) {
-        getDraft(draftID: $draftID) {
+    query($id: ID!) {
+        getDraft(id: $id) {
             id
             #role
             #project

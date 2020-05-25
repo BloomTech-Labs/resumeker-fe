@@ -25,13 +25,14 @@ function App(props) {
     localStorage.setItem("token", token);
 
     console.log(user, "\n User at App.js");
+    console.log(props, "props inside of app.js")
 
     return (
         <div className="App">
             <Navbar />
             <h1>Resumeker</h1>
             <Switch>
-                <Route path="/register" render={(props) => <Profile />} />
+                {/* <Route path="/register" render={(props) => <Profile />} /> */}
                 <Route exact path="/" component={Home} />
                 <Route
                     path="/profile"

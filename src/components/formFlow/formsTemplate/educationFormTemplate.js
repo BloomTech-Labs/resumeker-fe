@@ -74,6 +74,7 @@ function EducationFormTemplate(props) {
         fullWidth
         name="yearIn"
         type="date"
+        // data-date-format="mm-dd-yyyy"
         label="School Starting Date"
         id="yearIn"
         InputLabelProps={{
@@ -87,6 +88,7 @@ function EducationFormTemplate(props) {
         margin="normal"
         fullWidth
         type="date"
+        // data-date-format="mm-dd-yyyy"
         name="yearOut"
         label="Finishing School"
         id="yearOut"

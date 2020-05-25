@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
 import { useQuery, useMutation } from "@apollo/react-hooks";
+
 //Importing GraphQL Query for useMutation API call
 import { addWorkMutation as ADD_WORK_MUTATION } from "../../queries/work";
 //Import Draft_Id query for memory cache query => do we need it? 
@@ -197,7 +198,7 @@ function WorkHistory(props) {
                         <form
                             id="workForm"
                             className={classes.form}
-                            onSubmit={nextPage}
+                            // onSubmit={nextPage}
                         >
                             <WorkHistoryFormTemplate
                                 info={info}
@@ -210,7 +211,7 @@ function WorkHistory(props) {
                                 color="primary"
                                 id="anotherJob"
                                 className={classes.submit}
-                                onClick={anotherJob}
+                                onClick={(e) => anotherJob(e)}
                             >
                                 Another Job?
                             </Button>
@@ -235,6 +236,7 @@ function WorkHistory(props) {
                                     variant="contained"
                                     color="primary"
                                     id="next_projects"
+                                    onClick={(e)=>nextPage(e)}
                                     className={classes.nextButton}
                                 >
                                     Next Form

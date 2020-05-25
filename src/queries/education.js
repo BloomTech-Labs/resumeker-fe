@@ -9,8 +9,40 @@ const addEducationMutation = gql`
             startDate
             endDate
             certName
-            courses
         }
     }
 `;
-export { addEducationMutation };
+
+const getEducationByDraft = gql`
+query($draftID: ID!){
+    getEducationByDraft(draftID: $draftID ){
+        id
+        draftID
+        schoolType
+        schoolName
+        startDate
+        endDate
+        certName
+    }
+}
+`
+
+const updateEducationHistory = gql`
+    mutation($id: ID!, $input: EducationHistoryInput){
+        updateEducationHistory(id: $id, input: $input){
+            id
+            draftID
+            schoolType
+            schoolName
+            startDate
+            endDate
+            certName
+        }
+    }
+`
+
+
+
+
+
+export { addEducationMutation, getEducationByDraft, updateEducationHistory };
