@@ -87,7 +87,7 @@ function Hobbies(props) {
     const { data } = useQuery(DRAFT_ID);
 
     const [info, setInfo] = useState({
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
         hobby: "",
     });
 
@@ -97,7 +97,7 @@ function Hobbies(props) {
     //call function, and 2nd destructured variable being return data and tracking
     const [addHobby, { loading, error }] = useMutation(ADD_HOBBY_MUTATION, {
         onCompleted(data) {
-            // console.log(data, "\n Add Education Response");
+            console.log(data, "\n Add Hobby Response");
         },
     });
 
@@ -106,6 +106,16 @@ function Hobbies(props) {
     const nextPage = (event) => {
         if (info.hobby.length > 0) {
             props.addHobby(info);
+
+            //Apollo useMutation API call to send data to backend
+            addHobby({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        name: info.hobby,
+                    }
+                },
+            });
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/review");
@@ -119,8 +129,10 @@ function Hobbies(props) {
             //Apollo useMutation API call to send data to backend
             addHobby({
                 variables: {
-                    draftID: data.draftID,
-                    name: info.hobby,
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        name: info.hobby,
+                    }
                 },
             });
         }

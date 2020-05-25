@@ -91,7 +91,7 @@ function Languages(props) {
     const { data } = useQuery(DRAFT_ID);
 
     const [info, setInfo] = useState({
-        userId: "google-oauth2|106346646323547324114",
+        draftID: "",
         language: "",
     });
 
@@ -103,7 +103,7 @@ function Languages(props) {
         ADD_LANGUAGE_MUTATION,
         {
             onCompleted(data) {
-                // console.log(data, "\n Add Education Response");
+                // console.log(data, "\n Add Language Response");
             },
         }
     );
@@ -113,6 +113,17 @@ function Languages(props) {
     const nextPage = (event) => {
         if (info.language.length > 0) {
             props.addLanguage(info);
+            
+            //Apollo useMutation API call to send data to backend
+            addLanguage({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        language: info.language,
+                    }
+
+                },
+            });
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/hobbies");
@@ -126,8 +137,11 @@ function Languages(props) {
             //Apollo useMutation API call to send data to backend
             addLanguage({
                 variables: {
-                    draftID: data.draftID,
-                    language: info.language,
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        language: info.language,
+                    }
+
                 },
             });
         }

@@ -3,7 +3,6 @@ import { gql } from "apollo-boost";
 const addEducationMutation = gql`
     mutation($input: EducationHistoryInput) {
         addEducationHistory(input: $input) {
-            id
             draftID
             schoolType
             schoolName

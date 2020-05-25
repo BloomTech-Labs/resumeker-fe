@@ -52,7 +52,7 @@ function ProjectsFormTemplate(props) {
         onChange={props.onChange}
         value={props.info.projectEndDate}
       />
-      <TextField
+      {/* <TextField
         variant="outlined"
         margin="normal"
         fullWidth
@@ -61,7 +61,7 @@ function ProjectsFormTemplate(props) {
         id="role"
         onChange={props.onChange}
         value={props.info.role}
-      />
+      /> */}
       <TextField
         variant="outlined"
         margin="normal"

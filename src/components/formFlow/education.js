@@ -106,7 +106,22 @@ function Education(props) {
     const nextPage = (event) => {
         event.preventDefault();
         if (info.type.length !== 0 && info.schoolName.length !== 0) {
-            props.addEducationData(info);
+            // props.addEducationData(info);
+
+            //Apollo useMutation API call to send data to backend
+            addEducation({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        schoolType: info.type,
+                        schoolName: info.schoolName,
+                        startDate: info.yearIn,
+                        endDate: info.yearOut,
+                        certName: info.certificateName,
+                    },
+                },
+            });
+
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/work");
@@ -114,8 +129,9 @@ function Education(props) {
 
     const anotherEducation = (event) => {
         event.preventDefault();
-        props.addEducationData(info);
+        // props.addEducationData(info);
 
+        if (info.type.length !== 0 && info.schoolName.length !== 0) {
         //Apollo useMutation API call to send data to backend
         addEducation({
             variables: {
@@ -129,6 +145,7 @@ function Education(props) {
                 },
             },
         });
+    }
 
         setInfo({
             draftID: "",

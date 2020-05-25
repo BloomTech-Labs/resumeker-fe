@@ -86,19 +86,17 @@ function PersonalProjects(props) {
         projectName: "",
         projectStartDate: "",
         projectEndDate: "",
-        role: "",
+        // role: "",
         roleDescription: "",
         link: "",
         draftID: "",
     });
 
-    const [activeStep, setActiveStep] = useState(4);
-
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
     const [addProject, { loading, error }] = useMutation(ADD_PROJECT_MUTATION, {
         onCompleted(data) {
-            // console.log(data, "\n Add Education Response");
+            console.log(data, "\n Add Project Response");
         },
     });
 
@@ -108,10 +106,26 @@ function PersonalProjects(props) {
         event.preventDefault();
         if (
             info.projectName.length !== 0 &&
-            info.role.length !== 0 &&
+            // info.role.length !== 0 &&
             info.roleDescription !== 0
         ) {
-            props.addProjectData(info);
+            // props.addProjectData(info);
+
+            //Apollo useMutation API call to send data to backend
+            addProject({
+                variables: {
+                    input: {
+                        title: info.projectName,
+                        // role: info.role,
+                        projectUrl: info.link,
+                        description: info.roleDescription,
+                        startDate: info.projectStartDate,
+                        endDate: info.projectEndDate,
+                        draftID: localStorage.getItem("draftID"),
+                    }
+
+                },
+            });
         }
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
         props.history.push("/form/techskills");
@@ -119,27 +133,37 @@ function PersonalProjects(props) {
 
     const anotherProject = (event) => {
         event.preventDefault();
-        props.addProjectData(info);
 
-        //Apollo useMutation API call to send data to backend
-        addProject({
-            variables: {
-                title: info.projectName,
-                role: info.role,
-                projectUrl: info.link,
-                description: info.roleDescription,
-                startDate: info.projectStartDate,
-                endDate: info.projectEndDate,
-                draftID: data.draftId,
-            },
-        });
+        if (
+            info.projectName.length !== 0 &&
+            // info.role.length !== 0 &&
+            info.roleDescription !== 0
+        ) {
+            // props.addProjectData(info);
+
+            //Apollo useMutation API call to send data to backend
+            addProject({
+                variables: {
+                    input: {
+                        title: info.projectName,
+                        // role: info.role,
+                        projectUrl: info.link,
+                        description: info.roleDescription,
+                        startDate: info.projectStartDate,
+                        endDate: info.projectEndDate,
+                        draftID: localStorage.getItem("draftID"),
+                    }
+
+                },
+            });
+        }
 
         setInfo({
             ...info,
             projectName: "",
             projectStartDate: "",
             projectEndDate: "",
-            role: "",
+            // role: "",
             roleDescription: "",
             link: "",
         });
