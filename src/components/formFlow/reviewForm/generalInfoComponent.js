@@ -38,8 +38,6 @@ const GeneralInfoComponent = (props) => {
 
   const id = localStorage.getItem("draftID")
   const {loading, error, data} = useQuery(GET_DRAFT_QUERY, {variables: { id }})
-  console.log(id, "id inside of review General Info")
-  console.log(data, "data inside of review General info")
 
   const [info, setInfo] = useState({
     email: "",

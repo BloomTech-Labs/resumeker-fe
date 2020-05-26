@@ -20,13 +20,12 @@ function ProjectCard(props) {
   const [edit, setEdit] = useState(false);
 
   const [info, setInfo] = useState({
-    projectName: `${props.projects.projectName}`,
-    projectStartDate: `${props.projects.projectStartDate}`,
-    projectEndDate: `${props.projects.projectEndDate}`,
-    role: `${props.projects.role}`,
-    roleDescription: `${props.projects.roleDescription}`,
-    link: `${props.projects.link}`,
-    id: props.projects.id,
+    projectName: "",
+    projectStartDate: "",
+    projectEndDate: "",
+    // role: "",
+    roleDescription: "",
+    link: "",
   });
 
   const saveInfo = (event) => {
@@ -63,16 +62,16 @@ function ProjectCard(props) {
     return (
       <CardContent className={`${classes.cardContent} ProjectsTesting`}>
         <p>
-          Project Name: {info.projectName}{" "}
+          Project Name: {props.projects.title}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
           </EditIcon>
         </p>
-        <p>Project Start Date: {info.projectStartDate}</p>
-        <p>Project End Date: {info.projectEndDate}</p>
-        <p>Role: {info.role}</p>
-        <p>Role Description: {info.roleDescription}</p>
-        <p>Link to Project: {info.link}</p>
+        <p>Project Start Date: {props.projects.startDate}</p>
+        <p>Project End Date: {props.projects.endDate}</p>
+        {/* <p>Role: {props.projects.role}</p> */}
+        <p>Role Description: {props.projects.description}</p>
+        <p>Link to Project: {props.projects.projectUrl}</p>
       </CardContent>
     );
   }

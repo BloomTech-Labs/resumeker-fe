@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 function EducationCard(props) {
     const [edit, setEdit] = useState(false);
 
-<<<<<<< HEAD
   const [info, setInfo] = useState({
     id: props.education.id,
     type: props.education.schoolType,
@@ -34,17 +33,6 @@ function EducationCard(props) {
     certificateName: props.education.certName,
     draftID: props.education.draftID,
 });
-=======
-    const [info, setInfo] = useState({
-        id: props.education.id,
-        type: props.education.schoolType,
-        schoolName: props.education.schoolName,
-        yearIn: props.education.startDate.toString(),
-        yearOut: props.education.endDate.toString(),
-        certificateName: props.education.certName,
-        draftID: props.education.draftID,
-    });
->>>>>>> 3159f921ebfa3caa78b81337a4eeccbb355ae853
 
     const [updateEducation, { loading, error }] = useMutation(
         UPDATE_EDUCATION_HISTORY,
@@ -57,7 +45,6 @@ function EducationCard(props) {
 
     const classes = useStyles();
 
-<<<<<<< HEAD
   const saveInfo = (event) => {
     event.preventDefault();
     // props.updateEducationData(info);
@@ -76,26 +63,6 @@ function EducationCard(props) {
     })
     setEdit(false);
   };
-=======
-    const saveInfo = (event) => {
-        event.preventDefault();
-        // props.updateEducationData(info);
-        updateEducation({
-            variables: {
-                id: props.education.id,
-                input: {
-                    draftID: props.education.draftID,
-                    schoolType: props.education.schoolType,
-                    schoolName: props.education.schoolName,
-                    startDate: props.education.startDate.toString(),
-                    endDate: props.education.endDate.toString(),
-                    certName: props.education.certName,
-                },
-            },
-        });
-        setEdit(false);
-    };
->>>>>>> 3159f921ebfa3caa78b81337a4eeccbb355ae853
 
     const onChange = (event) => {
         // event.preventDefault();

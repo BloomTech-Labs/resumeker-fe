@@ -239,7 +239,7 @@ function PersonalProjects(props) {
                             </Grid>
                         </form>
 
-                        {props.resumeData.projects.length ? (
+                        {/* {props.resumeData.projects.length ? (
                             props.resumeData.projects.map((project) => (
                                 <div key={project.id}>
                                     <ProjectCard
@@ -252,7 +252,7 @@ function PersonalProjects(props) {
                             ))
                         ) : (
                             <p>Here you can see your added jobs</p>
-                        )}
+                        )} */}
                     </div>
                 </Grid>
             </Grid>

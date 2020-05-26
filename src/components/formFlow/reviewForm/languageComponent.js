@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
 
+import { useQuery } from '@apollo/react-hooks';
+
+import { getLanguagesByDraft as GET_LANGUAGES_BY_DRAFT } from "../../../queries/languages"
+
 //Actions
 import { updateLanguageData, removeLanguageData, addLanguage } from "../../../actions/resumeFormActions.js";
 import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
@@ -48,9 +52,16 @@ function LanguageComponent(props) {
 
   const [edit, setEdit] = useState(false);
   const [info, setInfo] = useState({
-    language: props.resumeData.languages.language,
-    id: props.resumeData.languages.id,
+    language: "",
+    id: "",
   });
+
+  const draftID = localStorage.getItem("draftID")
+  const {loading, error, data} = useQuery(GET_LANGUAGES_BY_DRAFT, {variables: { draftID }})
+
+  if (loading) return <p>loading</p>;
+  if (error) return <p>ERROR: {error.message}</p>;
+  if (!data) return <p>Not found</p>;
 
   const handleDelete = (languageToDelete) => (event) => {
     event.preventDefault();
@@ -80,6 +91,7 @@ function LanguageComponent(props) {
     setEdit(false);
   };
   
+  if(data){
   if(edit) {
   return (
     <Card>
@@ -145,7 +157,7 @@ function LanguageComponent(props) {
                   square="true"
                   className={classes.chipContainer}
                 >
-                  {props.resumeData.languages.map((data) => {
+                  {data.getLanguagesByDraft.map((data) => {
                     return (
                       <li key={data.id}>
                         <Chip
@@ -160,6 +172,7 @@ function LanguageComponent(props) {
       
     </Card>
   );
+  }
 }}
 
 const mapStateToProps = (state) => {

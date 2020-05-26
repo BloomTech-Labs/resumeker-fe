@@ -64,22 +64,17 @@ export default function GeneralInfo(props) {
         firstName: "",
         lastName: "",
     });
-    console.log("==========client on mount============\n", client);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
-    const [addDraft, { loading, error, data }] = useMutation(
+    const [addDraft, { loading, error }] = useMutation(
         ADD_DRAFT_MUTATION,
         {
-            refetchQueries: ["getDrafts"],
-            onCompleted(cache) {
-                console.log(
-                    "==========client after mutation============\n",
-                    client
-                );
-                console.log("cache\n", cache);
+            // refetchQueries: ["getDrafts"],
+            onCompleted(data) {
+                // console.log("cache\n", cache);
                 // need to refetch and update our getDrafts query
-                // localStorage.setItem("draftID", data.addDraft);
+                localStorage.setItem("draftID", data.addDraft);
             },
         }
     );
@@ -88,7 +83,6 @@ export default function GeneralInfo(props) {
 
     const nextPage = (event) => {
         event.preventDefault();
-        console.log("NextPage inside of GeneralInfo");
         const name = info.firstName + " " + info.lastName;
 
         //Calls addDraft Mutation only if component state

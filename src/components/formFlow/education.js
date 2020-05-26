@@ -7,7 +7,7 @@ import { useQuery } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import {
     addEducationMutation as ADD_EDUCATION_MUTATION,
-    getEducationByDraft as GET_EDUCATION_BY_DRAFT,
+    // getEducationByDraft as GET_EDUCATION_BY_DRAFT,
 } from "../../queries/education";
 
 //Actions
@@ -83,8 +83,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Education(props) {
-    console.log(props, "props inside of education");
-    console.log("Looking for the client\n", props.client);
 
     const [info, setInfo] = useState({
         type: "",
@@ -100,41 +98,41 @@ function Education(props) {
     const [addEducation, { loading, error }] = useMutation(
         ADD_EDUCATION_MUTATION,
         {
-            refetchQueries: ["getEducationByDraft"],
+            // refetchQueries: ["getEducationByDraft"],
             onCompleted(data) {
                 console.log(data, "\n Rannnnnnnn Add Education");
             },
         }
     );
 
-    const { data } = useQuery(GET_EDUCATION_BY_DRAFT, {
-        variables: { draftID: localStorage.getItem("draftID") },
-    });
+    // const { data, refetch } = useQuery(GET_EDUCATION_BY_DRAFT, {
+    //     variables: { draftID: localStorage.getItem("draftID") },
+    // });
 
-    const DisplayEducationByDraft = () => {
-        if (data) {
-            if (data.getEducationByDraft.length) {
-                console.log(data.getEducationByDraft, "get Education by Draft");
-                return data.getEducationByDraft.map((education) => (
-                    <div key={education.id}>
-                        <EducationCard
-                            // setInfo={setInfo}
-                            education={education}
-                            // updateEducationData={
-                            //     props.updateEducationData
-                            // }
-                        />
-                    </div>
-                ));
-            } else {
-                console.log("No drafts");
-                return <div>No Education Records found</div>;
-            }
-        } else if (loading) {
-            console.log("It's loading");
-            return <div>Loading...</div>;
-        }
-    };
+    // const DisplayEducationByDraft = () => {
+    //     if (data) {
+    //         if (data.getEducationByDraft.length) {
+    //             console.log(data.getEducationByDraft, "get Education by Draft");
+    //             return data.getEducationByDraft.map((education) => (
+    //                 <div key={education.id}>
+    //                     <EducationCard
+    //                         // setInfo={setInfo}
+    //                         education={education}
+    //                         // updateEducationData={
+    //                         //     props.updateEducationData
+    //                         // }
+    //                     />
+    //                 </div>
+    //             ));
+    //         } else {
+    //             console.log("No drafts");
+    //             return <div>No Education Records found</div>;
+    //         }
+    //     } else if (loading) {
+    //         console.log("It's loading");
+    //         return <div>Loading...</div>;
+    //     }
+    // };
 
     const classes = useStyles();
 
@@ -157,6 +155,7 @@ function Education(props) {
                 },
             });
         }
+        // refetch()
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
         props.history.push("/form/work");
     };
@@ -180,6 +179,7 @@ function Education(props) {
                 },
             });
         }
+        // refetch()
 
         setInfo({
             draftID: "",
@@ -263,7 +263,7 @@ function Education(props) {
                                 </Button>
                             </Grid>
                         </form>
-                        {DisplayEducationByDraft()}
+                        {/* {DisplayEducationByDraft()} */}
                         {/* {data.getEducationByDraft.length ? (
                             data.getEducationByDraft.map((education) => (
                                 <div key={education.id}>
