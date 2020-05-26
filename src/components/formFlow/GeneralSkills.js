@@ -27,64 +27,64 @@ import {
     Chip,
 } from "@material-ui/core";
 
-import MobileStepper from '@material-ui/core/MobileStepper';
+import MobileStepper from "@material-ui/core/MobileStepper";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    display: "flex",
-    flexDirection: "column",
-  },
-  previousButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-  },
-  nextButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-    height: "3.5rem",
-  },
-  skillContainer: {
-    display: "flex",
-  },
-  chipContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: theme.spacing(0.5),
-    margin: 0,
-    boxShadow: "none",
-  },
-  chip: {
-    margin: theme.spacing(1.2),
-  },
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
-  tipTextLarge: {
-    fontSize: "1.1rem",
-  },
-  tipTextSmall: {
-    fontSize: "0.8rem",
-  },
-  progress: {
-    width: "100%",
-    flexGrow: 1,
-    display: "flex",
-    justifyContent: "center",
-},
+    root: {
+        height: "100vh",
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        display: "flex",
+        flexDirection: "column",
+    },
+    previousButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+    },
+    nextButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+        height: "3.5rem",
+    },
+    skillContainer: {
+        display: "flex",
+    },
+    chipContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: theme.spacing(0.5),
+        margin: 0,
+        boxShadow: "none",
+    },
+    chip: {
+        margin: theme.spacing(1.2),
+    },
+    buttonContainer: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "row",
+    },
+    tipTextLarge: {
+        fontSize: "1.1rem",
+    },
+    tipTextSmall: {
+        fontSize: "0.8rem",
+    },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 function GeneralSkills(props) {
@@ -108,7 +108,7 @@ function GeneralSkills(props) {
     const classes = useStyles();
 
     const nextPage = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         if (info.skill.length > 0) {
             props.addGeneralSkill(info);
 
@@ -119,11 +119,11 @@ function GeneralSkills(props) {
                         draftID: localStorage.getItem("draftID"),
                         skillType: "Qualitative",
                         name: info.skill,
-                    }
+                    },
                 },
             });
         }
-        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
         props.history.push("/form/languages");
     };
 
@@ -139,7 +139,7 @@ function GeneralSkills(props) {
                         draftID: localStorage.getItem("draftID"),
                         skillType: "Qualitative",
                         name: info.skill,
-                    }
+                    },
                 },
             });
         }
@@ -160,6 +160,9 @@ function GeneralSkills(props) {
         setInfo({ ...info });
     };
 
+    if (loading) return <div>Loading</div>;
+    if (error) return <div>error</div>;
+
     return (
         <div>
             <Grid container componet="main" className={classes.root}>
@@ -175,11 +178,11 @@ function GeneralSkills(props) {
                     square
                 >
                     <MobileStepper
-                    variant="progress"
-                    steps={8}
-                    position="static"
-                    activeStep={props.activeStep}
-                    className={classes.progress}
+                        variant="progress"
+                        steps={8}
+                        position="static"
+                        activeStep={props.activeStep}
+                        className={classes.progress}
                     />
                     <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
@@ -247,7 +250,10 @@ function GeneralSkills(props) {
                                     id="previous_techSkills"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
-                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep(
+                                            (prevActiveStep) =>
+                                                prevActiveStep - 1
+                                        );
                                         props.history.push("/form/techskills");
                                     }}
                                 >
@@ -260,7 +266,7 @@ function GeneralSkills(props) {
                                     color="primary"
                                     id="next_languages"
                                     className={`${classes.nextButton} singlePageButton`}
-                                    onClick={(e)=>nextPage(e)}
+                                    onClick={(e) => nextPage(e)}
                                 >
                                     Next Form
                                 </Button>
