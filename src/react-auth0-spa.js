@@ -21,7 +21,7 @@ export const Auth0Provider = ({
     useEffect(() => {
         const initAuth0 = async () => {
             const auth0FromHook = await createAuth0Client(initOptions);
-            console.log(auth0FromHook);
+            // console.log(auth0FromHook);
             setAuth0(auth0FromHook);
 
             if (
@@ -41,6 +41,7 @@ export const Auth0Provider = ({
             if (isAuthenticated) {
                 const user = await auth0FromHook.getUser();
                 setUser(user);
+                console.log(isAuthenticated, "inside of Auth0")
             }
 
             setLoading(false);
@@ -61,6 +62,7 @@ export const Auth0Provider = ({
         const user = await auth0Client.getUser();
         setUser(user);
         setIsAuthenticated(true);
+        console.log(isAuthenticated, "inside of Auth0  222")
     };
 
     const handleRedirectCallback = async () => {
@@ -70,6 +72,7 @@ export const Auth0Provider = ({
         setLoading(false);
         setIsAuthenticated(true);
         setUser(user);
+        console.log(isAuthenticated, "inside of Auth0  333")
     };
     return (
         <Auth0Context.Provider

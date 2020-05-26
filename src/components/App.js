@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
+import { useAuth0 } from "../react-auth0-spa";
 
 // styles
 import "./App.css";
@@ -9,49 +9,42 @@ import "./App.css";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import Profile from "./user/Profile";
-import FormEdit from "./FormEdit";
 import MasterForm from "./formFlow/masterform.js";
+import Resume from "./formFlow/Resume";
+import ProtectedRoute from "./ProtectedRoute.js";
 
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js";
-import { getUser, updateUser } from "../actions/actions.js";
 
-//Statemanagement actions
 
 function App(props) {
-  const { getUser } = props;
+    const { user } = useAuth0();
 
-  const token = useGetToken();
+    const token = useGetToken();
 
-  localStorage.setItem("token", token);
+    localStorage.setItem("token", token);
 
-  useEffect(() => {
-    if (token) {
-      getUser();
-    }
-  }, [token]);
+    console.log(user, "\n User at App.js");
+    console.log(props, "props inside of app.js")
 
-  return (
-    <div className="App">
-      <Navbar />
-      <h1>Resumeker</h1>
-      <Switch>
-        <Route path="/register" render={(props) => <Profile />} />
-        <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/edit" component={FormEdit} />
-        <Route path="/form" component={MasterForm} />
-      </Switch>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Navbar />
+            <h1>Resumeker</h1>
+            <Switch>
+                {/* <Route path="/register" render={(props) => <Profile />} /> */}
+                <Route exact path="/" component={Home} />
+                <Route
+                    path="/profile"
+                    component={() => <ProtectedRoute Component={Profile} />}
+                />
+                <Route
+                    path="/form"
+                    component={() => <ProtectedRoute Component={MasterForm} />}
+                />
+            </Switch>
+        </div>
+    );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.userReducer.user,
-    error: state.userReducer.error,
-    loading: state.userReducer.loading,
-  };
-};
-
-export default connect(mapStateToProps, { getUser, updateUser })(App);
+export default App;

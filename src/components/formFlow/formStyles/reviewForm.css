@@ -1,3 +1,9 @@
 p {
     font-size: 1.25rem;
 }
+
+.resume{
+    width: 1240px;
+    height: 1754px;
+    background-color: blue;
+}

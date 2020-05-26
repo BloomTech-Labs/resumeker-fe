@@ -1,20 +1,29 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+//Apollo useMutation Hook for API call
+import { useQuery, useMutation } from "@apollo/react-hooks";
+//Importing GraphQL Query for useMutation API call
+import { addHobbyMutation as ADD_HOBBY_MUTATION } from "../../queries/hobbies";
+//Import Draft_Id query for memory cache query
+import { DRAFT_ID } from "../../queries/draftID";
+
 //Actions
 import { addHobby, removeHobbyData } from "../../actions/resumeFormActions.js";
-import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate"
-import TipsLayout from "./formUtils/tipsLayout"
+import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
+import TipsLayout from "./formUtils/tipsLayout";
 
 import {
-  Button,
-  CssBaseline,
-  Paper,
-  Grid,
-  Typography,
-  makeStyles,
-  Chip,
+    Button,
+    CssBaseline,
+    Paper,
+    Grid,
+    Typography,
+    makeStyles,
+    Chip,
 } from "@material-ui/core";
+
+import MobileStepper from '@material-ui/core/MobileStepper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     listStyle: "none",
     padding: theme.spacing(0.5),
     margin: 0,
+    boxShadow: "none",
   },
   chip: {
     margin: theme.spacing(1.2),
@@ -59,122 +69,220 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     flexDirection: "row",
   },
+  tipTextLarge: {
+    fontSize: "1.1rem",
+  },
+  tipTextSmall: {
+    fontSize: "0.8rem",
+  },
+  progress: {
+    width: "100%",
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+},
 }));
 
 function Hobbies(props) {
-  const [info, setInfo] = useState({
-    id: Date.now(),
-    hobby: "",
-  });
+    const { data } = useQuery(DRAFT_ID);
 
-  const classes = useStyles();
-
-  const nextPage = (event) => {
-    if (info.hobby.length > 0) {
-      props.addHobby(info);
-    }
-    props.history.push("/form/review");
-  };
-
-  const anotherHobby = (event) => {
-    event.preventDefault();
-    if (info.hobby.length > 0) {
-      props.addHobby(info);
-    }
-    setInfo({
-      id: Date.now(),
-      hobby: "",
+    const [info, setInfo] = useState({
+        draftID: "",
+        hobby: "",
     });
-  };
-  const onChange = (event) => {
-    event.preventDefault();
-    setInfo({ ...info, [event.target.name]: event.target.value });
-  };
 
-  const handleDelete = (hobbyToDelete) => (event) => {
-    event.preventDefault();
-    props.removeHobbyData(hobbyToDelete);
-    setInfo({ ...info });
-  };
+    const [activeStep, setActiveStep] = useState(8);
 
-  return (
-    <div>
-      <Grid container componet="main" className={classes.root}>
-        <CssBaseline />
-        <TipsLayout />
-        <Grid item xs={12} sm={8} md={9} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              What Are Some Of Your Hobbies?
-            </Typography>
-            <form className={classes.form} onSubmit={anotherHobby}>
-            <SingleFieldFormTemplate onChange={onChange} info={info.hobby} anotherOne={anotherHobby} name="hobby" label="Your Hobbies" />
+    //Instantiate useMutation Hook / Creates tuple with 1st var being actual
+    //call function, and 2nd destructured variable being return data and tracking
+    const [addHobby, { loading, error }] = useMutation(ADD_HOBBY_MUTATION, {
+        onCompleted(data) {
+            console.log(data, "\n Add Hobby Response");
+        },
+    });
 
-              <Grid className={classes.skillContainer}>
-                <Paper
-                  component="ul"
-                  square="true"
-                  className={classes.chipContainer}
+    const classes = useStyles();
+
+    const nextPage = (event) => {
+        event.preventDefault()
+        if (info.hobby.length > 0) {
+            props.addHobby(info);
+
+            //Apollo useMutation API call to send data to backend
+            addHobby({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        name: info.hobby,
+                    }
+                },
+            });
+        }
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.history.push("/form/review");
+    };
+
+    const anotherHobby = (event) => {
+        event.preventDefault();
+        if (info.hobby.length > 0) {
+            props.addHobby(info);
+
+            //Apollo useMutation API call to send data to backend
+            addHobby({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        name: info.hobby,
+                    }
+                },
+            });
+        }
+        setInfo({
+            ...info,
+            hobby: "",
+        });
+    };
+    const onChange = (event) => {
+        event.preventDefault();
+        setInfo({ ...info, [event.target.name]: event.target.value });
+    };
+
+    const handleDelete = (hobbyToDelete) => (event) => {
+        event.preventDefault();
+        props.removeHobbyData(hobbyToDelete);
+        setInfo({ ...info });
+    };
+
+    return (
+        <div>
+            <Grid container componet="main" className={classes.root}>
+                <CssBaseline />
+                <TipsLayout tips={Tip()} />
+                <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    md={9}
+                    component={Paper}
+                    elevation={6}
+                    square
                 >
-                  <Chip
-                    label="Your Languages:"
-                    className={classes.chip}
-                    color="primary"
-                  />
-                  {props.resumeData.hobbies.map((data) => {
-                    return (
-                      <li key={data.id}>
-                        <Chip
-                          label={data.hobby}
-                          onDelete={handleDelete(data)}
-                          className={classes.chip}
-                        />
-                      </li>
-                    );
-                  })}
-                </Paper>
-              </Grid>
+                    <MobileStepper
+                    variant="progress"
+                    steps={8}
+                    position="static"
+                    activeStep={props.activeStep}
+                    className={classes.progress}
+                    />
+                    <div className={classes.paper}>
+                        <Typography component="h1" variant="h5">
+                            What Are Some Of Your Hobbies?
+                        </Typography>
+                        <form
+                            className={classes.form}
+                            onSubmit={anotherHobby}
+                            id="hobbiesForm"
+                        >
+                            <SingleFieldFormTemplate
+                                onChange={onChange}
+                                info={info.hobby}
+                                anotherOne={(e) => anotherHobby(e)}
+                                name="hobby"
+                                label="Your Hobbies"
+                            />
 
-              <Grid className={classes.buttonContainer}>
-                <Button
-                  fullWidth
-                  type="button"
-                  variant="outlined"
-                  color="primary"
-                  className={classes.previousButton}
-                  onClick={() => {
-                    props.history.push("/form/languages");
-                  }}
-                >
-                  Previous Form
-                </Button>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.nextButton}
-                  onClick={() => {
-                    nextPage();
-                  }}
-                >
-                  Review
-                </Button>
-              </Grid>
-            </form>
-          </div>
-        </Grid>
-      </Grid>
-    </div>
-  );
+                            <Grid className={classes.skillContainer}>
+                                <Paper
+                                    component="ul"
+                                    square="true"
+                                    className={classes.chipContainer}
+                                >
+                                    <Chip
+                                        label="Your Languages:"
+                                        className={classes.chip}
+                                        color="primary"
+                                    />
+                                    {props.resumeData.hobbies.map((data) => {
+                                        return (
+                                            <li
+                                                key={data.id}
+                                                className="listOfHobbies"
+                                            >
+                                                <Chip
+                                                    label={data.hobby}
+                                                    onDelete={handleDelete(
+                                                        data
+                                                    )}
+                                                    className={classes.chip}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </Paper>
+                            </Grid>
+
+                            <Grid className={classes.buttonContainer}>
+                                <Button
+                                    fullWidth
+                                    type="button"
+                                    variant="outlined"
+                                    color="primary"
+                                    id="previous_languages"
+                                    className={`${classes.previousButton} singlePageButton`}
+                                    onClick={() => {
+                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.history.push("/form/languages");
+                                    }}
+                                >
+                                    Previous Form
+                                </Button>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    id="next_review"
+                                    className={`${classes.nextButton} singlePageButton`}
+                                    onClick={(e)=>nextPage(e)}
+                                >
+                                    Review
+                                </Button>
+                            </Grid>
+                        </form>
+                    </div>
+                </Grid>
+            </Grid>
+        </div>
+    );
+}
+
+function Tip() {
+    const classes = useStyles();
+
+    return (
+        <div>
+            <p className={classes.tipTextLarge}>
+                Employers like to know who the person they're hiring is outside
+                of the work place!
+            </p>
+            <p className={classes.tipTextLarge}>
+                Add a few hobbies that demonstrate and support some of the
+                skills you may have added earlier!
+            </p>
+            <p className={classes.tipTextSmall}>
+                Just make sure these are relevant, as an extensive knowledge of
+                Marvel probably won't help you write Lambda Functions...
+            </p>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
+    return {
+        resumeData: state.resumeFormReducer.resumeData,
+        resumeError: state.resumeFormReducer.error,
+        resumeLoading: state.resumeFormReducer.loading,
+    };
 };
 
 export default connect(mapStateToProps, { addHobby, removeHobbyData })(Hobbies);
