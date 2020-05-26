@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 //Components import
@@ -11,26 +11,101 @@ import TechSkills from "./TechSkills.js";
 import GeneralSkills from "./GeneralSkills.js";
 import Languages from "./Languages.js";
 import Hobbies from "./Hobbies";
+import Resume from "./Resume";
 
 function MasterForm() {
-  const { url } = useRouteMatch();
+    const { url } = useRouteMatch();
 
-  return (
-    <div>
-      <h1>Resume Form</h1>
-      <Switch>
-        <Route path={`${url}/generalInfo`} component={GeneralInfo} />
-        <Route path={`${url}/education`} component={Education} />
-        <Route path={`${url}/work`} component={WorkHistory} />
-        <Route path={`${url}/review`} component={EndFormReview} />
-        <Route path={`${url}/projects`} component={PersonalProjects} />
-        <Route path={`${url}/techskills`} component={TechSkills} />
-        <Route path={`${url}/generalskills`} component={GeneralSkills} />
-        <Route path={`${url}/languages`} component={Languages} />
-        <Route path={`${url}/hobbies`} component={Hobbies} />
-      </Switch>
-    </div>
-  );
+    const [activeStep, setActiveStep] = useState(0);
+
+    return (
+        <div>
+            <h1>Resume Form</h1>
+            <Switch>
+                <Route
+                    path={`${url}/generalInfo`}
+                    render={(props) => (
+                        <GeneralInfo
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route
+                    path={`${url}/education`}
+                    render={(props) => (
+                        <Education
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route
+                    path={`${url}/work`}
+                    render={(props) => (
+                        <WorkHistory
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route path={`${url}/review`} component={EndFormReview} />
+                <Route
+                    path={`${url}/projects`}
+                    render={(props) => (
+                        <PersonalProjects
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route
+                    path={`${url}/techskills`}
+                    render={(props) => (
+                        <TechSkills
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route
+                    path={`${url}/generalskills`}
+                    render={(props) => (
+                        <GeneralSkills
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route
+                    path={`${url}/languages`}
+                    render={(props) => (
+                        <Languages
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+                <Route
+                    path={`${url}/hobbies`}
+                    render={(props) => (
+                        <Hobbies
+                            {...props}
+                            activeStep={activeStep}
+                            setActiveStep={setActiveStep}
+                        />
+                    )}
+                />
+            </Switch>
+        </div>
+    );
 }
 
 export default MasterForm;

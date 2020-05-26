@@ -6,7 +6,8 @@ describe("Form Flow Test - Personal Projects Form", function () {
   
       cy.get("form").within(() => {
         cy.get("input").should(($input) => {
-          expect($input).to.have.length(6);
+          // expect($input).to.have.length(6);
+          expect($input).to.have.length(5);
         });
       });
     });
@@ -48,7 +49,7 @@ describe("Form Flow Test - Personal Projects Form", function () {
       cy.get("#projectName").type("First Project")
       cy.get("#projectStartDate").type("2019-09-25")
       cy.get("#projectEndDate").type("2019-12-29")
-      cy.get("#role").type("Front-End Developer")
+      // cy.get("#role").type("Front-End Developer")
       cy.get("#roleDescription").type("Worked with React & Redux")
       cy.get("#link").type("Just link")
       cy.get("#next_techSkills").click()

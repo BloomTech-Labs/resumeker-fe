@@ -19,10 +19,13 @@ const onRedirectCallback = (appState) => {
     );
 };
 
+
+
 export const client = new ApolloClient({
     uri: process.env[`REACT_APP_${process.env.REACT_APP_ENV}_API`],
     request: (operation) => {
         const token = localStorage.getItem("token");
+        
         operation.setContext({
             headers: {
                 authorization: token ? `Bearer ${token}` : "",
