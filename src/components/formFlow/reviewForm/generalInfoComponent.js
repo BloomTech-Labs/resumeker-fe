@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
+import { useQuery } from '@apollo/react-hooks';
 import "../formStyles/reviewForm.css";
 
-import GeneralInfoFormTemplate from "../formsTemplate/generalInfoFormTemplate"
+import ReviewGeneralInfoFormTemplate from "../formsTemplate/reviewGeneralInfoFormTemplate"
 
 //Actions
 import { addData } from "../../../actions/resumeFormActions.js";
+
+import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft"
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
@@ -32,22 +34,26 @@ const useStyles = makeStyles((theme) => ({
 function GeneralInfoComponent(props) {
   const [edit, setEdit] = useState(false);
 
+  const id = localStorage.getItem("draftID")
+  const {loading, error, data} = useQuery(GET_DRAFT_QUERY, {variables: { id }})
+  console.log(id, "id inside of review General Info")
+  console.log(data, "data inside of review General info")
+
+  useState()
+
   const [info, setInfo] = useState({
-    email: `${props.resumeData.email}`,
-    firstName: `${props.resumeData.firstName}`,
-    lastName: `${props.resumeData.lastName}`,
+    email: data.getDraft.email,
+    name: data.getDraft.name
   });
 
   const saveInfo = (event) => {
     event.preventDefault();
-    props.addData(info);
+    // props.addData(info);
     setEdit(false);
   };
 
   const onChange = (event) => {
-    event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
-    console.log(info);
   };
 
   const classes = useStyles();
@@ -63,7 +69,7 @@ function GeneralInfoComponent(props) {
         </h1>
         <CardContent>
           <form onSubmit={saveInfo}>
-            <GeneralInfoFormTemplate  onChange={onChange} info={info} />
+            <ReviewGeneralInfoFormTemplate  onChange={onChange} info={info} />
             <Button
               type="submit"
               fullWidth
@@ -88,21 +94,23 @@ function GeneralInfoComponent(props) {
         </h1>
         <CardContent className={classes.cardContent}>
           <p>
-            Your Name: {props.resumeData.firstName} {props.resumeData.lastName}
+            Your Name: {info.name}
           </p>
-          <p>Email Address: {props.resumeData.email}</p>
+          <p>Email Address: {info.email} </p>
         </CardContent>
       </Card>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     resumeData: state.resumeFormReducer.resumeData,
+//     resumeError: state.resumeFormReducer.error,
+//     resumeLoading: state.resumeFormReducer.loading,
+//   };
+// };
 
-export default connect(mapStateToProps, { addData })(GeneralInfoComponent);
+// export default connect(mapStateToProps, { addData })(GeneralInfoComponent);
+
+export default GeneralInfoComponent

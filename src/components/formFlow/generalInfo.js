@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 function GeneralInfo(props) {
 
-    console.log(props, "props Inside of GeneralInfo")
+    // console.log(props, "props Inside of GeneralInfo")
     const [info, setInfo] = useState({
         email: "",
         firstName: "",
@@ -191,12 +191,14 @@ function Tip() {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        resumeData: state.resumeFormReducer.resumeData,
-        resumeError: state.resumeFormReducer.error,
-        resumeLoading: state.resumeFormReducer.loading,
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         resumeData: state.resumeFormReducer.resumeData,
+//         resumeError: state.resumeFormReducer.error,
+//         resumeLoading: state.resumeFormReducer.loading,
+//     };
+// };
 
-export default connect(mapStateToProps, { addData })(GeneralInfo);
+// export default connect(mapStateToProps, { addData })(GeneralInfo);
+
+export default GeneralInfo;
