@@ -25,7 +25,7 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
-import MobileStepper from '@material-ui/core/MobileStepper';
+import MobileStepper from "@material-ui/core/MobileStepper";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,9 +79,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PersonalProjects(props) {
-
     const { data } = useQuery(DRAFT_ID);
-
     const [info, setInfo] = useState({
         projectName: "",
         projectStartDate: "",
@@ -122,12 +120,11 @@ function PersonalProjects(props) {
                         startDate: info.projectStartDate,
                         endDate: info.projectEndDate,
                         draftID: localStorage.getItem("draftID"),
-                    }
-
+                    },
                 },
             });
         }
-        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
         props.history.push("/form/techskills");
     };
 
@@ -152,8 +149,7 @@ function PersonalProjects(props) {
                         startDate: info.projectStartDate,
                         endDate: info.projectEndDate,
                         draftID: localStorage.getItem("draftID"),
-                    }
-
+                    },
                 },
             });
         }
@@ -189,14 +185,14 @@ function PersonalProjects(props) {
                     square
                 >
                     <MobileStepper
-                    variant="progress"
-                    steps={8}
-                    position="static"
-                    activeStep={props.activeStep}
-                    className={classes.progress}
+                        variant="progress"
+                        steps={8}
+                        position="static"
+                        activeStep={props.activeStep}
+                        className={classes.progress}
                     />
                     <div className={classes.paper}>
-                        <form className={classes.form} >
+                        <form className={classes.form}>
                             <ProjectsFormTemplate
                                 info={info}
                                 onChange={onChange}
@@ -220,7 +216,10 @@ function PersonalProjects(props) {
                                     id="previous_work"
                                     className={classes.previousButton}
                                     onClick={() => {
-                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep(
+                                            (prevActiveStep) =>
+                                                prevActiveStep - 1
+                                        );
                                         props.history.push("/form/work");
                                     }}
                                 >
@@ -232,7 +231,7 @@ function PersonalProjects(props) {
                                     variant="contained"
                                     color="primary"
                                     id="next_techSkills"
-                                    onClick={(e)=>nextPage(e)}
+                                    onClick={(e) => nextPage(e)}
                                     className={classes.nextButton}
                                 >
                                     Next Form

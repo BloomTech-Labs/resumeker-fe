@@ -23,64 +23,64 @@ import {
     Chip,
 } from "@material-ui/core";
 
-import MobileStepper from '@material-ui/core/MobileStepper';
+import MobileStepper from "@material-ui/core/MobileStepper";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    display: "flex",
-    flexDirection: "column",
-  },
-  previousButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-  },
-  nextButton: {
-    margin: theme.spacing(3, 0, 2),
-    width: "49%",
-    height: "3.5rem",
-  },
-  skillContainer: {
-    display: "flex",
-  },
-  chipContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: theme.spacing(0.5),
-    margin: 0,
-    boxShadow: "none",
-  },
-  chip: {
-    margin: theme.spacing(1.2),
-  },
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
-  tipTextLarge: {
-    fontSize: "1.1rem",
-  },
-  tipTextSmall: {
-    fontSize: "0.8rem",
-  },
-  progress: {
-    width: "100%",
-    flexGrow: 1,
-    display: "flex",
-    justifyContent: "center",
-},
+    root: {
+        height: "100vh",
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        display: "flex",
+        flexDirection: "column",
+    },
+    previousButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+    },
+    nextButton: {
+        margin: theme.spacing(3, 0, 2),
+        width: "49%",
+        height: "3.5rem",
+    },
+    skillContainer: {
+        display: "flex",
+    },
+    chipContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: theme.spacing(0.5),
+        margin: 0,
+        boxShadow: "none",
+    },
+    chip: {
+        margin: theme.spacing(1.2),
+    },
+    buttonContainer: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "row",
+    },
+    tipTextLarge: {
+        fontSize: "1.1rem",
+    },
+    tipTextSmall: {
+        fontSize: "0.8rem",
+    },
+    progress: {
+        width: "100%",
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 function Hobbies(props) {
@@ -91,7 +91,7 @@ function Hobbies(props) {
         hobby: "",
     });
 
-    const [activeStep, setActiveStep] = useState(8);
+    // const [activeStep, setActiveStep] = useState(8);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
@@ -104,7 +104,7 @@ function Hobbies(props) {
     const classes = useStyles();
 
     const nextPage = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         if (info.hobby.length > 0) {
             props.addHobby(info);
 
@@ -114,11 +114,11 @@ function Hobbies(props) {
                     input: {
                         draftID: localStorage.getItem("draftID"),
                         name: info.hobby,
-                    }
+                    },
                 },
             });
         }
-        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
         props.history.push("/form/review");
     };
 
@@ -133,7 +133,7 @@ function Hobbies(props) {
                     input: {
                         draftID: localStorage.getItem("draftID"),
                         name: info.hobby,
-                    }
+                    },
                 },
             });
         }
@@ -153,6 +153,9 @@ function Hobbies(props) {
         setInfo({ ...info });
     };
 
+    if (loading) return <div>Loading</div>;
+    if (error) return <div>error</div>;
+
     return (
         <div>
             <Grid container componet="main" className={classes.root}>
@@ -168,11 +171,11 @@ function Hobbies(props) {
                     square
                 >
                     <MobileStepper
-                    variant="progress"
-                    steps={8}
-                    position="static"
-                    activeStep={props.activeStep}
-                    className={classes.progress}
+                        variant="progress"
+                        steps={8}
+                        position="static"
+                        activeStep={props.activeStep}
+                        className={classes.progress}
                     />
                     <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
@@ -230,7 +233,10 @@ function Hobbies(props) {
                                     id="previous_languages"
                                     className={`${classes.previousButton} singlePageButton`}
                                     onClick={() => {
-                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep(
+                                            (prevActiveStep) =>
+                                                prevActiveStep - 1
+                                        );
                                         props.history.push("/form/languages");
                                     }}
                                 >
@@ -243,7 +249,7 @@ function Hobbies(props) {
                                     color="primary"
                                     id="next_review"
                                     className={`${classes.nextButton} singlePageButton`}
-                                    onClick={(e)=>nextPage(e)}
+                                    onClick={(e) => nextPage(e)}
                                 >
                                     Review
                                 </Button>

@@ -14,7 +14,7 @@ const getDraftQuery = gql`
             id
             name
             email
-            userID
+            
             education{
                 id
                 schoolType

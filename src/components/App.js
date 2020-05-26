@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { useAuth0 } from "../react-auth0-spa";
+// import { useAuth0 } from "../react-auth0-spa";
 
 // styles
 import "./App.css";
@@ -10,14 +10,13 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import Profile from "./user/Profile";
 import MasterForm from "./formFlow/masterform.js";
-import Resume from "./formFlow/Resume";
 import ProtectedRoute from "./ProtectedRoute.js";
 
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js";
 
 function App(props) {
-    const { user } = useAuth0();
+    // const { user } = useAuth0();
 
     const token = useGetToken();
 

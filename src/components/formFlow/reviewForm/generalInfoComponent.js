@@ -31,22 +31,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function GeneralInfoComponent(props) {
+const GeneralInfoComponent = (props) => {
   const [edit, setEdit] = useState(false);
+
+  const classes = useStyles();
 
   const id = localStorage.getItem("draftID")
   const {loading, error, data} = useQuery(GET_DRAFT_QUERY, {variables: { id }})
   console.log(id, "id inside of review General Info")
   console.log(data, "data inside of review General info")
 
-  // useState((data) => {
-  //   return data
-  // }, [data])
-
   const [info, setInfo] = useState({
-    email: data.getDraft.email,
-    name: data.getDraft.name
+    email: "",
+    name: ""
   });
+
+  if (loading) return <p>loading</p>;
+  if (error) return <p>ERROR: {error.message}</p>;
+  if (!data) return <p>Not found</p>;
+
+  console.log(data, "data inside of review General info")
 
   const saveInfo = (event) => {
     event.preventDefault();
@@ -58,51 +62,54 @@ function GeneralInfoComponent(props) {
     setInfo({ ...info, [event.target.name]: event.target.value });
   };
 
-  const classes = useStyles();
 
-  if (edit) {
-    return (
-      <Card>
-        <h1>
-          General Info{" "}
-          <EditIcon color="primary" onClick={() => setEdit(!edit)}>
-            Edit
-          </EditIcon>
-        </h1>
-        <CardContent>
-          <form onSubmit={saveInfo}>
-            <ReviewGeneralInfoFormTemplate  onChange={onChange} info={info} />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Save
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    );
-  } else {
-    return (
-      <Card>
-        <h1>
-          General Info{" "}
-          <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
-            Edit
-          </EditIcon>
-        </h1>
-        <CardContent className={classes.cardContent}>
-          <p>
-            Your Name: {info.name}
-          </p>
-          <p>Email Address: {info.email} </p>
-        </CardContent>
-      </Card>
-    );
+
+  if(data){
+    if (edit) {
+      return (
+        <Card>
+          <h1>
+            General Info{" "}
+            <EditIcon color="primary" onClick={() => setEdit(!edit)}>
+              Edit
+            </EditIcon>
+          </h1>
+          <CardContent>
+            <form onSubmit={saveInfo}>
+              <ReviewGeneralInfoFormTemplate  onChange={onChange} info={data.getDraft} />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Save
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      );
+    } else {
+      return (
+        <Card>
+          <h1>
+            General Info{" "}
+            <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
+              Edit
+            </EditIcon>
+          </h1>
+          <CardContent className={classes.cardContent}>
+            <p>
+              Your Name: {data.getDraft.name}
+            </p>
+            <p>Email Address: {data.getDraft.email} </p>
+          </CardContent>
+        </Card>
+      );
+    }
   }
+
 }
 
 // const mapStateToProps = (state) => {
