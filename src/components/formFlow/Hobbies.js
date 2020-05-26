@@ -104,6 +104,7 @@ function Hobbies(props) {
     const classes = useStyles();
 
     const nextPage = (event) => {
+        event.preventDefault()
         if (info.hobby.length > 0) {
             props.addHobby(info);
 
@@ -185,7 +186,7 @@ function Hobbies(props) {
                             <SingleFieldFormTemplate
                                 onChange={onChange}
                                 info={info.hobby}
-                                anotherOne={anotherHobby}
+                                anotherOne={(e) => anotherHobby(e)}
                                 name="hobby"
                                 label="Your Hobbies"
                             />
@@ -242,9 +243,7 @@ function Hobbies(props) {
                                     color="primary"
                                     id="next_review"
                                     className={`${classes.nextButton} singlePageButton`}
-                                    onClick={() => {
-                                        nextPage();
-                                    }}
+                                    onClick={(e)=>nextPage(e)}
                                 >
                                     Review
                                 </Button>

@@ -30,11 +30,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile(props) {
     const { loading, error, data } = useQuery(GET_DRAFTS_QUERY);
     const classes = useStyles();
+    console.log("We are in the profile");
 
     if (loading) return <div>Loading</div>;
     if (error) return <div>{error}</div>;
     const { getDrafts } = data;
     console.log(getDrafts, "profile query response");
+
+    if (data) {
+        if (data.getDrafts.length) {
+            console.log("Drafts #2");
+            return data.getDrafts.map((draft) => (
+                <ResumeCard key={draft.id} id={draft.id} />
+            ));
+        } else {
+            console.log("No drafts");
+            return <div>No Drafts</div>;
+        }
+    } else if (loading) {
+        console.log("It's loading");
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="profile">
@@ -80,7 +96,3 @@ export default function Profile(props) {
         </div>
     );
 }
-
-// * just add a draft query every single time the profile component mounts, and it'll always update with the latest information
-
-// * o

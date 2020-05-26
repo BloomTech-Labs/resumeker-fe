@@ -196,7 +196,7 @@ function PersonalProjects(props) {
                     className={classes.progress}
                     />
                     <div className={classes.paper}>
-                        <form className={classes.form} onSubmit={nextPage}>
+                        <form className={classes.form} >
                             <ProjectsFormTemplate
                                 info={info}
                                 onChange={onChange}
@@ -207,7 +207,7 @@ function PersonalProjects(props) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={anotherProject}
+                                onClick={(e) => anotherProject(e)}
                             >
                                 Add Another
                             </Button>
@@ -232,6 +232,7 @@ function PersonalProjects(props) {
                                     variant="contained"
                                     color="primary"
                                     id="next_techSkills"
+                                    onClick={(e)=>nextPage(e)}
                                     className={classes.nextButton}
                                 >
                                     Next Form
