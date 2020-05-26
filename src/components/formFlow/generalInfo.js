@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addDraftMutation as ADD_DRAFT_MUTATION } from "../../queries/draft";
-
-//Actions
-import { addData } from "../../actions/resumeFormActions.js";
 
 import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
@@ -20,7 +16,7 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
-import MobileStepper from '@material-ui/core/MobileStepper';
+import MobileStepper from "@material-ui/core/MobileStepper";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -56,12 +52,10 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         display: "flex",
         justifyContent: "center",
-    }
+    },
 }));
 
-function GeneralInfo(props) {
-
-    // console.log(props, "props Inside of GeneralInfo")
+export default function GeneralInfo(props) {
     const [info, setInfo] = useState({
         email: "",
         firstName: "",
@@ -70,20 +64,25 @@ function GeneralInfo(props) {
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
-    const [addDraft, { loading, error }] = useMutation(ADD_DRAFT_MUTATION, {
-        onCompleted(data) {
-            console.log(data, "\n Add Education Response");
+    const [addDraft, { loading, error, data }] = useMutation(
+        ADD_DRAFT_MUTATION,
+        {
+            onCompleted(data) {
+                // write data to the Apollo store here
+                // https://www.apollographql.com/docs/react/data/local-state/
+                console.log(data, "\n Add Education Response");
 
-            localStorage.setItem("draftID", data.addDraft);
-        },
-    });
+                localStorage.setItem("draftID", data.addDraft);
+            },
+        }
+    );
 
     const classes = useStyles();
 
     const nextPage = (event) => {
         event.preventDefault();
         // props.addData(info);
-        // console.log("NextPage inside of GeneralInfo")
+        console.log("NextPage inside of GeneralInfo");
         const name = info.firstName + " " + info.lastName;
 
         //Calls addDraft Mutation only if component state
@@ -110,14 +109,20 @@ function GeneralInfo(props) {
         //     firstName: "",
         //     lastName: "",
         // });
-        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
         props.history.push("/form/education");
     };
 
     const onChange = (event) => {
+        console.log(event.target.name, "onChange");
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
+
+    if (loading) return <div>loading : {loading}</div>;
+    if (error) return <div>{error}</div>;
+
+    console.log("outside of onChange", data);
 
     return (
         <div id="generalInfoForm">
@@ -133,18 +138,15 @@ function GeneralInfo(props) {
                     elevation={6}
                     square
                 >
-                        <MobileStepper
+                    <MobileStepper
                         variant="progress"
                         steps={8}
                         position="static"
                         activeStep={props.activeStep}
                         className={classes.progress}
-                        />
+                    />
                     <div className={classes.paper}>
-
-
-
-                        <form className={classes.form} >
+                        <form className={classes.form}>
                             <GeneralInfoFormTemplate
                                 onChange={onChange}
                                 info={info}
@@ -154,7 +156,7 @@ function GeneralInfo(props) {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                onClick={(e)=>nextPage(e)}
+                                onClick={nextPage}
                                 className={classes.submit}
                             >
                                 Next
@@ -190,15 +192,3 @@ function Tip() {
         </div>
     );
 }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         resumeData: state.resumeFormReducer.resumeData,
-//         resumeError: state.resumeFormReducer.error,
-//         resumeLoading: state.resumeFormReducer.loading,
-//     };
-// };
-
-// export default connect(mapStateToProps, { addData })(GeneralInfo);
-
-export default GeneralInfo;

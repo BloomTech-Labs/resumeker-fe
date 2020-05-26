@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { graphql } from "react-apollo";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from "@apollo/react-hooks";
 
 import { NavLink, Redirect } from "react-router-dom";
 
@@ -27,51 +27,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Profile(props) {
+export default function Profile(props) {
+    const { loading, error, data } = useQuery(GET_DRAFTS_QUERY);
     const classes = useStyles();
-
     console.log("We are in the profile");
-    const {loading, error, data} = useQuery(GET_DRAFTS_QUERY)
 
+    if (loading) return <div>Loading</div>;
+    if (error) return <div>{error}</div>;
+    const { getDrafts } = data;
+    console.log(getDrafts, "profile query response");
 
-    const displayDrafts = () => {
-    //     const { getDrafts } = props.data;
-    //     // console.log(props.data)
-        console.log("Drafts received")
-    //     if (getDrafts) {
-    //         if (getDrafts.length > 0) {
-    //             console.log("Drafts #2")
-    //             return getDrafts.map((draft) => <ResumeCard key={draft.id} id={draft.id} />);
-    //         } else {
-    //             console.log("No drafts")
-    //             return <div>No Drafts</div>;
-    //         }
-    //     } else {
-    //         console.log("It's loading")
-    //         return <div>Loading...</div>;
-    //     }
-
-
-
-
-        // console.log(data, "get Drafts")
-        // const { getDrafts } = props.data;
-        // console.log(props.data)
-        if (data) {
-            if (data.getDrafts.length) {
-                console.log("Drafts #2")
-                return data.getDrafts.map((draft) => <ResumeCard key={draft.id} id={draft.id} />);
-            } else {
-                console.log("No drafts")
-                return <div>No Drafts</div>;
-            }
-        } else if(loading){
-            console.log("It's loading")
-            return <div>Loading...</div>;
+    if (data) {
+        if (data.getDrafts.length) {
+            console.log("Drafts #2");
+            return data.getDrafts.map((draft) => (
+                <ResumeCard key={draft.id} id={draft.id} />
+            ));
+        } else {
+            console.log("No drafts");
+            return <div>No Drafts</div>;
         }
-    };
+    } else if (loading) {
+        console.log("It's loading");
+        return <div>Loading...</div>;
+    }
 
-    
     return (
         <div className="profile">
             <div className={classes.container}>
@@ -83,7 +63,9 @@ function Profile(props) {
                         alignItems: "center",
                     }}
                 >
-                    {displayDrafts()}
+                    {getDrafts.map((draft) => (
+                        <ResumeCard key={draft.id} draftID={draft.id} />
+                    ))}
                 </div>
 
                 {/* <Button
@@ -97,8 +79,6 @@ function Profile(props) {
         >
           Add a New Resume
         </Button> */}
-
-
             </div>
 
             <div className={classes.infoContainer}>
@@ -116,6 +96,3 @@ function Profile(props) {
         </div>
     );
 }
-
-// export default graphql(GET_DRAFTS_QUERY)(Profile);
-export default Profile
