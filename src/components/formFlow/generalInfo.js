@@ -156,7 +156,7 @@ export default function GeneralInfo(props) {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                onClick={(e) => nextPage(e)}
+                                onClick={nextPage}
                                 className={classes.submit}
                             >
                                 Next
