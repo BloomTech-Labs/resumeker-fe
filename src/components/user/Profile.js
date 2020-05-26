@@ -28,10 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Profile(props) {
-    console.log(props);
     const { loading, error, data } = useQuery(GET_DRAFTS_QUERY);
     const classes = useStyles();
-    console.log("We are in the profile");
 
     if (loading) return <div>Loading</div>;
     if (error) return <div>{"error, check console"}</div>;
@@ -64,18 +62,6 @@ export default function Profile(props) {
                             <div>No Drafts</div>
                         )}
                     </div>
-
-                    {/* <Button
-          variant="contained"
-          color="primary"
-          className={classes.addResume}
-          onClick={() => {
-              <Redirect to="/form/generalInfo" />
-            // props.history.push("/form/generalInfo");
-          }}
-        >
-          Add a New Resume
-        </Button> */}
                 </div>
 
                 <div className={classes.infoContainer}>
