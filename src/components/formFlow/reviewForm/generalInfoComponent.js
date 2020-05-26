@@ -39,7 +39,9 @@ function GeneralInfoComponent(props) {
   console.log(id, "id inside of review General Info")
   console.log(data, "data inside of review General info")
 
-  useState()
+  // useState((data) => {
+  //   return data
+  // }, [data])
 
   const [info, setInfo] = useState({
     email: data.getDraft.email,

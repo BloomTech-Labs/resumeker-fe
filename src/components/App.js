@@ -16,16 +16,12 @@ import ProtectedRoute from "./ProtectedRoute.js";
 //Used for Token Authentication
 import { useGetToken } from "./getToken.js";
 
-
 function App(props) {
     const { user } = useAuth0();
 
     const token = useGetToken();
 
     localStorage.setItem("token", token);
-
-    console.log(user, "\n User at App.js");
-    console.log(props, "props inside of app.js")
 
     return (
         <div className="App">
