@@ -32,8 +32,6 @@ export const getUser = () => (dispatch) => {
             dispatch(push("/"));
         })
         .catch((err) => {
-            // console.log(err);
-
             dispatch({ type: userConstants.GET_USER_FAILURE, payload: err });
         });
 };
