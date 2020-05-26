@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 
 //Apollo useMutation Hook for API call
 import { useMutation } from "@apollo/react-hooks";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
-import { addEducationMutation as ADD_EDUCATION_MUTATION, 
-    getEducationByDraft as GET_EDUCATION_BY_DRAFT } from "../../queries/education";
+import {
+    addEducationMutation as ADD_EDUCATION_MUTATION,
+    getEducationByDraft as GET_EDUCATION_BY_DRAFT,
+} from "../../queries/education";
 
 //Actions
 import {
@@ -27,7 +29,7 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
-import MobileStepper from '@material-ui/core/MobileStepper';
+import MobileStepper from "@material-ui/core/MobileStepper";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Education(props) {
     console.log(props, "props inside of education");
+    console.log("Looking for the client\n", props.client);
 
     const [info, setInfo] = useState({
         type: "",
@@ -97,20 +100,22 @@ function Education(props) {
     const [addEducation, { loading, error }] = useMutation(
         ADD_EDUCATION_MUTATION,
         {
+            refetchQueries: ["getEducationByDraft"],
             onCompleted(data) {
                 console.log(data, "\n Rannnnnnnn Add Education");
             },
         }
     );
 
-    const {data} = useQuery(GET_EDUCATION_BY_DRAFT, {variables: {draftID: localStorage.getItem("draftID")}})
-    console.log(data)
+    const { data } = useQuery(GET_EDUCATION_BY_DRAFT, {
+        variables: { draftID: localStorage.getItem("draftID") },
+    });
 
     const DisplayEducationByDraft = () => {
         if (data) {
             if (data.getEducationByDraft.length) {
-                console.log(data.getEducationByDraft, "get Education by Draft")
-                return data.getEducationByDraft.map((education) => 
+                console.log(data.getEducationByDraft, "get Education by Draft");
+                return data.getEducationByDraft.map((education) => (
                     <div key={education.id}>
                         <EducationCard
                             // setInfo={setInfo}
@@ -119,16 +124,17 @@ function Education(props) {
                             //     props.updateEducationData
                             // }
                         />
-                        </div>);
+                    </div>
+                ));
             } else {
-                console.log("No drafts")
-                return <div>No Drafts</div>;
+                console.log("No drafts");
+                return <div>No Education Records found</div>;
             }
-        } else if(loading){
-            console.log("It's loading")
+        } else if (loading) {
+            console.log("It's loading");
             return <div>Loading...</div>;
         }
-    }
+    };
 
     const classes = useStyles();
 
@@ -150,9 +156,8 @@ function Education(props) {
                     },
                 },
             });
-
         }
-        props.setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
         props.history.push("/form/work");
     };
 
@@ -161,20 +166,20 @@ function Education(props) {
         // props.addEducationData(info);
 
         if (info.type.length !== 0 && info.schoolName.length !== 0) {
-        //Apollo useMutation API call to send data to backend
-        addEducation({
-            variables: {
-                input: {
-                    draftID: localStorage.getItem("draftID"),
-                    schoolType: info.type,
-                    schoolName: info.schoolName,
-                    startDate: info.yearIn,
-                    endDate: info.yearOut,
-                    certName: info.certificateName,
+            //Apollo useMutation API call to send data to backend
+            addEducation({
+                variables: {
+                    input: {
+                        draftID: localStorage.getItem("draftID"),
+                        schoolType: info.type,
+                        schoolName: info.schoolName,
+                        startDate: info.yearIn,
+                        endDate: info.yearOut,
+                        certName: info.certificateName,
+                    },
                 },
-            },
-        });
-    }
+            });
+        }
 
         setInfo({
             draftID: "",
@@ -206,11 +211,11 @@ function Education(props) {
                     square
                 >
                     <MobileStepper
-                    variant="progress"
-                    steps={8}
-                    position="static"
-                    activeStep={props.activeStep}
-                    className={classes.progress}
+                        variant="progress"
+                        steps={8}
+                        position="static"
+                        activeStep={props.activeStep}
+                        className={classes.progress}
                     />
                     <div className={classes.paper}>
                         <form className={classes.form}>
@@ -236,7 +241,10 @@ function Education(props) {
                                     color="primary"
                                     className={classes.previousButton}
                                     onClick={() => {
-                                        props.setActiveStep((prevActiveStep) => prevActiveStep - 1)
+                                        props.setActiveStep(
+                                            (prevActiveStep) =>
+                                                prevActiveStep - 1
+                                        );
                                         props.history.push("/form/generalInfo");
                                     }}
                                 >
@@ -248,7 +256,7 @@ function Education(props) {
                                     variant="contained"
                                     color="primary"
                                     id="next_work"
-                                    onClick={(e)=>nextPage(e)}
+                                    onClick={(e) => nextPage(e)}
                                     className={classes.nextButton}
                                 >
                                     Next Form

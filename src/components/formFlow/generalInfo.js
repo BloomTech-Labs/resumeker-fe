@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
 //Apollo useMutation Hook for API call
-import { useMutation } from "@apollo/react-hooks";
-//Importing GraphQL Query for useMutation API call
-import { addDraftMutation as ADD_DRAFT_MUTATION } from "../../queries/draft";
+import { useMutation, useApolloClient } from "@apollo/react-hooks";
+import {
+    addDraftMutation as ADD_DRAFT_MUTATION,
+    getDraftsQuery,
+} from "../../queries/draft";
 
 import GeneralInfoFormTemplate from "./formsTemplate/generalInfoFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
@@ -56,23 +58,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GeneralInfo(props) {
+    const client = useApolloClient();
     const [info, setInfo] = useState({
         email: "",
         firstName: "",
         lastName: "",
     });
+    console.log("==========client on mount============\n", client);
 
     //Instantiate useMutation Hook / Creates tuple with 1st var being actual
     //call function, and 2nd destructured variable being return data and tracking
     const [addDraft, { loading, error, data }] = useMutation(
         ADD_DRAFT_MUTATION,
         {
-            onCompleted(data) {
-                // write data to the Apollo store here
-                // https://www.apollographql.com/docs/react/data/local-state/
-                console.log(data, "\n Add Education Response");
-
-                localStorage.setItem("draftID", data.addDraft);
+            refetchQueries: ["getDrafts"],
+            onCompleted(cache) {
+                console.log(
+                    "==========client after mutation============\n",
+                    client
+                );
+                console.log("cache\n", cache);
+                // need to refetch and update our getDrafts query
+                // localStorage.setItem("draftID", data.addDraft);
             },
         }
     );
@@ -81,7 +88,6 @@ export default function GeneralInfo(props) {
 
     const nextPage = (event) => {
         event.preventDefault();
-        // props.addData(info);
         console.log("NextPage inside of GeneralInfo");
         const name = info.firstName + " " + info.lastName;
 
@@ -103,26 +109,17 @@ export default function GeneralInfo(props) {
             });
         }
 
-        //Resets Component State to ''
-        // setInfo({
-        //     email: "",
-        //     firstName: "",
-        //     lastName: "",
-        // });
         props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
         props.history.push("/form/education");
     };
 
     const onChange = (event) => {
-        console.log(event.target.name, "onChange");
         setInfo({ ...info, [event.target.name]: event.target.value });
     };
 
     if (loading) return <div>loading : {loading}</div>;
     if (error) return <div>{error}</div>;
-
-    console.log("outside of onChange", data);
 
     return (
         <div id="generalInfoForm">
