@@ -1,40 +1,25 @@
 import React from "react";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
-import { NavLink } from "react-router-dom";
-
-const GETUSER_QUERY = gql`
-  query {
-    getUser {
-      userInfo
-    }
-  }
-`;
+import { useAuth0 } from "../../react-auth0-spa";
 
 const UserData = () => {
-  const { loading, error, data } = useQuery(GETUSER_QUERY);
+    const { user } = useAuth0();
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+    return (
+        <>
+            <div style={{ padding: "15px" }}>
+                <label>Hi, </label>
+                <div>{user.name}</div>
 
-  const userInfo = JSON.parse(data.getUser.userInfo);
-
-  return (
-    <>
-      <div>{userInfo.given_name}</div>
-      <div>{userInfo.email}</div>
-      <div>
-        <img
-          style={{ width: "100px", height: "auto" }}
-          alt=""
-          src={userInfo.picture}
-        />
-      </div>
-      <NavLink to="/edit">
-        <button>Edit</button>
-      </NavLink>
-    </>
-  );
+                <div style={{ padding: "10px" }}>
+                    <img
+                        style={{ width: "100px", height: "auto" }}
+                        alt=""
+                        src={user.picture}
+                    />
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default UserData;

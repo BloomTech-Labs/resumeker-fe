@@ -33,7 +33,7 @@ function EducationFormTemplate(props) {
 
   return (
     <div className={classes.textField}>
-      <FormControl className={classes.selectorForm}>
+      <FormControl className={classes.selectorForm} id="formSelector">
         <InputLabel
           data-testid="label"
           className={classes.selectorText}
@@ -52,10 +52,10 @@ function EducationFormTemplate(props) {
           onChange={props.onChange}
           value={props.info.type}
         >
-          <MenuItem value={"College"}>College</MenuItem>
-          <MenuItem value={"University"}>University</MenuItem>
-          <MenuItem value={"Certification"}>Certification</MenuItem>
-          <MenuItem value={"Course"}>Course</MenuItem>
+          <MenuItem value={"UNDERGRADUATE"}>College</MenuItem>
+          <MenuItem value={"GRADUATE"}>Graduate</MenuItem>
+          <MenuItem value={"CERTIFICATION"}>Certification</MenuItem>
+          <MenuItem value={"COURSE"}>Course</MenuItem>
         </Select>
       </FormControl>
       <TextField
@@ -74,6 +74,7 @@ function EducationFormTemplate(props) {
         fullWidth
         name="yearIn"
         type="date"
+        // data-date-format="mm-dd-yyyy"
         label="School Starting Date"
         id="yearIn"
         InputLabelProps={{
@@ -87,6 +88,7 @@ function EducationFormTemplate(props) {
         margin="normal"
         fullWidth
         type="date"
+        // data-date-format="mm-dd-yyyy"
         name="yearOut"
         label="Finishing School"
         id="yearOut"

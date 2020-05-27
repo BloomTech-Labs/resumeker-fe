@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
+import { useQuery } from '@apollo/react-hooks';
+
+import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft"
 
 //Actions
 import { updateHobbyData, removeHobbyData, addHobby } from "../../../actions/resumeFormActions.js";
@@ -48,9 +51,16 @@ function HobbyComponent(props) {
 
   const [edit, setEdit] = useState(false);
   const [info, setInfo] = useState({
-    hobby: props.resumeData.hobbies.hobby,
-    id: props.resumeData.hobbies.id,
+    hobby: "",
+    id: "",
   });
+
+  const id = localStorage.getItem("draftID")
+  const {loading, error, data} = useQuery(GET_DRAFT_QUERY, {variables: { id }})
+
+  if (loading) return <p>loading</p>;
+  if (error) return <p>ERROR: {error.message}</p>;
+  if (!data) return <p>Not found</p>;
 
   const handleDelete = (hobbyToDelete) => (event) => {
     event.preventDefault();
@@ -80,6 +90,7 @@ function HobbyComponent(props) {
     setEdit(false);
   };
   
+  if(data){
   if(edit) {
   return (
     <Card>
@@ -146,11 +157,11 @@ function HobbyComponent(props) {
                   square="true"
                   className={classes.chipContainer}
                 >
-                  {props.resumeData.hobbies.map((data) => {
+                  {data.getDraft.hobbies.map((data) => {
                     return (
                       <li key={data.id}>
                         <Chip
-                          label={data.hobby}
+                          label={data.name}
                           className={classes.chip}
                         />
                       </li>
@@ -161,6 +172,7 @@ function HobbyComponent(props) {
       
     </Card>
   );
+                }
 }}
 
 const mapStateToProps = (state) => {
