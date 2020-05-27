@@ -17,9 +17,5 @@ describe("Form Flow Test - General Info Form", function () {
     });
 
     cy.get('button[type="submit"]').click();
-
-    cy.get("div").within(() => {
-      cy.contains("Previous Form").click();
-    });
   });
 });

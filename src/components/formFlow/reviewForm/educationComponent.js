@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from "@apollo/react-hooks";
 
-import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft"
+import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft";
 
 //Actions
 import { updateEducationData } from "../../../actions/resumeFormActions.js";
@@ -14,41 +14,36 @@ import EducationCard from "./educationCard.js";
 
 import { Card } from "@material-ui/core";
 
-function EducationComponent(props) {
+import mapStateToProps from "../../mappingState.js";
 
-  const id = localStorage.getItem("draftID")
-  const {loading, error, data} = useQuery(GET_DRAFT_QUERY, {variables: { id }})
+function EducationComponent(props) {
+  const id = localStorage.getItem("draftID");
+  const { loading, error, data } = useQuery(GET_DRAFT_QUERY, {
+    variables: { id },
+  });
 
   if (loading) return <p>loading</p>;
   if (error) return <p>ERROR: {error.message}</p>;
   if (!data) return <p>Not found</p>;
 
-  if(data){
-  return (
-    <Card>
-      <h1>Education</h1>
-      {data.getDraft.education.map((education) => {
-        return (
-          <div key={education.id}>
-            <EducationCard
-              education={education}
-              updateEducationData={props.updateEducationData}
-            />
-          </div>
-        );
-      })}
-    </Card>
-  );
+  if (data) {
+    return (
+      <Card>
+        <h1>Education</h1>
+        {data.getDraft.education.map((education) => {
+          return (
+            <div key={education.id}>
+              <EducationCard
+                education={education}
+                updateEducationData={props.updateEducationData}
+              />
+            </div>
+          );
+        })}
+      </Card>
+    );
+  }
 }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
-};
 
 export default connect(mapStateToProps, { updateEducationData })(
   EducationComponent

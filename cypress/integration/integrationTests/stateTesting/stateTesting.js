@@ -3,6 +3,7 @@ import { addData } from "../../../../src/actions/resumeFormActions.js";
 describe("State Testing", function () {
   it("has expected state on load", () => {
     cy.visit("/");
+    cy.setLocalStorage("token", "dumbyToken");
     cy.window()
       .its("store")
       .invoke("getState")
