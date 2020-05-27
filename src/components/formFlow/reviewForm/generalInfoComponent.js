@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from "@apollo/react-hooks";
 import "../formStyles/reviewForm.css";
 
-import ReviewGeneralInfoFormTemplate from "../formsTemplate/reviewGeneralInfoFormTemplate"
+import ReviewGeneralInfoFormTemplate from "../formsTemplate/reviewGeneralInfoFormTemplate";
 
 //Actions
 import { addData } from "../../../actions/resumeFormActions.js";
 
-import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft"
+import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft";
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
 
-import {
-  CardContent,
-  Card,
-  makeStyles,
-  Button,
-} from "@material-ui/core";
+import { CardContent, Card, makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -36,19 +31,21 @@ const GeneralInfoComponent = (props) => {
 
   const classes = useStyles();
 
-  const id = localStorage.getItem("draftID")
-  const {loading, error, data} = useQuery(GET_DRAFT_QUERY, {variables: { id }})
+  const id = localStorage.getItem("draftID");
+  const { loading, error, data } = useQuery(GET_DRAFT_QUERY, {
+    variables: { id },
+  });
 
   const [info, setInfo] = useState({
     email: "",
-    name: ""
+    name: "",
   });
 
   if (loading) return <p>loading</p>;
   if (error) return <p>ERROR: {error.message}</p>;
   if (!data) return <p>Not found</p>;
 
-  console.log(data, "data inside of review General info")
+  console.log(data, "data inside of review General info");
 
   const saveInfo = (event) => {
     event.preventDefault();
@@ -60,9 +57,7 @@ const GeneralInfoComponent = (props) => {
     setInfo({ ...info, [event.target.name]: event.target.value });
   };
 
-
-
-  if(data){
+  if (data) {
     if (edit) {
       return (
         <Card>
@@ -74,7 +69,10 @@ const GeneralInfoComponent = (props) => {
           </h1>
           <CardContent>
             <form onSubmit={saveInfo}>
-              <ReviewGeneralInfoFormTemplate  onChange={onChange} info={data.getDraft} />
+              <ReviewGeneralInfoFormTemplate
+                onChange={onChange}
+                info={data.getDraft}
+              />
               <Button
                 type="submit"
                 fullWidth
@@ -98,26 +96,13 @@ const GeneralInfoComponent = (props) => {
             </EditIcon>
           </h1>
           <CardContent className={classes.cardContent}>
-            <p>
-              Your Name: {data.getDraft.name}
-            </p>
+            <p>Your Name: {data.getDraft.name}</p>
             <p>Email Address: {data.getDraft.email} </p>
           </CardContent>
         </Card>
       );
     }
   }
+};
 
-}
-
-// const mapStateToProps = (state) => {
-//   return {
-//     resumeData: state.resumeFormReducer.resumeData,
-//     resumeError: state.resumeFormReducer.error,
-//     resumeLoading: state.resumeFormReducer.loading,
-//   };
-// };
-
-// export default connect(mapStateToProps, { addData })(GeneralInfoComponent);
-
-export default GeneralInfoComponent
+export default GeneralInfoComponent;

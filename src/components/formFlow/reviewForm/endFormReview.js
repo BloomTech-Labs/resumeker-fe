@@ -16,6 +16,8 @@ import TipsLayout from "../formUtils/tipsLayout";
 
 import { Paper, Grid, makeStyles } from "@material-ui/core";
 
+import mapStateToProps from "../../mappingState.js";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
@@ -74,13 +76,5 @@ function Tip() {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
-};
 
 export default connect(mapStateToProps)(EndFormReview);

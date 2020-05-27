@@ -23,6 +23,9 @@ import {
   Chip,
 } from "@material-ui/core";
 import MobileStepper from "@material-ui/core/MobileStepper";
+
+import mapStateToProps from "../mappingState.js";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
@@ -85,6 +88,7 @@ function GeneralSkills(props) {
   const [info, setInfo] = useState({
     draftID: "",
     skill: "",
+    id: Date.now(),
   });
   const [activeStep, setActiveStep] = useState(6);
   //Instantiate useMutation Hook / Creates tuple with 1st var being actual
@@ -95,8 +99,8 @@ function GeneralSkills(props) {
     },
   });
   const classes = useStyles();
-  const nextPage = (event) => {
-    event.preventDefault();
+
+  const addingData = () => {
     if (info.skill.length > 0) {
       props.addGeneralSkill(info);
       //Apollo useMutation API call to send data to backend
@@ -110,27 +114,21 @@ function GeneralSkills(props) {
         },
       });
     }
+  };
+
+  const nextPage = (event) => {
+    event.preventDefault();
+    addingData();
     props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
     props.history.push("/form/languages");
   };
   const anotherSkill = (event) => {
     event.preventDefault();
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-      //Apollo useMutation API call to send data to backend
-      addSkill({
-        variables: {
-          input: {
-            draftID: localStorage.getItem("draftID"),
-            skillType: "Qualitative",
-            name: info.skill,
-          },
-        },
-      });
-    }
+    addingData();
     setInfo({
       ...info,
       skill: "",
+      id: Date.now(),
     });
   };
   const onChange = (event) => {
@@ -254,13 +252,7 @@ function Tip() {
     </div>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
-};
+
 export default connect(mapStateToProps, {
   addGeneralSkill,
   removeGeneralSkill,
