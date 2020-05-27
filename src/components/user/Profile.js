@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
-
-import { graphql } from "react-apollo";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-
-import { NavLink, Redirect } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 import UserData from "./userData.js";
 import ResumeCard from "./ResumeCard";
-
 import { getDraftsQuery as GET_DRAFTS_QUERY } from "../../queries/draft";
-
 import { Button, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,16 +22,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Profile(props) {
-    console.log(props);
     const { loading, error, data } = useQuery(GET_DRAFTS_QUERY);
     const classes = useStyles();
-    console.log("We are in the profile");
 
     if (loading) return <div>Loading</div>;
     if (error) return <div>{"error, check console"}</div>;
 
     const { getDrafts } = data;
-    console.log(getDrafts, "profile query response");
+    // console.log(getDrafts, "profile query response");
 
     if (loading) {
         console.log("It's loading");
@@ -45,6 +37,7 @@ export default function Profile(props) {
     }
 
     if (data) {
+        console.log(data);
         return (
             <div className="profile">
                 <div className={classes.container}>
@@ -64,18 +57,6 @@ export default function Profile(props) {
                             <div>No Drafts</div>
                         )}
                     </div>
-
-                    {/* <Button
-          variant="contained"
-          color="primary"
-          className={classes.addResume}
-          onClick={() => {
-              <Redirect to="/form/generalInfo" />
-            // props.history.push("/form/generalInfo");
-          }}
-        >
-          Add a New Resume
-        </Button> */}
                 </div>
 
                 <div className={classes.infoContainer}>

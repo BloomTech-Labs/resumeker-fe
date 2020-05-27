@@ -8,4 +8,16 @@ const addLanguageMutation = gql`
         }
     }
 `;
-export { addLanguageMutation };
+
+const getLanguagesByDraft = gql `
+query($draftID: ID!){
+    getLanguagesByDraft(draftID: $draftID){
+        id
+        draftID
+        language
+    }
+}
+`
+
+
+export { addLanguageMutation, getLanguagesByDraft };

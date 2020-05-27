@@ -21,12 +21,11 @@ function JobHistoryCard(props) {
   const [edit, setEdit] = useState(false);
 
   const [info, setInfo] = useState({
-    jobTitle: `${props.job.jobTitle}`,
-    companyName: `${props.job.companyName}`,
-    startYear: `${props.job.startYear}`,
-    endYear: `${props.job.endYear}`,
-    jobDescription: `${props.job.jobDescription}`,
-    id: props.job.id,
+    jobTitle: "",
+    companyName: "",
+    startYear: "",
+    endYear: "",
+    jobDescription: "",
   });
 
   const saveInfo = (event) => {
@@ -63,15 +62,15 @@ function JobHistoryCard(props) {
     return (
       <CardContent className={`${classes.cardContent} JobForTesting`}>
         <p>
-          Job Title: {info.jobTitle}{" "}
+          Job Title: {props.job.title}{" "}
           <EditIcon color="disabled" onClick={() => setEdit(!edit)}>
             Edit
           </EditIcon>
         </p>
-        <p>Company Name: {info.companyName}</p>
-        <p>Starting Date: {info.startYear}</p>
-        <p>End Date: {info.endYear}</p>
-        <p>Job Description: {info.jobDescription}</p>
+        <p>Company Name: {props.job.company}</p>
+        <p>Starting Date: {props.job.startDate}</p>
+        <p>End Date: {props.job.endDate}</p>
+        <p>Job Description: {props.job.description}</p>
       </CardContent>
     );
   }

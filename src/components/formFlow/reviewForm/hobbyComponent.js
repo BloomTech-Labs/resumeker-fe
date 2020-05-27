@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import "../formStyles/reviewForm.css";
+import { useQuery } from "@apollo/react-hooks";
+
+import { getDraftQuery as GET_DRAFT_QUERY } from "../../../queries/draft";
 
 //Actions
-import { updateHobbyData, removeHobbyData, addHobby } from "../../../actions/resumeFormActions.js";
+import {
+  updateHobbyData,
+  removeHobbyData,
+  addHobby,
+} from "../../../actions/resumeFormActions.js";
 
-import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate"
+import SingleFieldFormTemplate from "../formsTemplate/singleFieldFormTemplate";
 
 //Icon import
 import EditIcon from "@material-ui/icons/Edit";
+
+import mapStateToProps from "../../mappingState.js";
 
 import {
   Card,
@@ -18,7 +27,7 @@ import {
   Paper,
   Grid,
   Chip,
-  Button
+  Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,14 +52,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function HobbyComponent(props) {
-
   const classes = useStyles();
 
   const [edit, setEdit] = useState(false);
   const [info, setInfo] = useState({
-    hobby: props.resumeData.hobbies.hobby,
-    id: props.resumeData.hobbies.id,
+    hobby: "",
+    id: "",
   });
+
+  const id = localStorage.getItem("draftID");
+  const { loading, error, data } = useQuery(GET_DRAFT_QUERY, {
+    variables: { id },
+  });
+
+  if (loading) return <p>loading</p>;
+  if (error) return <p>ERROR: {error.message}</p>;
+  if (!data) return <p>Not found</p>;
 
   const handleDelete = (hobbyToDelete) => (event) => {
     event.preventDefault();
@@ -79,22 +96,29 @@ function HobbyComponent(props) {
     // props.addHobby(info);
     setEdit(false);
   };
-  
-  if(edit) {
-  return (
-    <Card>
-      <h1>
-        Hobbies{" "}
-        <EditIcon color="primary" onClick={() => setEdit(!edit)}>
-          Edit
-        </EditIcon>
-      </h1>
 
-      <form className={classes.form} onSubmit={saveInfo} >
-      <SingleFieldFormTemplate onChange={onChange} info={info.hobby} anotherOne={anotherHobby} name="hobby" label="Your Hobbies" />
+  if (data) {
+    if (edit) {
+      return (
+        <Card>
+          <h1>
+            Hobbies{" "}
+            <EditIcon color="primary" onClick={() => setEdit(!edit)}>
+              Edit
+            </EditIcon>
+          </h1>
 
-      <CardContent className={classes.cardContent}>
-        <Grid className={classes.skillContainer}>
+          <form className={classes.form} onSubmit={saveInfo}>
+            <SingleFieldFormTemplate
+              onChange={onChange}
+              info={info.hobby}
+              anotherOne={anotherHobby}
+              name="hobby"
+              label="Your Hobbies"
+            />
+
+            <CardContent className={classes.cardContent}>
+              <Grid className={classes.skillContainer}>
                 <Paper
                   component="ul"
                   square="true"
@@ -117,21 +141,21 @@ function HobbyComponent(props) {
                     );
                   })}
                 </Paper>
-          </Grid>
-      </CardContent>
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-      >
-        Save
-      </Button>
-      </form>
-      </Card>
-  )
-    }else{
+              </Grid>
+            </CardContent>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Save
+            </Button>
+          </form>
+        </Card>
+      );
+    } else {
       return (
         <Card>
           <h1>
@@ -141,36 +165,28 @@ function HobbyComponent(props) {
             </EditIcon>
           </h1>
           <Grid className={classes.skillContainer}>
-                <Paper
-                  component="ul"
-                  square="true"
-                  className={classes.chipContainer}
-                >
-                  {props.resumeData.hobbies.map((data) => {
-                    return (
-                      <li key={data.id}>
-                        <Chip
-                          label={data.hobby}
-                          className={classes.chip}
-                        />
-                      </li>
-                    );
-                  })}
-                </Paper>
-              </Grid>
-      
-    </Card>
-  );
-}}
+            <Paper
+              component="ul"
+              square="true"
+              className={classes.chipContainer}
+            >
+              {data.getDraft.hobbies.map((data) => {
+                return (
+                  <li key={data.id}>
+                    <Chip label={data.name} className={classes.chip} />
+                  </li>
+                );
+              })}
+            </Paper>
+          </Grid>
+        </Card>
+      );
+    }
+  }
+}
 
-const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
-};
-
-export default connect(mapStateToProps, { updateHobbyData, removeHobbyData, addHobby })(
-  HobbyComponent
-)
+export default connect(mapStateToProps, {
+  updateHobbyData,
+  removeHobbyData,
+  addHobby,
+})(HobbyComponent);

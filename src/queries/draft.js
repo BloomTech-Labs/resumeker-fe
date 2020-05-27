@@ -12,12 +12,42 @@ const getDraftQuery = gql`
     query($id: ID!) {
         getDraft(id: $id) {
             id
-            #role
-            #project
-            #work
-            #education
-            #skill
-            #hobbies
+            name
+            email
+            
+            education{
+                id
+                schoolType
+                schoolName
+                startDate
+                endDate
+                certName
+            }
+            work{
+                id
+                startDate
+                endDate
+                title
+                description
+                company
+            }
+            project{
+                id            
+                title
+                projectUrl
+                description
+                startDate
+                endDate
+            }
+            skill{
+                id
+                name
+                skillType
+            }
+            hobbies{
+                id
+                name
+            }
         }
     }
 `;

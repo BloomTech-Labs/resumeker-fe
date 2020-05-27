@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
 //Apollo useMutation Hook for API call
 import { useQuery, useMutation } from "@apollo/react-hooks";
 //Importing GraphQL Query for useMutation API call
 import { addSkillMutation as ADD_SKILL_MUTATION } from "../../queries/skills";
 //Import Draft_Id query for memory cache query
 import { DRAFT_ID } from "../../queries/draftID";
-
 //Actions
 import {
   addGeneralSkill,
   removeGeneralSkill,
 } from "../../actions/resumeFormActions.js";
-
 import SingleFieldFormTemplate from "./formsTemplate/singleFieldFormTemplate";
 import TipsLayout from "./formUtils/tipsLayout";
-
 import {
   Button,
   CssBaseline,
@@ -26,8 +22,9 @@ import {
   makeStyles,
   Chip,
 } from "@material-ui/core";
-
 import MobileStepper from "@material-ui/core/MobileStepper";
+
+import mapStateToProps from "../mappingState.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,17 +83,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
 }));
-
 function GeneralSkills(props) {
   const { data } = useQuery(DRAFT_ID);
-
   const [info, setInfo] = useState({
     draftID: "",
     skill: "",
+    id: Date.now(),
   });
-
   const [activeStep, setActiveStep] = useState(6);
-
   //Instantiate useMutation Hook / Creates tuple with 1st var being actual
   //call function, and 2nd destructured variable being return data and tracking
   const [addSkill, { loading, error }] = useMutation(ADD_SKILL_MUTATION, {
@@ -104,62 +98,48 @@ function GeneralSkills(props) {
       console.log(data, "\n Add General Skill Response");
     },
   });
-
   const classes = useStyles();
+
+  const addingData = () => {
+    if (info.skill.length > 0) {
+      props.addGeneralSkill(info);
+      //Apollo useMutation API call to send data to backend
+      addSkill({
+        variables: {
+          input: {
+            draftID: localStorage.getItem("draftID"),
+            skillType: "Qualitative",
+            name: info.skill,
+          },
+        },
+      });
+    }
+  };
 
   const nextPage = (event) => {
     event.preventDefault();
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-
-      //Apollo useMutation API call to send data to backend
-      addSkill({
-        variables: {
-          input: {
-            draftID: localStorage.getItem("draftID"),
-            skillType: "Qualitative",
-            name: info.skill,
-          },
-        },
-      });
-    }
+    addingData();
     props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
     props.history.push("/form/languages");
   };
-
   const anotherSkill = (event) => {
     event.preventDefault();
-    if (info.skill.length > 0) {
-      props.addGeneralSkill(info);
-
-      //Apollo useMutation API call to send data to backend
-      addSkill({
-        variables: {
-          input: {
-            draftID: localStorage.getItem("draftID"),
-            skillType: "Qualitative",
-            name: info.skill,
-          },
-        },
-      });
-    }
-
+    addingData();
     setInfo({
       ...info,
       skill: "",
+      id: Date.now(),
     });
   };
   const onChange = (event) => {
     event.preventDefault();
     setInfo({ ...info, [event.target.name]: event.target.value });
   };
-
   const handleDelete = (skillToDelete) => (event) => {
     event.preventDefault();
     props.removeGeneralSkill(skillToDelete);
     setInfo({ ...info });
   };
-
   return (
     <div>
       <Grid container componet="main" className={classes.root}>
@@ -222,7 +202,6 @@ function GeneralSkills(props) {
                   })}
                 </Paper>
               </Grid>
-
               <Grid className={classes.buttonContainer}>
                 <Button
                   type="button"
@@ -258,10 +237,8 @@ function GeneralSkills(props) {
     </div>
   );
 }
-
 function Tip() {
   const classes = useStyles();
-
   return (
     <div>
       <p className={classes.tipTextLarge}>
@@ -275,14 +252,6 @@ function Tip() {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    resumeData: state.resumeFormReducer.resumeData,
-    resumeError: state.resumeFormReducer.error,
-    resumeLoading: state.resumeFormReducer.loading,
-  };
-};
 
 export default connect(mapStateToProps, {
   addGeneralSkill,
