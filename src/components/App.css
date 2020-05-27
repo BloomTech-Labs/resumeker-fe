@@ -1,21 +1,21 @@
 :root {
-  --blue-one: #003A8C;
-  --blue-two: #0050B3;
-  --blue-three: #096DD9;
-  --blue-four: #1890FF;
-  --blue-five: #69C0FF;
+  --blue-one: #003a8c;
+  --blue-two: #0050b3;
+  --blue-three: #096dd9;
+  --blue-four: #1890ff;
+  --blue-five: #69c0ff;
 
   --black-one: #202124;
   --black-two: #191919;
-  --black-three: #3C4043;
-  --black-four: #4C4C4C;
+  --black-three: #3c4043;
+  --black-four: #4c4c4c;
   --black-five: #666666;
 
-  --white-one: #FAFAFA;
-  --white-two: #F6F6F6;
-  --white-three: #F1F1F1;
-  --white-four: #EDEDED;
-  --white-five: #F9F9F9;
+  --white-one: #fafafa;
+  --white-two: #f6f6f6;
+  --white-three: #f1f1f1;
+  --white-four: #ededed;
+  --white-five: #f9f9f9;
 
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -38,7 +38,7 @@ nav {
 
 .login {
   border: 1px solid black;
-  border-radius: 4px; 
+  border-radius: 4px;
   padding: 2px;
   width: 4rem;
   height: 1.6rem;
@@ -48,13 +48,14 @@ nav {
   color: var(--white-one);
   border: 1px solid var(--blue-three);
   background: var(--blue-three);
-  border-radius: 4px; 
+  border-radius: 4px;
   padding: 2px;
   width: 4rem;
   height: 1.6rem;
 }
 
-p, li {
+p,
+li {
   font-size: 2rem;
 }
 
@@ -106,7 +107,7 @@ textarea {
 .userprof-ellipse {
   height: 3rem;
   margin-top: 0.3rem;
-  width: 3.0rem;
+  width: 3rem;
 }
 
 /* Profile */
@@ -143,21 +144,21 @@ textarea {
 
 /* styling for nav bar */
 
-.styled-button{
+.styled-button {
   border: none;
-    background: none;
-    color: #404040;
-    font-weight: 100;
-    padding: 10px 20px;
-    font-size: 15px;
-    border-radius: 6px;
-    display: inline-block;
-    transition: all 0.3s ease 0s;
+  background: none;
+  color: #404040;
+  font-weight: 100;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease 0s;
 }
 
 .styled-button:hover {
   color: #ffffff;
-  background: #096DD9;
+  background: #096dd9;
   transition: all 0.3s ease 0s;
 }
 
@@ -172,5 +173,12 @@ textarea {
   display: flex;
   flex-direction: row;
   width: 400px;
+  justify-content: space-around;
+}
+
+.wrapper-div {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
   justify-content: space-around;
 }
